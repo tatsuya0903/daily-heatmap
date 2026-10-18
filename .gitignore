@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+.eslintcache
+.DS_Store
+*.local
+.env
+.env.*
+!.env.example
+# 個人データはここへ置く。公開サンプルとfixtureは合成データのみ。
+private-data/

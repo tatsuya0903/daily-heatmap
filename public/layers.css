@@ -1,0 +1,12 @@
+/* Vuetify 4.2.1のレイヤー順を、部品のCSSが読み込まれる前に宣言する。 */
+@layer vuetify-core {
+  @layer reset, base;
+}
+@layer vuetify-components;
+@layer vuetify-overrides;
+@layer vuetify-utilities {
+  @layer theme-base, typography, helpers, theme-background, theme-foreground;
+}
+@layer vuetify-final {
+  @layer transitions, trumps;
+}
