@@ -99,6 +99,7 @@ body {
   transform: translateY(-200%);
 }
 
+.skip-link:hover,
 .skip-link:focus {
   transform: translateY(0);
 }

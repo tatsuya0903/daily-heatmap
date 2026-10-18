@@ -1,10 +1,19 @@
 <script setup lang="ts">
+import { useTemplateRef } from 'vue'
 import { mdiCalendarBlankOutline } from '@mdi/js'
+
+const mainContent = useTemplateRef<HTMLElement>('mainContent')
+
+function focusMainContent() {
+  mainContent.value?.focus()
+}
 </script>
 
 <template>
   <v-app>
-    <a class="skip-link" href="#main-content">本文へ移動</a>
+    <a class="skip-link" href="#main-content" tabindex="0" @click.prevent="focusMainContent">
+      本文へ移動
+    </a>
     <v-app-bar flat border="b" color="surface" height="72">
       <div class="app-header">
         <RouterLink class="brand" :to="{ name: 'home' }" aria-label="Daily Heatmap トップ">
@@ -15,7 +24,7 @@ import { mdiCalendarBlankOutline } from '@mdi/js'
       </div>
     </v-app-bar>
     <v-main tag="div">
-      <main id="main-content" class="page-content" tabindex="-1">
+      <main id="main-content" ref="mainContent" class="page-content" tabindex="-1">
         <RouterView />
       </main>
       <footer class="app-footer">あなたの記録は、あなたのブラウザーで。</footer>
