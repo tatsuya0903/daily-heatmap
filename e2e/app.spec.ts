@@ -4,7 +4,7 @@ test('Pagesのベースパスでトップを開ける', async ({ page }) => {
   await page.goto('./')
   await expect(page).toHaveTitle('Daily Heatmap')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('日々の積み重ねを、')
-  await expect(page.getByRole('button', { name: 'ファイルを選択' })).toBeDisabled()
+  await expect(page.getByRole('button', { name: 'ファイルを選択' })).toBeEnabled()
   await expect(page.getByRole('main')).toBeVisible()
 })
 

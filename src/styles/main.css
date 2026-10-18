@@ -126,3 +126,37 @@ button:focus-visible {
     padding-block: 36px 32px;
   }
 }
+
+.file-drop {
+  padding: 24px 16px;
+  border: 2px dashed #779d85;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.file-drop-active {
+  background: #e6f5e8;
+  border-color: #256b43;
+}
+
+.file-input {
+  display: none;
+}
+
+.column-selection {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #779d85;
+  border-radius: 8px;
+}
+
+.file-name,
+.column-selection .v-label {
+  overflow-wrap: anywhere;
+}
+
+.sample-tsv {
+  padding: 16px;
+  overflow-x: auto;
+  background: #f4f7f5;
+}
