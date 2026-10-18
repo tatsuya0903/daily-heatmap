@@ -1,0 +1,211 @@
+{
+  "measuredAt": "2026-10-19T00:54:50.073000+09:00",
+  "machine": {
+    "model": "MacBookAir10,1",
+    "cpu": "Apple M1",
+    "logicalCpuCount": 8,
+    "memoryGiB": 16,
+    "os": "macOS 26.5.1 (25F80)",
+    "architecture": "arm64"
+  },
+  "runtime": {
+    "node": "24.21.0",
+    "playwright": "1.63.0",
+    "vuetify": "4.2.1",
+    "workers": 1,
+    "headless": true
+  },
+  "dayCount": 3660,
+  "runs": [
+    {
+      "project": "chromium",
+      "browserName": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "isMobile": false,
+      "cpuThrottling": false,
+      "devicePixelRatio": 1,
+      "samples": [
+        {
+          "initialMs": 404.80000000074506,
+          "selectionMs": 34.5,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 16.700000000000045,
+          "scrollFrameP95Ms": 16.700000000000045,
+          "scrollFrameMaxMs": 16.800000000000068
+        },
+        {
+          "initialMs": 356.3999999985099,
+          "selectionMs": 37.100000001490116,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 16.700000000000045,
+          "scrollFrameP95Ms": 16.748000000000047,
+          "scrollFrameMaxMs": 16.800000000000068
+        },
+        {
+          "initialMs": 357.0999999977648,
+          "selectionMs": 33.20000000298023,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 16.699999999999818,
+          "scrollFrameP95Ms": 16.799999999999955,
+          "scrollFrameMaxMs": 16.799999999999955
+        }
+      ]
+    },
+    {
+      "project": "firefox",
+      "browserName": "firefox",
+      "browserVersion": "155.0",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "isMobile": false,
+      "cpuThrottling": false,
+      "devicePixelRatio": 1,
+      "samples": [
+        {
+          "initialMs": 249,
+          "selectionMs": 38,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 16.660000000000082,
+          "scrollFrameP95Ms": 16.700000000000045,
+          "scrollFrameMaxMs": 17.660000000000082
+        },
+        {
+          "initialMs": 245,
+          "selectionMs": 16,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 16.660000000000082,
+          "scrollFrameP95Ms": 16.680000000000064,
+          "scrollFrameMaxMs": 17.45999999999998
+        },
+        {
+          "initialMs": 211,
+          "selectionMs": 43,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 16.660000000000082,
+          "scrollFrameP95Ms": 17.340000000000032,
+          "scrollFrameMaxMs": 17.660000000000082
+        }
+      ]
+    },
+    {
+      "project": "webkit",
+      "browserName": "webkit",
+      "browserVersion": "26.6",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "isMobile": false,
+      "cpuThrottling": false,
+      "devicePixelRatio": 2,
+      "samples": [
+        {
+          "initialMs": 329,
+          "selectionMs": 109,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 17,
+          "scrollFrameP95Ms": 17,
+          "scrollFrameMaxMs": 25
+        },
+        {
+          "initialMs": 311,
+          "selectionMs": 110,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 17,
+          "scrollFrameP95Ms": 18,
+          "scrollFrameMaxMs": 18
+        },
+        {
+          "initialMs": 318,
+          "selectionMs": 111,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 17,
+          "scrollFrameP95Ms": 17,
+          "scrollFrameMaxMs": 36
+        }
+      ]
+    },
+    {
+      "project": "mobile-chrome",
+      "browserName": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "viewport": {
+        "width": 412,
+        "height": 839
+      },
+      "isMobile": true,
+      "cpuThrottling": false,
+      "devicePixelRatio": 2.625,
+      "samples": [
+        {
+          "initialMs": 117.10000000149012,
+          "selectionMs": 26.400000002235174,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 16.699999999999932,
+          "scrollFrameP95Ms": 16.700000000000045,
+          "scrollFrameMaxMs": 16.80000000000001
+        },
+        {
+          "initialMs": 88.89999999850988,
+          "selectionMs": 32.80000000074506,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 16.699999999999932,
+          "scrollFrameP95Ms": 16.700000000000045,
+          "scrollFrameMaxMs": 16.799999999999955
+        },
+        {
+          "initialMs": 85.79999999701977,
+          "selectionMs": 32.600000001490116,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 16.69999999999999,
+          "scrollFrameP95Ms": 16.700000000000045,
+          "scrollFrameMaxMs": 16.799999999999955
+        }
+      ]
+    },
+    {
+      "project": "mobile-safari",
+      "browserName": "webkit",
+      "browserVersion": "26.6",
+      "viewport": {
+        "width": 390,
+        "height": 664
+      },
+      "isMobile": true,
+      "cpuThrottling": false,
+      "devicePixelRatio": 3,
+      "samples": [
+        {
+          "initialMs": 221,
+          "selectionMs": 30,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 17,
+          "scrollFrameP95Ms": 17,
+          "scrollFrameMaxMs": 20
+        },
+        {
+          "initialMs": 199,
+          "selectionMs": 32,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 17,
+          "scrollFrameP95Ms": 17,
+          "scrollFrameMaxMs": 17
+        },
+        {
+          "initialMs": 200,
+          "selectionMs": 30,
+          "chartMutations": 0,
+          "scrollFrameMedianMs": 17,
+          "scrollFrameP95Ms": 17,
+          "scrollFrameMaxMs": 17
+        }
+      ]
+    }
+  ]
+}
