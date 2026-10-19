@@ -10,7 +10,7 @@ import {
   type ThresholdSelection,
 } from '@/domain/thresholds'
 
-const props = defineProps<{ profile: ThresholdProfile }>()
+const props = defineProps<{ profile: ThresholdProfile; disabled?: boolean }>()
 const emit = defineEmits<{ change: [selection: ThresholdSelection] }>()
 const method = ref<ThresholdMethod>(props.profile.method)
 const presetId = ref<PresetId>(props.profile.method === 'preset' ? props.profile.presetId : 0)
@@ -53,6 +53,7 @@ const methods: { value: ThresholdMethod; label: string; description: string }[] 
   },
 ]
 function apply() {
+  if (props.disabled) return
   error.value = ''
   try {
     const selection: ThresholdSelection =
@@ -75,7 +76,12 @@ function apply() {
       <label class="setting-field">
         <span>閾値方式</span>
         <span class="select-control">
-          <select v-model="method" @change="apply">
+          <select
+            :disabled="disabled"
+            :aria-describedby="disabled ? 'compact-help' : undefined"
+            v-model="method"
+            @change="apply"
+          >
             <option v-for="entry in methods" :key="entry.value" :value="entry.value">
               {{ entry.label }}
             </option>
@@ -86,7 +92,7 @@ function apply() {
       <label v-if="method === 'preset'" class="setting-field">
         <span>固定プリセットID</span>
         <span class="select-control">
-          <select v-model="presetId" @change="apply">
+          <select :disabled="disabled" v-model="presetId" @change="apply">
             <option v-for="preset in PRESETS" :key="preset.id" :value="preset.id">
               ID {{ preset.id }}：{{ preset.name }}
             </option>
@@ -100,6 +106,7 @@ function apply() {
     </p>
     <fieldset
       v-if="method === 'custom'"
+      :disabled="disabled"
       :aria-describedby="error ? 'custom-help custom-error' : 'custom-help'"
     >
       <legend>カスタム境界値（件）</legend>
@@ -183,6 +190,11 @@ select {
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
+}
+select:disabled,
+fieldset:disabled input {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 select:focus-visible,
 input:focus-visible {

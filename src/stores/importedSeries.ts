@@ -1,6 +1,6 @@
-import { computed, shallowRef } from 'vue'
+import { computed, ref, shallowRef } from 'vue'
 import { defineStore } from 'pinia'
-import type { ExactSeries } from '@/domain/series'
+import type { ExactSeries, HeatmapDocument } from '@/domain/series'
 import {
   classifyDocument,
   createLegend,
@@ -9,25 +9,60 @@ import {
 } from '@/domain/thresholds'
 
 export const useImportedSeriesStore = defineStore('imported-series', () => {
-  const source = shallowRef<ExactSeries | null>(null)
-  const profile = shallowRef(resolveThresholds({ method: 'quantile' }, []))
-  const thresholds = computed(() => profile.value)
-  const legend = computed(() => createLegend(profile.value.boundaries))
-  const classifiedDays = computed(() =>
-    source.value ? classifyDocument({ source: source.value, thresholds: profile.value }) : [],
+  const document = shallowRef<HeatmapDocument | null>(null)
+  const restored = ref(false)
+  // データ読み替え時に閾値UIの未確定入力もリセットする。
+  const revision = ref(0)
+  const source = computed(() => document.value?.source ?? null)
+  const thresholds = computed(
+    () => document.value?.thresholds ?? resolveThresholds({ method: 'quantile' }, []),
   )
+  const dayCount = computed(() =>
+    source.value?.kind === 'exact'
+      ? source.value.counts.length
+      : (source.value?.levels.length ?? 0),
+  )
+  const legend = computed(() => createLegend(thresholds.value.boundaries))
+  const classifiedDays = computed(() => (document.value ? classifyDocument(document.value) : []))
+
+  function replaceDocument(next: HeatmapDocument) {
+    document.value = next
+    restored.value = true
+    revision.value++
+  }
+
+  function clear() {
+    document.value = null
+    restored.value = false
+    revision.value++
+  }
 
   function replaceSource(series: ExactSeries) {
-    const nextProfile = resolveThresholds({ method: 'quantile' }, series.counts)
-    source.value = series
-    profile.value = nextProfile
+    const profile = resolveThresholds({ method: 'quantile' }, series.counts)
+    document.value = { source: series, thresholds: profile }
+    restored.value = false
+    revision.value++
   }
 
   function setThresholds(selection: ThresholdSelection) {
-    if (!source.value) return
+    if (source.value?.kind !== 'exact') return
     // 検証完了後にだけ確定値を置換する。countsは変更しない。
-    profile.value = resolveThresholds(selection, source.value.counts)
+    const profile = resolveThresholds(selection, source.value.counts)
+    document.value = { source: source.value, thresholds: profile }
   }
 
-  return { source, thresholds, legend, classifiedDays, replaceSource, setThresholds }
+  return {
+    document,
+    source,
+    thresholds,
+    dayCount,
+    restored,
+    revision,
+    legend,
+    classifiedDays,
+    replaceSource,
+    replaceDocument,
+    clear,
+    setThresholds,
+  }
 })

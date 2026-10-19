@@ -149,3 +149,34 @@ describe('TSV読み込みとアプリ状態', () => {
     expect(store.source).toBeNull()
   })
 })
+
+describe('共有URL優先のルーティング', () => {
+  it('異なるURLで閾値UIを同期し、不正URLは以前のデータを部分表示しない', async () => {
+    const { selectShareEncoding } = await import('@/codec')
+    const document = {
+      source: { kind: 'exact' as const, startDate: '2026-01-01', counts: [6, 45] },
+      thresholds: { method: 'linear' as const, boundaries: [100] },
+    }
+    const exact = selectShareEncoding(document, 'exact').d
+    const compact = selectShareEncoding(
+      { ...document, thresholds: { method: 'log', boundaries: [3] } },
+      'compact',
+    ).d
+    const { wrapper, router, store } = await renderRoute(`/heatmap?d=${exact}`)
+    expect(wrapper.get<HTMLSelectElement>('select').element.value).toBe('linear')
+    expect(store.thresholds.boundaries).toEqual([100])
+    await router.push(`/heatmap?d=${compact}`)
+    await flushPromises()
+    expect(wrapper.get<HTMLSelectElement>('select').element.value).toBe('log')
+    expect(wrapper.get('select').attributes('disabled')).toBeDefined()
+    await router.push('/heatmap?d=broken')
+    await flushPromises()
+    expect(store.document).toBeNull()
+    expect(wrapper.text()).toContain('共有URLを読み込めませんでした')
+    expect(wrapper.find('[data-date]').exists()).toBe(false)
+    await router.push('/heatmap')
+    await flushPromises()
+    expect(wrapper.text()).toContain('表示するデータがありません')
+    wrapper.unmount()
+  })
+})
