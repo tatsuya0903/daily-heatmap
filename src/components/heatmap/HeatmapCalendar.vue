@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { shallowRef, watch } from 'vue'
+import { computed, shallowRef, watch } from 'vue'
 import { useDisplay } from 'vuetify'
 import type { ClassifiedDay, HeatmapCell } from '@/domain/heatmap'
 import DesktopHeatmap from './DesktopHeatmap.vue'
 import MobileHeatmap from './MobileHeatmap.vue'
 
 const props = defineProps<{ cells: HeatmapCell[]; legend: ClassifiedDay[] }>()
-const { smAndDown } = useDisplay()
+const { width } = useDisplay()
+// Vuetify 4.2.1の既定mdは840px。ヒートマップは要件の960px境界を明示する。
+const showMonthlyCalendar = computed(() => width.value < 960)
 const selected = shallowRef<HeatmapCell>()
 watch(
   () => props.cells,
@@ -47,7 +49,7 @@ function select(cell: HeatmapCell) {
       </template>
     </div>
     <MobileHeatmap
-      v-if="smAndDown"
+      v-if="showMonthlyCalendar"
       :cells="cells"
       aria-describedby="heatmap-help"
       @select="select"

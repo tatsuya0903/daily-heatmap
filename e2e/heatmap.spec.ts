@@ -159,3 +159,44 @@ test('320px幅でも最大安全整数の件数を省略せず表示する', asy
     true,
   )
 })
+
+for (const { width, layout } of [
+  { width: 839, layout: 'mobile-heatmap' },
+  { width: 840, layout: 'mobile-heatmap' },
+  { width: 900, layout: 'mobile-heatmap' },
+  { width: 959, layout: 'mobile-heatmap' },
+  { width: 960, layout: 'desktop-heatmap' },
+]) {
+  const otherWidth = layout === 'mobile-heatmap' ? 960 : 959
+  const otherLayout = layout === 'mobile-heatmap' ? 'desktop-heatmap' : 'mobile-heatmap'
+
+  test(`幅${width}pxで表示方式と日付セルを維持する`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 800 })
+    await importData(page, 'Date\tCount\n2023-12-30\t49\n2024-01-02\t0\n2024-01-03\t1000')
+    const expectedDates = ['2023-12-30', '2023-12-31', '2024-01-01', '2024-01-02', '2024-01-03']
+    await expectCalendarDates(page, layout, expectedDates)
+    await dateCell(page, '2024-01-03').click()
+    const detail = page.getByRole('region', { name: '選択した日付の詳細' })
+    await expect(detail).toContainText('2024/01/03（水）')
+
+    await page.setViewportSize({ width: otherWidth, height: 800 })
+    await expectCalendarDates(page, otherLayout, expectedDates)
+    await expect(detail).toContainText('2024/01/03（水）')
+
+    await page.setViewportSize({ width, height: 800 })
+    await expectCalendarDates(page, layout, expectedDates)
+    await expect(detail).toContainText('2024/01/03（水）')
+  })
+}
+
+async function expectCalendarDates(page: Page, layout: string, dates: string[]) {
+  await expect(page.getByTestId(layout)).toBeVisible()
+  await expect(page.locator('[data-testid$="-heatmap"]')).toHaveCount(1)
+  const cells = page.locator('[data-cell-index]')
+  await expect(cells).toHaveCount(dates.length)
+  expect(
+    await cells.evaluateAll((elements) =>
+      elements.map((el) => el.getAttribute('data-date')).sort(),
+    ),
+  ).toEqual(dates)
+}

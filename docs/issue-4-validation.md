@@ -8,7 +8,7 @@
 - `src/domain/provisionalPreset.ts`：SPEC 4.4の固定プリセットID 1、8色、範囲ラベル。分類を表示から分離。
 - `src/components/heatmap/DesktopHeatmap.vue`：VHeatmapへ曜日・週の明示的な座標とレベルを渡す。日本語の月見出しと領域内横スクロール。
 - `src/components/heatmap/MobileHeatmap.vue`：日曜始まりの月別7列カレンダー。高さ44px以上のネイティブボタン。
-- `src/components/heatmap/HeatmapCalendar.vue`：幅840pxで表示切替、選択日詳細、8色のテキスト凡例。
+- `src/components/heatmap/HeatmapCalendar.vue`：幅960pxで表示切替、選択日詳細、8色のテキスト凡例。
 - `src/composables/useHeatmapInteraction.ts`：イベント委譲、1か所のTab停止位置、矢印・Home/End・Enter/Space操作。
 - `src/views/HeatmapView.vue`：既存PiniaストアのExactSeriesを描画へ接続。既存のデータなし案内を保持。
 - `src/domain/heatmap.spec.ts`、`src/components/heatmap/HeatmapCalendar.spec.ts`、`e2e/heatmap.spec.ts`、`e2e/heatmap-performance.spec.ts`：配置・表示・操作・性能の検証。
@@ -21,11 +21,17 @@ Issue #5の5方式全体・設定UI、共有URL Codec、Pages公開機能は対�
 
 Vitestは既存を含む139件。日曜始まり、月初・月末、年末年始、閏日、未記録の0件と明示的な0件、開始・終了以外の余白、1日だけ、西暦0001・0099・0100・9999年、負のUTC epoch day、3,660日の一意性、境界値と最大安全整数を検証する。分類済みラベル・色が描画用VMへそのまま渡り、正確な件数がないときに件数を推定しないことも確認する。
 
-Playwrightは既存を含む145件（29件×5構成）。PCのChromium・Firefox・WebKit、Pixel 7相当のChromium、iPhone 13相当のWebKitで、TSV→ヒートマップ、日付と曜日の座標、月跨ぎ・年跨ぎ、0件と期間外の区別、ホバー・タップ・キーボード、最小幅320px、最大安全整数、表示幅切替を確認する。ブラウザーのタイムゾーンをUTC・Asia/Tokyo・America/New_Yorkに変え、DST前後でも同じ日付・曜日となることを確認する。
+Playwrightは既存を含む170件（34件×5構成）。PCのChromium・Firefox・WebKit、Pixel 7相当のChromium、iPhone 13相当のWebKitで、TSV→ヒートマップ、日付と曜日の座標、月跨ぎ・年跨ぎ、0件と期間外の区別、ホバー・タップ・キーボード、最小幅320px、最大安全整数、表示幅切替を確認する。ブラウザーのタイムゾーンをUTC・Asia/Tokyo・America/New_Yorkに変え、DST前後でも同じ日付・曜日となることを確認する。
 
 PCとモバイルの画面画像も確認。月見出し・曜日・セル・凡例の重なりや横方向のはみ出しは確認されなかった。長期間スクロール後も選択日詳細が固定ヘッダーの下に表示されることをE2Eで確認。スマートフォンはタップ後に他の領域へ触れても詳細を保持する。タッチ後の疑似mouseoverでは選択を更新せず、スクロール中の意図しない日付変更を防ぐ。
 
 VHeatmap 4.2.1の`VHeatmap.js`と`VHeatmapCell.js`を確認した。実セルはSVGの`g`で、`itemProps`を通じて`role=button`・`tabindex`・`aria-label`・`title`を追加できる。実DOMとアクセシブルな名前をテストし、キーボード時は枠線を表示する。SVGに標準のボタン操作がないため、委譲イベントでEnter/Spaceを補う。詳細欄は`aria-live=polite`で通知する。Safari系のTabはOS既定で通常のリンクを飛ばす場合があるため、日付への到達・矢印移動・Tabで領域を抜けることを検証する。
+
+## レスポンシブ境界の修正（PR #13レビュー対応）
+
+ヒートマップの切り替えを**960px未満は月別カレンダー、960px以上はPC表示**に統一した。導入済みのVuetify 4.2.1では既定のmdが840pxで、`smAndDown`も840px未満となるため、`useDisplay().width`から960px未満かを明示的に判定する。Vuetify全体のブレークポイントは変更しない。
+
+Playwrightでは839・840・900・959pxで月別カレンダー、960pxでPC表示を確認する。各幅から境界の反対側へ移動して戻す操作も行い、各状態で日付5件の一覧が正確に一致し、欠落・重複・期間外セルがなく、表示方式が同時に2つ描画されないことを確認する。選択日の詳細も維持する。
 
 ## 最大3,660日の性能
 
@@ -54,7 +60,7 @@ VHeatmap 4.2.1の`VHeatmap.js`と`VHeatmapCell.js`を確認した。実セルは
 
 ## 最終検査と申し送り
 
-`npm run type-check`、`npm run lint`、`npm run format`、`npm run test`（2回）、`npm run build`、`git diff --check`はいずれも成功。全テスト2回ともVitest 139件・Playwright 145件が通過した。UTC・Asia/Tokyo・America/New_Yorkでの単体テストも各139件成功した。
+`npm run type-check`、`npm run lint`、`npm run format`、`npm run test`（2回）、`npm run build`、`git diff --check`はいずれも成功。初回実装の全テスト2回はVitest 139件・Playwright 145件が通過した。レスポンシブ境界修正後はVitest 139件・Playwright 170件が通過した。UTC・Asia/Tokyo・America/New_Yorkでの単体テストも各139件成功した。
 
 Issue #5では`classifyWithProvisionalPreset`と暫定凡例を、正式な初期設定の分位点方式・確定した境界ラベルへ置き換える。表示コンポーネントは分類済みVMだけに依存し、元件数を再分類しない。
 
