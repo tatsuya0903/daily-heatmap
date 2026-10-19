@@ -2,7 +2,7 @@
 
 日別の件数データをカレンダー形式のヒートマップで可視化し、URLで手軽に共有できるWebアプリケーション。
 
-現在はPhase 1の開発基盤と、Issue #3のTSV読み込み・列選択・日付正規化を実装しています。ヒートマップ表示・閾値設定・URL共有は後続Issueで実装します。仕様の管理元は [SPEC.md](./SPEC.md) です。
+現在はPhase 1の開発基盤、Issue #3のTSV読み込み・列選択・日付正規化、Issue #4のPC・スマートフォン向けヒートマップ表示を実装しています。閾値設定とURL共有は後続Issueで実装します。仕様の管理元は [SPEC.md](./SPEC.md) です。
 
 ## 技術構成
 
@@ -29,8 +29,8 @@ npm run dev
 npm run type-check
 npm run lint
 npm run format:check
-npm run test:unit
 npm run build
+npm run test
 ```
 
 `lint`はファイルを書き換えません。修正には`npm run lint:fix`、整形には`npm run format`を使用します。
@@ -83,7 +83,24 @@ Date	A件数	B件数
 
 日付はUTC epoch dayで扱い、日付順に並べて未記録日を0件で補完します。末尾の0件も保持します。上の例はいずれも11日分の`[6, 4, 0, 0, 0, 0, 0, 0, 0, 0, 45]`になります。
 
-Vueに依存しない`src/domain/`が解析（`parseTsv`）・選択列集計（`aggregateTsv`）・UTF-8読み込み（`readTsvFile`）・UTC日付変換を担当します。成功時は列名を含まない`ExactSeries`（`kind`・`startDate`・`counts`）をメモリー内のストアへ渡し、`/heatmap`で期間を確認できます。描画は後続Issueで実装します。
+Vueに依存しない`src/domain/`が解析（`parseTsv`）・選択列集計（`aggregateTsv`）・UTF-8読み込み（`readTsvFile`）・UTC日付変換を担当します。成功時は列名を含まない`ExactSeries`（`kind`・`startDate`・`counts`）をメモリー内のストアへ渡し、`/heatmap`で期間を確認できます。PC・スマートフォン共通のセルViewModelへ変換して描画します。
+
+## ヒートマップ表示（Issue #4）
+
+PC（幅960px以上）はVuetify 4.2.1 LabsのVHeatmapで、縦に日曜〜土曜、横に週を配置します。月見出しを表示し、長期間は領域内を横スクロールできます。幅960px未満は日曜始まりの月別7列カレンダーを縦に並べます。日付ボタンは高さ44px以上です。期間外のセルは作らず、未記録日と明示的な0件はいずれもグレーで表示します。
+
+**分類は暫定です。** SPEC 4.4の固定プリセットID 1「中規模カウント」（境界値`50, 100, 300, 500, 700, 1000`）を使用しています。正式な初期設定である**分位点方式は未実装**で、5方式の設定UIとともにIssue #5で対応します。`src/domain/provisionalPreset.ts`を表示コンポーネントから分離しているため、分類済みレベル・色・範囲ラベルを渡す処理を置き換えられます。
+
+日付のホバー・タップ・フォーカスで、日付・正確な件数・レベル・件数範囲を詳細欄に表示します。タップ後も詳細は残り、スクロール中は上部に固定されます。Tabでカレンダーへ入り、矢印キーで日付を移動、Home／Endで期間の先頭／末尾へ移動、Enter／Spaceで選択できます。PCは上下で1日・左右で7日、スマートフォンは左右で1日・上下で7日移動します。Tabでカレンダーから抜けられます。
+
+VHeatmap内部のSVGセルに`role="button"`、読み上げ用の日付・件数ラベル、フォーカス時の枠線を付けています。全3,660日をTabで巡回する必要がないよう、日付のTab停止位置は1か所にしています。月別表示も同じ操作とViewModelを使用します。凡例には全8色のレベルと件数範囲をテキストで表示します。
+
+測定方法・環境・結果と残る確認事項は[Issue #4の検証記録](docs/issue-4-validation.md)を参照してください。性能テストは本番ビルド後、他テストと並行せず再現できます。
+
+```sh
+npm run build
+npm run test:e2e -- e2e/heatmap-performance.spec.ts --workers=1
+```
 
 ## データの取り扱い
 
