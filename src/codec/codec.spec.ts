@@ -9,7 +9,6 @@ import {
   encodeDocument,
   FORMAT_IDS,
   MAX_BODY_BYTES,
-  type UncompressedFormatId,
 } from './index'
 
 const MAX = Number.MAX_SAFE_INTEGER
@@ -303,9 +302,8 @@ describe('不正入力を部分的に受け入れない', () => {
     }
   })
 
-  it.each([0x21, 0x23, 0x25])('予約済み圧縮ID%iを明確に拒否', (format) => {
-    expect(() => decodeDocument(wire(format, 1, [0, 1, 0]))).toThrow(/圧縮形式/)
-    expect(() => encodeDocument(exact([0]), format as UncompressedFormatId)).toThrow(CodecError)
+  it.each([0x21, 0x23, 0x25])('圧縮ID%iでも不正な圧縮ボディを拒否', (format) => {
+    expect(() => decodeDocument(wire(format, 1, [0, 1, 0]))).toThrow(CodecError)
   })
 
   it.each(golden)('全位置の切断・余剰バイトを拒否: $name', ({ bytes }) => {

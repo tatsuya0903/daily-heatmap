@@ -1,5 +1,14 @@
 export type CodecErrorCode =
-  'size' | 'header' | 'format' | 'date' | 'thresholds' | 'data' | 'varint' | 'padding' | 'base64url'
+  | 'size'
+  | 'header'
+  | 'format'
+  | 'date'
+  | 'thresholds'
+  | 'data'
+  | 'varint'
+  | 'padding'
+  | 'base64url'
+  | 'compression'
 
 export class CodecError extends Error {
   constructor(
