@@ -15,13 +15,14 @@
     "lint:fix": "oxlint . --fix && eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "npm run test:unit && npm run test:e2e",
+    "test": "npm run test:unit && npm run test:e2e --",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
     "test:e2e": "playwright test"
   },
   "dependencies": {
     "@mdi/js": "7.4.47",
+    "pako": "3.0.2",
     "pinia": "4.0.3",
     "vue": "3.5.42",
     "vue-router": "5.3.1",

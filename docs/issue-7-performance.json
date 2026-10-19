@@ -1,0 +1,3463 @@
+{
+  "environment": {
+    "date": "2026-10-20",
+    "timezone": "Asia/Tokyo",
+    "node": "v24.21.0",
+    "platform": "darwin",
+    "release": "25.5.0",
+    "arch": "arm64",
+    "cpu": "Apple M1"
+  },
+  "settings": {
+    "baselineCommit": "a5a93d5ccb27ebd3333e9b0776bec8a87a03e6d8",
+    "pako": "3.0.2",
+    "level": 6,
+    "windowBits": 15,
+    "memLevel": 8,
+    "strategy": 0,
+    "iterations": 30,
+    "warmup": 5,
+    "nodeBatch": 1,
+    "browserBatch": 10,
+    "unit": "milliseconds",
+    "entry": "src/codec/index.ts",
+    "target": "es2022",
+    "minified": true,
+    "parallelBenchmarks": false
+  },
+  "bundle": {
+    "app": {
+      "before": [
+        {
+          "file": "assets/index-Dl9MxiGN.js",
+          "bytes": 281602,
+          "gzipBytes": 101754
+        },
+        {
+          "file": "assets/index-DjkBY-le.css",
+          "bytes": 253946,
+          "gzipBytes": 37519
+        },
+        {
+          "file": "index.html",
+          "bytes": 703,
+          "gzipBytes": 445
+        }
+      ],
+      "after": [
+        {
+          "file": "assets/index-Dl9MxiGN.js",
+          "bytes": 281602,
+          "gzipBytes": 101754
+        },
+        {
+          "file": "assets/index-DjkBY-le.css",
+          "bytes": 253946,
+          "gzipBytes": 37519
+        },
+        {
+          "file": "index.html",
+          "bytes": 703,
+          "gzipBytes": 445
+        }
+      ]
+    },
+    "codec": {
+      "before": {
+        "bytes": 11114,
+        "gzipBytes": 4274
+      },
+      "after": {
+        "bytes": 53001,
+        "gzipBytes": 17627
+      },
+      "delta": {
+        "bytes": 41887,
+        "gzipBytes": 13353
+      }
+    },
+    "note": "The SPA does not import the Codec until Issue #8. The separately bundled Codec measures all public exports; shared-code effects of future integration are not included."
+  },
+  "node": [
+    {
+      "name": "all-zero",
+      "dayCount": 3660,
+      "formats": [
+        {
+          "format": 32,
+          "binaryBytes": 1384,
+          "bodyBytes": 1378,
+          "rawBodyBytes": 1378,
+          "bodyRatio": 1,
+          "base64UrlChars": 1846,
+          "encode": {
+            "medianMs": 0.7304579999999987,
+            "p95Ms": 0.7773329999999987,
+            "minMs": 0.7101249999999482,
+            "maxMs": 3.0680419999999913
+          },
+          "encodeDParameter": {
+            "medianMs": 0.697667000000024,
+            "p95Ms": 0.7500829999999041,
+            "minMs": 0.6783329999999523,
+            "maxMs": 0.7548329999999623
+          }
+        },
+        {
+          "format": 33,
+          "binaryBytes": 24,
+          "bodyBytes": 18,
+          "rawBodyBytes": 1378,
+          "bodyRatio": 0.013062409288824383,
+          "base64UrlChars": 32,
+          "encode": {
+            "medianMs": 0.7452079999999341,
+            "p95Ms": 0.8844579999999951,
+            "minMs": 0.7152090000000726,
+            "maxMs": 0.9220000000000255
+          },
+          "encodeDParameter": {
+            "medianMs": 0.7184579999999414,
+            "p95Ms": 0.7589580000000069,
+            "minMs": 0.7001669999999649,
+            "maxMs": 0.9242080000000215
+          },
+          "decode": {
+            "medianMs": 0.3762090000000171,
+            "p95Ms": 0.40408400000001166,
+            "minMs": 0.3490000000000464,
+            "maxMs": 0.5322089999999662
+          }
+        },
+        {
+          "format": 34,
+          "binaryBytes": 470,
+          "bodyBytes": 464,
+          "rawBodyBytes": 464,
+          "bodyRatio": 1,
+          "base64UrlChars": 627,
+          "encode": {
+            "medianMs": 0.16774999999995543,
+            "p95Ms": 0.19095800000002328,
+            "minMs": 0.16362500000002456,
+            "maxMs": 0.1950410000000602
+          },
+          "encodeDParameter": {
+            "medianMs": 0.17941699999994398,
+            "p95Ms": 0.20258400000000165,
+            "minMs": 0.17554200000006404,
+            "maxMs": 0.20695800000009967
+          }
+        },
+        {
+          "format": 35,
+          "binaryBytes": 19,
+          "bodyBytes": 13,
+          "rawBodyBytes": 464,
+          "bodyRatio": 0.028017241379310345,
+          "base64UrlChars": 26,
+          "encode": {
+            "medianMs": 0.21858399999996436,
+            "p95Ms": 0.3120840000000271,
+            "minMs": 0.18216700000004948,
+            "maxMs": 0.3196250000000873
+          },
+          "encodeDParameter": {
+            "medianMs": 0.1882500000000391,
+            "p95Ms": 0.20833399999992253,
+            "minMs": 0.1794999999999618,
+            "maxMs": 0.22175000000004275
+          },
+          "decode": {
+            "medianMs": 0.19487500000002456,
+            "p95Ms": 0.21225000000004002,
+            "minMs": 0.1929170000000795,
+            "maxMs": 0.218291000000022
+          }
+        },
+        {
+          "format": 36,
+          "binaryBytes": 3671,
+          "bodyBytes": 3665,
+          "rawBodyBytes": 3665,
+          "bodyRatio": 1,
+          "base64UrlChars": 4895,
+          "encode": {
+            "medianMs": 0.22900000000004184,
+            "p95Ms": 0.26608299999998053,
+            "minMs": 0.22633299999995415,
+            "maxMs": 0.5202920000000404
+          },
+          "encodeDParameter": {
+            "medianMs": 0.3067919999999731,
+            "p95Ms": 0.3258329999999887,
+            "minMs": 0.186458000000016,
+            "maxMs": 0.36275000000000546
+          }
+        },
+        {
+          "format": 37,
+          "binaryBytes": 31,
+          "bodyBytes": 25,
+          "rawBodyBytes": 3665,
+          "bodyRatio": 0.0068212824010914054,
+          "base64UrlChars": 42,
+          "encode": {
+            "medianMs": 0.20170899999993708,
+            "p95Ms": 0.21604200000001583,
+            "minMs": 0.17729099999996834,
+            "maxMs": 0.2194170000000213
+          },
+          "encodeDParameter": {
+            "medianMs": 0.18670799999995324,
+            "p95Ms": 0.20116600000005747,
+            "minMs": 0.17308300000001964,
+            "maxMs": 0.3440420000000586
+          },
+          "decode": {
+            "medianMs": 0.203125,
+            "p95Ms": 0.24024999999994634,
+            "minMs": 0.09691600000007838,
+            "maxMs": 0.302332999999976
+          }
+        }
+      ],
+      "selection": [
+        {
+          "mode": "compact",
+          "format": 33,
+          "length": 32,
+          "timing": {
+            "medianMs": 1.4099999999999682,
+            "p95Ms": 1.6037089999999807,
+            "minMs": 1.3931669999999485,
+            "maxMs": 1.6485000000000127
+          }
+        },
+        {
+          "mode": "exact",
+          "format": 35,
+          "length": 26,
+          "timing": {
+            "medianMs": 0.7542089999999462,
+            "p95Ms": 0.989832999999976,
+            "minMs": 0.74025000000006,
+            "maxMs": 0.9929160000000365
+          }
+        }
+      ]
+    },
+    {
+      "name": "daily-cycle-0-1199",
+      "dayCount": 3660,
+      "formats": [
+        {
+          "format": 32,
+          "binaryBytes": 1384,
+          "bodyBytes": 1378,
+          "rawBodyBytes": 1378,
+          "bodyRatio": 1,
+          "base64UrlChars": 1846,
+          "encode": {
+            "medianMs": 1.1431249999999409,
+            "p95Ms": 1.361332999999945,
+            "minMs": 1.1289170000000013,
+            "maxMs": 1.4114159999999174
+          },
+          "encodeDParameter": {
+            "medianMs": 1.1777920000001814,
+            "p95Ms": 1.3259590000000117,
+            "minMs": 1.1635000000001128,
+            "maxMs": 1.3418750000000728
+          }
+        },
+        {
+          "format": 33,
+          "binaryBytes": 42,
+          "bodyBytes": 36,
+          "rawBodyBytes": 1378,
+          "bodyRatio": 0.026124818577648767,
+          "base64UrlChars": 56,
+          "encode": {
+            "medianMs": 1.1978750000000673,
+            "p95Ms": 1.3781670000000759,
+            "minMs": 1.1864170000001195,
+            "maxMs": 1.4257920000000013
+          },
+          "encodeDParameter": {
+            "medianMs": 1.2363339999999425,
+            "p95Ms": 1.4191249999998945,
+            "minMs": 1.186292000000094,
+            "maxMs": 1.5069580000001679
+          },
+          "decode": {
+            "medianMs": 0.3720410000000811,
+            "p95Ms": 0.4464580000001206,
+            "minMs": 0.3677909999998974,
+            "maxMs": 0.5414160000000265
+          }
+        },
+        {
+          "format": 34,
+          "binaryBytes": 5045,
+          "bodyBytes": 5039,
+          "rawBodyBytes": 5039,
+          "bodyRatio": 1,
+          "base64UrlChars": 6727,
+          "encode": {
+            "medianMs": 1.2722500000002128,
+            "p95Ms": 1.682833999999957,
+            "minMs": 1.2415000000000873,
+            "maxMs": 1.7040420000000722
+          },
+          "encodeDParameter": {
+            "medianMs": 1.4456250000000637,
+            "p95Ms": 1.5689169999998285,
+            "minMs": 1.4102090000001226,
+            "maxMs": 1.6012080000000424
+          }
+        },
+        {
+          "format": 35,
+          "binaryBytes": 1688,
+          "bodyBytes": 1682,
+          "rawBodyBytes": 5039,
+          "bodyRatio": 0.3337963881722564,
+          "base64UrlChars": 2251,
+          "encode": {
+            "medianMs": 1.3546669999998358,
+            "p95Ms": 1.5611670000000686,
+            "minMs": 1.3394170000001395,
+            "maxMs": 1.5782910000000356
+          },
+          "encodeDParameter": {
+            "medianMs": 1.419791000000032,
+            "p95Ms": 1.5682500000000346,
+            "minMs": 1.3924580000000333,
+            "maxMs": 1.5954169999999976
+          },
+          "decode": {
+            "medianMs": 1.4703329999999823,
+            "p95Ms": 1.6445409999998901,
+            "minMs": 1.417583999999806,
+            "maxMs": 1.9325410000001284
+          }
+        },
+        {
+          "format": 36,
+          "binaryBytes": 6887,
+          "bodyBytes": 6881,
+          "rawBodyBytes": 6881,
+          "bodyRatio": 1,
+          "base64UrlChars": 9183,
+          "encode": {
+            "medianMs": 0.20812499999988177,
+            "p95Ms": 0.2168340000000626,
+            "minMs": 0.2040830000000824,
+            "maxMs": 0.22195899999996982
+          },
+          "encodeDParameter": {
+            "medianMs": 0.46366699999998673,
+            "p95Ms": 0.5144580000001042,
+            "minMs": 0.45562500000005457,
+            "maxMs": 0.5384160000000975
+          }
+        },
+        {
+          "format": 37,
+          "binaryBytes": 1937,
+          "bodyBytes": 1931,
+          "rawBodyBytes": 6881,
+          "bodyRatio": 0.28062781572445866,
+          "base64UrlChars": 2583,
+          "encode": {
+            "medianMs": 0.3165830000000369,
+            "p95Ms": 0.37783300000000963,
+            "minMs": 0.3094170000001668,
+            "maxMs": 0.4065410000000611
+          },
+          "encodeDParameter": {
+            "medianMs": 0.40591600000016115,
+            "p95Ms": 0.477916999999934,
+            "minMs": 0.3999590000000808,
+            "maxMs": 0.5000829999999041
+          },
+          "decode": {
+            "medianMs": 0.21279099999992468,
+            "p95Ms": 0.24812500000007276,
+            "minMs": 0.2054169999998976,
+            "maxMs": 0.4307920000001104
+          }
+        }
+      ],
+      "selection": [
+        {
+          "mode": "compact",
+          "format": 33,
+          "length": 56,
+          "timing": {
+            "medianMs": 2.3859999999999673,
+            "p95Ms": 2.5411249999999654,
+            "minMs": 2.3604159999999865,
+            "maxMs": 2.6378330000000005
+          }
+        },
+        {
+          "mode": "exact",
+          "format": 35,
+          "length": 2251,
+          "timing": {
+            "medianMs": 3.8277499999999236,
+            "p95Ms": 4.185917000000018,
+            "minMs": 3.7792920000001686,
+            "maxMs": 4.1914580000000115
+          }
+        }
+      ]
+    },
+    {
+      "name": "sparse-max-safe",
+      "dayCount": 3660,
+      "formats": [
+        {
+          "format": 32,
+          "binaryBytes": 1384,
+          "bodyBytes": 1378,
+          "rawBodyBytes": 1378,
+          "bodyRatio": 1,
+          "base64UrlChars": 1846,
+          "encode": {
+            "medianMs": 0.6504159999999501,
+            "p95Ms": 0.733208999999988,
+            "minMs": 0.644416000000092,
+            "maxMs": 0.8420419999999922
+          },
+          "encodeDParameter": {
+            "medianMs": 0.6734169999999722,
+            "p95Ms": 0.7026670000000195,
+            "minMs": 0.6677919999999631,
+            "maxMs": 0.8954160000000684
+          }
+        },
+        {
+          "format": 33,
+          "binaryBytes": 58,
+          "bodyBytes": 52,
+          "rawBodyBytes": 1378,
+          "bodyRatio": 0.03773584905660377,
+          "base64UrlChars": 78,
+          "encode": {
+            "medianMs": 0.7234170000001541,
+            "p95Ms": 0.7632920000000922,
+            "minMs": 0.7157090000000608,
+            "maxMs": 0.8921250000000782
+          },
+          "encodeDParameter": {
+            "medianMs": 0.7214579999999842,
+            "p95Ms": 0.7721660000001975,
+            "minMs": 0.7169169999999667,
+            "maxMs": 0.8833329999999933
+          },
+          "decode": {
+            "medianMs": 0.36541600000009566,
+            "p95Ms": 0.5708329999999933,
+            "minMs": 0.3612910000001648,
+            "maxMs": 0.6640829999998914
+          }
+        },
+        {
+          "format": 34,
+          "binaryBytes": 24260,
+          "bodyBytes": 24254,
+          "rawBodyBytes": 24254,
+          "bodyRatio": 1,
+          "base64UrlChars": 32347,
+          "encode": {
+            "medianMs": 3.081083000000035,
+            "p95Ms": 5.652125000000069,
+            "minMs": 3.011207999999897,
+            "maxMs": 5.7224579999999605
+          },
+          "encodeDParameter": {
+            "medianMs": 3.503041999999823,
+            "p95Ms": 3.770791999999801,
+            "minMs": 3.4465000000000146,
+            "maxMs": 3.9576250000000073
+          }
+        },
+        {
+          "format": 35,
+          "binaryBytes": 158,
+          "bodyBytes": 152,
+          "rawBodyBytes": 24254,
+          "bodyRatio": 0.006267007503916879,
+          "base64UrlChars": 211,
+          "encode": {
+            "medianMs": 3.269459000000097,
+            "p95Ms": 3.5010419999998703,
+            "minMs": 3.2265419999998812,
+            "maxMs": 3.567417000000205
+          },
+          "encodeDParameter": {
+            "medianMs": 3.2485420000002705,
+            "p95Ms": 3.602541000000201,
+            "minMs": 3.1982920000000377,
+            "maxMs": 4.278792000000067
+          },
+          "decode": {
+            "medianMs": 4.92208299999993,
+            "p95Ms": 6.229083000000173,
+            "minMs": 4.7763340000001335,
+            "maxMs": 6.30008399999997
+          }
+        },
+        {
+          "format": 36,
+          "binaryBytes": 3811,
+          "bodyBytes": 3805,
+          "rawBodyBytes": 3805,
+          "bodyRatio": 1,
+          "base64UrlChars": 5082,
+          "encode": {
+            "medianMs": 0.2484999999996944,
+            "p95Ms": 0.26279199999999037,
+            "minMs": 0.2466669999998885,
+            "maxMs": 0.4598329999998896
+          },
+          "encodeDParameter": {
+            "medianMs": 0.3291250000002037,
+            "p95Ms": 0.3986250000002656,
+            "minMs": 0.20125000000007276,
+            "maxMs": 0.46925000000010186
+          }
+        },
+        {
+          "format": 37,
+          "binaryBytes": 55,
+          "bodyBytes": 49,
+          "rawBodyBytes": 3805,
+          "bodyRatio": 0.012877792378449408,
+          "base64UrlChars": 74,
+          "encode": {
+            "medianMs": 0.19874999999956344,
+            "p95Ms": 0.2075409999997646,
+            "minMs": 0.19237500000008367,
+            "maxMs": 0.20912500000031287
+          },
+          "encodeDParameter": {
+            "medianMs": 0.19866600000023027,
+            "p95Ms": 0.2039159999999356,
+            "minMs": 0.1917910000001939,
+            "maxMs": 0.21662500000002183
+          },
+          "decode": {
+            "medianMs": 0.10612499999979264,
+            "p95Ms": 0.1700829999999769,
+            "minMs": 0.10325000000011642,
+            "maxMs": 0.18466599999965183
+          }
+        }
+      ],
+      "selection": [
+        {
+          "mode": "compact",
+          "format": 33,
+          "length": 78,
+          "timing": {
+            "medianMs": 1.4555420000001504,
+            "p95Ms": 1.6177499999998872,
+            "minMs": 1.4220829999999296,
+            "maxMs": 1.7285000000001673
+          }
+        },
+        {
+          "mode": "exact",
+          "format": 37,
+          "length": 74,
+          "timing": {
+            "medianMs": 7.445709000000079,
+            "p95Ms": 8.645208000000366,
+            "minMs": 7.126999999999953,
+            "maxMs": 8.951250000000073
+          }
+        }
+      ]
+    },
+    {
+      "name": "random-53-bit",
+      "dayCount": 3660,
+      "formats": [
+        {
+          "format": 32,
+          "binaryBytes": 1384,
+          "bodyBytes": 1378,
+          "rawBodyBytes": 1378,
+          "bodyRatio": 1,
+          "base64UrlChars": 1846,
+          "encode": {
+            "medianMs": 1.1881250000001273,
+            "p95Ms": 1.2292920000004415,
+            "minMs": 1.1633750000000873,
+            "maxMs": 1.4780829999999696
+          },
+          "encodeDParameter": {
+            "medianMs": 1.2178330000001552,
+            "p95Ms": 1.2963749999998981,
+            "minMs": 1.1947500000001128,
+            "maxMs": 1.4431250000002365
+          }
+        },
+        {
+          "format": 33,
+          "binaryBytes": 27,
+          "bodyBytes": 21,
+          "rawBodyBytes": 1378,
+          "bodyRatio": 0.015239477503628448,
+          "base64UrlChars": 36,
+          "encode": {
+            "medianMs": 1.234707999999955,
+            "p95Ms": 1.3556249999996908,
+            "minMs": 1.2180829999997513,
+            "maxMs": 1.4867920000001504
+          },
+          "encodeDParameter": {
+            "medianMs": 1.2335829999997259,
+            "p95Ms": 1.3384580000001733,
+            "minMs": 1.2127080000000205,
+            "maxMs": 1.42962499999976
+          },
+          "decode": {
+            "medianMs": 0.38875000000007276,
+            "p95Ms": 0.4118329999996604,
+            "minMs": 0.3807080000001406,
+            "maxMs": 0.41745899999978064
+          }
+        },
+        {
+          "format": 34,
+          "binaryBytes": 24260,
+          "bodyBytes": 24254,
+          "rawBodyBytes": 24254,
+          "bodyRatio": 1,
+          "base64UrlChars": 32347,
+          "encode": {
+            "medianMs": 6.23195799999985,
+            "p95Ms": 6.569416999999703,
+            "minMs": 6.123290999999881,
+            "maxMs": 7.119083000000046
+          },
+          "encodeDParameter": {
+            "medianMs": 7.404250000000047,
+            "p95Ms": 7.7965839999997115,
+            "minMs": 7.301792000000205,
+            "maxMs": 7.972582999999759
+          }
+        },
+        {
+          "format": 35,
+          "binaryBytes": 24270,
+          "bodyBytes": 24264,
+          "rawBodyBytes": 24254,
+          "bodyRatio": 1.0004123031252576,
+          "base64UrlChars": 32360,
+          "encode": {
+            "medianMs": 6.773499999999785,
+            "p95Ms": 7.495208000000275,
+            "minMs": 6.634082999999919,
+            "maxMs": 7.513791999999739
+          },
+          "encodeDParameter": {
+            "medianMs": 7.894999999999982,
+            "p95Ms": 8.197749999999814,
+            "minMs": 7.788625000000138,
+            "maxMs": 8.200457999999799
+          },
+          "decode": {
+            "medianMs": 8.13904199999979,
+            "p95Ms": 8.358374999999796,
+            "minMs": 8.075791999999637,
+            "maxMs": 8.363166999999521
+          }
+        },
+        {
+          "format": 36,
+          "binaryBytes": 29069,
+          "bodyBytes": 29063,
+          "rawBodyBytes": 29063,
+          "bodyRatio": 1,
+          "base64UrlChars": 38759,
+          "encode": {
+            "medianMs": 0.7665830000005371,
+            "p95Ms": 0.9110000000000582,
+            "minMs": 0.7450420000004669,
+            "maxMs": 1.7363750000004075
+          },
+          "encodeDParameter": {
+            "medianMs": 2.1444579999997586,
+            "p95Ms": 2.3447500000002037,
+            "minMs": 2.119124999999258,
+            "maxMs": 2.6631250000000364
+          }
+        },
+        {
+          "format": 37,
+          "binaryBytes": 26439,
+          "bodyBytes": 26433,
+          "rawBodyBytes": 29063,
+          "bodyRatio": 0.9095069332140522,
+          "base64UrlChars": 35252,
+          "encode": {
+            "medianMs": 1.5403339999993477,
+            "p95Ms": 1.5856669999993755,
+            "minMs": 1.5070829999995112,
+            "maxMs": 2.689166999999543
+          },
+          "encodeDParameter": {
+            "medianMs": 2.7917910000005577,
+            "p95Ms": 3.20404199999939,
+            "minMs": 2.752917000000707,
+            "maxMs": 3.422290999999859
+          },
+          "decode": {
+            "medianMs": 0.8995829999994385,
+            "p95Ms": 1.079250000000684,
+            "minMs": 0.8055420000000595,
+            "maxMs": 1.218417000000045
+          }
+        }
+      ],
+      "selection": [
+        {
+          "mode": "compact",
+          "format": 33,
+          "length": 36,
+          "timing": {
+            "medianMs": 2.430833000000348,
+            "p95Ms": 2.70049999999992,
+            "minMs": 2.405749999999898,
+            "maxMs": 2.716415999999299
+          }
+        },
+        {
+          "mode": "exact",
+          "format": 34,
+          "length": 32347,
+          "timing": {
+            "medianMs": 20.483790999999655,
+            "p95Ms": 21.79724999999962,
+            "minMs": 20.100665999999364,
+            "maxMs": 21.81683299999986
+          }
+        }
+      ]
+    },
+    {
+      "name": "small-skewed",
+      "dayCount": 3660,
+      "formats": [
+        {
+          "format": 32,
+          "binaryBytes": 1384,
+          "bodyBytes": 1378,
+          "rawBodyBytes": 1378,
+          "bodyRatio": 1,
+          "base64UrlChars": 1846,
+          "encode": {
+            "medianMs": 1.130166000000827,
+            "p95Ms": 1.1798750000007203,
+            "minMs": 1.1156249999994543,
+            "maxMs": 1.4821249999995416
+          },
+          "encodeDParameter": {
+            "medianMs": 1.1602920000004815,
+            "p95Ms": 1.2180409999991753,
+            "minMs": 1.1461669999998776,
+            "maxMs": 1.4385419999998703
+          }
+        },
+        {
+          "format": 33,
+          "binaryBytes": 40,
+          "bodyBytes": 34,
+          "rawBodyBytes": 1378,
+          "bodyRatio": 0.02467343976777939,
+          "base64UrlChars": 54,
+          "encode": {
+            "medianMs": 1.1745420000006561,
+            "p95Ms": 1.2649579999997513,
+            "minMs": 1.1588330000004134,
+            "maxMs": 1.4125829999993584
+          },
+          "encodeDParameter": {
+            "medianMs": 1.1788750000005166,
+            "p95Ms": 1.2566249999999854,
+            "minMs": 1.1592089999994641,
+            "maxMs": 1.3735829999995985
+          },
+          "decode": {
+            "medianMs": 0.4042090000002645,
+            "p95Ms": 0.46212500000001455,
+            "minMs": 0.40033299999959127,
+            "maxMs": 0.6321250000000873
+          }
+        },
+        {
+          "format": 34,
+          "binaryBytes": 3672,
+          "bodyBytes": 3666,
+          "rawBodyBytes": 3666,
+          "bodyRatio": 1,
+          "base64UrlChars": 4896,
+          "encode": {
+            "medianMs": 0.8209170000000086,
+            "p95Ms": 0.861957999999504,
+            "minMs": 0.816541999999572,
+            "maxMs": 1.1251250000004802
+          },
+          "encodeDParameter": {
+            "medianMs": 0.9272920000003069,
+            "p95Ms": 0.9578750000000582,
+            "minMs": 0.9122500000003129,
+            "maxMs": 0.9617920000000595
+          }
+        },
+        {
+          "format": 35,
+          "binaryBytes": 69,
+          "bodyBytes": 63,
+          "rawBodyBytes": 3666,
+          "bodyRatio": 0.01718494271685761,
+          "base64UrlChars": 92,
+          "encode": {
+            "medianMs": 0.8892500000001746,
+            "p95Ms": 0.9309170000005906,
+            "minMs": 0.8841659999998228,
+            "maxMs": 0.9648749999996653
+          },
+          "encodeDParameter": {
+            "medianMs": 0.8960420000003069,
+            "p95Ms": 0.954291999999441,
+            "minMs": 0.8881659999997282,
+            "maxMs": 1.1370000000006257
+          },
+          "decode": {
+            "medianMs": 0.8690420000002632,
+            "p95Ms": 0.9002080000000205,
+            "minMs": 0.8635000000003856,
+            "maxMs": 1.0961660000002666
+          }
+        },
+        {
+          "format": 36,
+          "binaryBytes": 4036,
+          "bodyBytes": 4030,
+          "rawBodyBytes": 4030,
+          "bodyRatio": 1,
+          "base64UrlChars": 5382,
+          "encode": {
+            "medianMs": 0.1488339999996242,
+            "p95Ms": 0.17120900000008987,
+            "minMs": 0.1468330000006972,
+            "maxMs": 0.18191699999988487
+          },
+          "encodeDParameter": {
+            "medianMs": 0.2476249999999709,
+            "p95Ms": 0.265625,
+            "minMs": 0.24579199999971024,
+            "maxMs": 0.26900000000023283
+          }
+        },
+        {
+          "format": 37,
+          "binaryBytes": 70,
+          "bodyBytes": 64,
+          "rawBodyBytes": 4030,
+          "bodyRatio": 0.01588089330024814,
+          "base64UrlChars": 94,
+          "encode": {
+            "medianMs": 0.2226249999994252,
+            "p95Ms": 0.23495900000034453,
+            "minMs": 0.2161660000001575,
+            "maxMs": 0.4997080000002825
+          },
+          "encodeDParameter": {
+            "medianMs": 0.21987500000068394,
+            "p95Ms": 0.22233299999970768,
+            "minMs": 0.21791699999994307,
+            "maxMs": 0.2226249999994252
+          },
+          "decode": {
+            "medianMs": 0.1162079999994603,
+            "p95Ms": 0.13850000000002183,
+            "minMs": 0.11354200000005221,
+            "maxMs": 0.2067910000005213
+          }
+        }
+      ],
+      "selection": [
+        {
+          "mode": "compact",
+          "format": 33,
+          "length": 54,
+          "timing": {
+            "medianMs": 2.331709000000046,
+            "p95Ms": 2.6022910000001502,
+            "minMs": 2.3059999999995853,
+            "maxMs": 2.606582999999773
+          }
+        },
+        {
+          "mode": "exact",
+          "format": 35,
+          "length": 92,
+          "timing": {
+            "medianMs": 2.3055840000006356,
+            "p95Ms": 2.5397920000004888,
+            "minMs": 2.258708999999726,
+            "maxMs": 2.5472919999992882
+          }
+        }
+      ]
+    }
+  ],
+  "browsers": [
+    {
+      "name": "chromium",
+      "version": "153.0.8010.12",
+      "results": [
+        {
+          "name": "all-zero",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 0.5600000001490116,
+                "p95Ms": 0.5700000002980232,
+                "minMs": 0.5399999998509883,
+                "maxMs": 0.5799999997019768
+              },
+              "encodeDParameter": {
+                "medianMs": 0.5700000002980232,
+                "p95Ms": 0.5899999998509884,
+                "minMs": 0.5600000001490116,
+                "maxMs": 0.6
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 24,
+              "bodyBytes": 18,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.013062409288824383,
+              "base64UrlChars": 32,
+              "encode": {
+                "medianMs": 0.6100000001490116,
+                "p95Ms": 0.6299999997019767,
+                "minMs": 0.5899999998509884,
+                "maxMs": 0.6300000004470349
+              },
+              "encodeDParameter": {
+                "medianMs": 0.6199999995529651,
+                "p95Ms": 0.6300000004470349,
+                "minMs": 0.5899999998509884,
+                "maxMs": 0.6399999998509884
+              },
+              "decode": {
+                "medianMs": 0.31000000014901163,
+                "p95Ms": 0.31999999955296515,
+                "minMs": 0.2899999998509884,
+                "maxMs": 0.31999999955296515
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 470,
+              "bodyBytes": 464,
+              "rawBodyBytes": 464,
+              "bodyRatio": 1,
+              "base64UrlChars": 627,
+              "encode": {
+                "medianMs": 0.12000000029802323,
+                "p95Ms": 0.13000000044703483,
+                "minMs": 0.11999999955296517,
+                "maxMs": 0.14000000059604645
+              },
+              "encodeDParameter": {
+                "medianMs": 0.13000000044703483,
+                "p95Ms": 0.15,
+                "minMs": 0.11999999955296517,
+                "maxMs": 0.15
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 19,
+              "bodyBytes": 13,
+              "rawBodyBytes": 464,
+              "bodyRatio": 0.028017241379310345,
+              "base64UrlChars": 26,
+              "encode": {
+                "medianMs": 0.18000000044703485,
+                "p95Ms": 0.2,
+                "minMs": 0.16999999955296516,
+                "maxMs": 0.20999999940395356
+              },
+              "encodeDParameter": {
+                "medianMs": 0.18000000044703485,
+                "p95Ms": 0.2,
+                "minMs": 0.17000000029802323,
+                "maxMs": 0.2
+              },
+              "decode": {
+                "medianMs": 0.1600000001490116,
+                "p95Ms": 0.17000000029802323,
+                "minMs": 0.15999999940395354,
+                "maxMs": 0.18000000044703485
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 3671,
+              "bodyBytes": 3665,
+              "rawBodyBytes": 3665,
+              "bodyRatio": 1,
+              "base64UrlChars": 4895,
+              "encode": {
+                "medianMs": 0.11999999955296517,
+                "p95Ms": 0.13999999985098838,
+                "minMs": 0.1,
+                "maxMs": 0.13999999985098838
+              },
+              "encodeDParameter": {
+                "medianMs": 0.17000000029802323,
+                "p95Ms": 0.1899999998509884,
+                "minMs": 0.1600000001490116,
+                "maxMs": 0.1899999998509884
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 31,
+              "bodyBytes": 25,
+              "rawBodyBytes": 3665,
+              "bodyRatio": 0.0068212824010914054,
+              "base64UrlChars": 42,
+              "encode": {
+                "medianMs": 0.1899999998509884,
+                "p95Ms": 0.2,
+                "minMs": 0.17000000029802323,
+                "maxMs": 0.2100000001490116
+              },
+              "encodeDParameter": {
+                "medianMs": 0.1899999998509884,
+                "p95Ms": 0.2,
+                "minMs": 0.17000000029802323,
+                "maxMs": 0.2
+              },
+              "decode": {
+                "medianMs": 0.07000000029802322,
+                "p95Ms": 0.08000000044703484,
+                "minMs": 0.05999999940395355,
+                "maxMs": 0.08000000044703484
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 32,
+              "timing": {
+                "medianMs": 1.2,
+                "p95Ms": 1.2700000002980232,
+                "minMs": 1.1799999997019768,
+                "maxMs": 1.2799999997019769
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 35,
+              "length": 26,
+              "timing": {
+                "medianMs": 0.6800000004470348,
+                "p95Ms": 0.7100000001490117,
+                "minMs": 0.6599999994039536,
+                "maxMs": 0.7100000001490117
+              }
+            }
+          ]
+        },
+        {
+          "name": "daily-cycle-0-1199",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 1.0299999997019769,
+                "p95Ms": 1.05,
+                "minMs": 1.0199999995529652,
+                "maxMs": 1.0599999994039535
+              },
+              "encodeDParameter": {
+                "medianMs": 1.0600000001490115,
+                "p95Ms": 1.0799999997019767,
+                "minMs": 1.0300000004470349,
+                "maxMs": 1.0900000005960464
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 42,
+              "bodyBytes": 36,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.026124818577648767,
+              "base64UrlChars": 56,
+              "encode": {
+                "medianMs": 1.0900000005960464,
+                "p95Ms": 1.1100000001490116,
+                "minMs": 1.0699999995529652,
+                "maxMs": 1.1199999995529653
+              },
+              "encodeDParameter": {
+                "medianMs": 1.0700000002980232,
+                "p95Ms": 1.0899999998509884,
+                "minMs": 1.0600000001490115,
+                "maxMs": 1.0899999998509884
+              },
+              "decode": {
+                "medianMs": 0.31000000014901163,
+                "p95Ms": 0.3200000002980232,
+                "minMs": 0.30999999940395356,
+                "maxMs": 0.3399999998509884
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 5045,
+              "bodyBytes": 5039,
+              "rawBodyBytes": 5039,
+              "bodyRatio": 1,
+              "base64UrlChars": 6727,
+              "encode": {
+                "medianMs": 1.1299999997019767,
+                "p95Ms": 1.1399999998509884,
+                "minMs": 1.1,
+                "maxMs": 1.1400000005960464
+              },
+              "encodeDParameter": {
+                "medianMs": 1.2200000002980231,
+                "p95Ms": 1.25,
+                "minMs": 1.2,
+                "maxMs": 1.25
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 1688,
+              "bodyBytes": 1682,
+              "rawBodyBytes": 5039,
+              "bodyRatio": 0.3337963881722564,
+              "base64UrlChars": 2251,
+              "encode": {
+                "medianMs": 1.2399999998509883,
+                "p95Ms": 1.2599999994039535,
+                "minMs": 1.2200000002980231,
+                "maxMs": 1.2600000001490117
+              },
+              "encodeDParameter": {
+                "medianMs": 1.2600000001490117,
+                "p95Ms": 1.3099999994039535,
+                "minMs": 1.25,
+                "maxMs": 1.330000000447035
+              },
+              "decode": {
+                "medianMs": 1.4299999997019768,
+                "p95Ms": 1.4800000004470348,
+                "minMs": 1.4,
+                "maxMs": 1.4800000004470348
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 6887,
+              "bodyBytes": 6881,
+              "rawBodyBytes": 6881,
+              "bodyRatio": 1,
+              "base64UrlChars": 9183,
+              "encode": {
+                "medianMs": 0.1899999998509884,
+                "p95Ms": 0.2100000001490116,
+                "minMs": 0.16999999955296516,
+                "maxMs": 0.21999999955296518
+              },
+              "encodeDParameter": {
+                "medianMs": 0.31000000014901163,
+                "p95Ms": 0.3300000004470348,
+                "minMs": 0.3,
+                "maxMs": 0.3300000004470348
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 1937,
+              "bodyBytes": 1931,
+              "rawBodyBytes": 6881,
+              "bodyRatio": 0.28062781572445866,
+              "base64UrlChars": 2583,
+              "encode": {
+                "medianMs": 0.3200000002980232,
+                "p95Ms": 0.3399999998509884,
+                "minMs": 0.3,
+                "maxMs": 0.34000000059604646
+              },
+              "encodeDParameter": {
+                "medianMs": 0.35,
+                "p95Ms": 0.3700000002980232,
+                "minMs": 0.3300000004470348,
+                "maxMs": 0.3799999997019768
+              },
+              "decode": {
+                "medianMs": 0.14000000059604645,
+                "p95Ms": 0.17000000029802323,
+                "minMs": 0.1299999997019768,
+                "maxMs": 0.17000000029802323
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 56,
+              "timing": {
+                "medianMs": 2.1,
+                "p95Ms": 2.110000000149012,
+                "minMs": 2.05,
+                "maxMs": 2.120000000298023
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 35,
+              "length": 2251,
+              "timing": {
+                "medianMs": 3.180000000447035,
+                "p95Ms": 3.2700000002980234,
+                "minMs": 3.1300000004470347,
+                "maxMs": 3.3299999997019767
+              }
+            }
+          ]
+        },
+        {
+          "name": "sparse-max-safe",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 0.5699999995529652,
+                "p95Ms": 0.5800000004470348,
+                "minMs": 0.55,
+                "maxMs": 0.5899999998509884
+              },
+              "encodeDParameter": {
+                "medianMs": 0.5899999998509884,
+                "p95Ms": 0.6,
+                "minMs": 0.5699999995529652,
+                "maxMs": 0.6
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 58,
+              "bodyBytes": 52,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.03773584905660377,
+              "base64UrlChars": 78,
+              "encode": {
+                "medianMs": 0.65,
+                "p95Ms": 0.6800000004470348,
+                "minMs": 0.6300000004470349,
+                "maxMs": 0.7
+              },
+              "encodeDParameter": {
+                "medianMs": 0.65,
+                "p95Ms": 0.6600000001490116,
+                "minMs": 0.6299999997019767,
+                "maxMs": 0.6699999995529652
+              },
+              "decode": {
+                "medianMs": 0.3,
+                "p95Ms": 0.3299999997019768,
+                "minMs": 0.2899999998509884,
+                "maxMs": 0.3300000004470348
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 24260,
+              "bodyBytes": 24254,
+              "rawBodyBytes": 24254,
+              "bodyRatio": 1,
+              "base64UrlChars": 32347,
+              "encode": {
+                "medianMs": 2.8200000002980232,
+                "p95Ms": 2.85,
+                "minMs": 2.7700000002980234,
+                "maxMs": 2.95
+              },
+              "encodeDParameter": {
+                "medianMs": 3.1700000002980233,
+                "p95Ms": 3.2,
+                "minMs": 3.1300000004470347,
+                "maxMs": 3.2
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 158,
+              "bodyBytes": 152,
+              "rawBodyBytes": 24254,
+              "bodyRatio": 0.006267007503916879,
+              "base64UrlChars": 211,
+              "encode": {
+                "medianMs": 3.080000000447035,
+                "p95Ms": 3.1600000001490116,
+                "minMs": 3.029999999701977,
+                "maxMs": 3.1600000001490116
+              },
+              "encodeDParameter": {
+                "medianMs": 3.05,
+                "p95Ms": 3.0799999997019767,
+                "minMs": 3,
+                "maxMs": 3.0799999997019767
+              },
+              "decode": {
+                "medianMs": 4.460000000149011,
+                "p95Ms": 4.510000000149011,
+                "minMs": 4.4,
+                "maxMs": 4.760000000149011
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 3811,
+              "bodyBytes": 3805,
+              "rawBodyBytes": 3805,
+              "bodyRatio": 1,
+              "base64UrlChars": 5082,
+              "encode": {
+                "medianMs": 0.12000000029802323,
+                "p95Ms": 0.13999999985098838,
+                "minMs": 0.11000000014901161,
+                "maxMs": 0.15
+              },
+              "encodeDParameter": {
+                "medianMs": 0.18000000044703485,
+                "p95Ms": 0.2,
+                "minMs": 0.1600000001490116,
+                "maxMs": 0.20999999940395356
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 55,
+              "bodyBytes": 49,
+              "rawBodyBytes": 3805,
+              "bodyRatio": 0.012877792378449408,
+              "base64UrlChars": 74,
+              "encode": {
+                "medianMs": 0.20999999940395356,
+                "p95Ms": 0.21999999955296518,
+                "minMs": 0.1899999998509884,
+                "maxMs": 0.22999999970197677
+              },
+              "encodeDParameter": {
+                "medianMs": 0.2,
+                "p95Ms": 0.2100000001490116,
+                "minMs": 0.1899999998509884,
+                "maxMs": 0.22000000029802322
+              },
+              "decode": {
+                "medianMs": 0.07000000029802322,
+                "p95Ms": 0.08999999985098839,
+                "minMs": 0.05999999940395355,
+                "maxMs": 0.11000000014901161
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 78,
+              "timing": {
+                "medianMs": 1.25,
+                "p95Ms": 1.2700000002980232,
+                "minMs": 1.2299999997019768,
+                "maxMs": 1.2800000004470349
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 37,
+              "length": 74,
+              "timing": {
+                "medianMs": 6.670000000298023,
+                "p95Ms": 6.719999999552965,
+                "minMs": 6.559999999403954,
+                "maxMs": 6.719999999552965
+              }
+            }
+          ]
+        },
+        {
+          "name": "random-53-bit",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 1.0299999997019769,
+                "p95Ms": 1.0600000001490115,
+                "minMs": 0.9899999998509884,
+                "maxMs": 1.0699999995529652
+              },
+              "encodeDParameter": {
+                "medianMs": 1.05,
+                "p95Ms": 1.1100000001490116,
+                "minMs": 1.0299999997019769,
+                "maxMs": 1.1299999997019767
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 27,
+              "bodyBytes": 21,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.015239477503628448,
+              "base64UrlChars": 36,
+              "encode": {
+                "medianMs": 1.1,
+                "p95Ms": 1.1100000001490116,
+                "minMs": 1.0700000002980232,
+                "maxMs": 1.1199999995529653
+              },
+              "encodeDParameter": {
+                "medianMs": 1.1,
+                "p95Ms": 1.1200000002980233,
+                "minMs": 1.0799999997019767,
+                "maxMs": 1.1200000002980233
+              },
+              "decode": {
+                "medianMs": 0.36999999955296514,
+                "p95Ms": 0.38000000044703486,
+                "minMs": 0.35,
+                "maxMs": 0.38000000044703486
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 24260,
+              "bodyBytes": 24254,
+              "rawBodyBytes": 24254,
+              "bodyRatio": 1,
+              "base64UrlChars": 32347,
+              "encode": {
+                "medianMs": 5.470000000298024,
+                "p95Ms": 5.510000000149011,
+                "minMs": 5.380000000447035,
+                "maxMs": 5.630000000447035
+              },
+              "encodeDParameter": {
+                "medianMs": 5.930000000447035,
+                "p95Ms": 5.970000000298024,
+                "minMs": 5.829999999701977,
+                "maxMs": 5.979999999701977
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 24270,
+              "bodyBytes": 24264,
+              "rawBodyBytes": 24254,
+              "bodyRatio": 1.0004123031252576,
+              "base64UrlChars": 32360,
+              "encode": {
+                "medianMs": 6.039999999850989,
+                "p95Ms": 6.120000000298023,
+                "minMs": 5.95,
+                "maxMs": 6.239999999850989
+              },
+              "encodeDParameter": {
+                "medianMs": 6.519999999552965,
+                "p95Ms": 6.629999999701977,
+                "minMs": 6.4,
+                "maxMs": 6.8
+              },
+              "decode": {
+                "medianMs": 7.920000000298023,
+                "p95Ms": 8.079999999701977,
+                "minMs": 7.879999999701977,
+                "maxMs": 8.179999999701977
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 29069,
+              "bodyBytes": 29063,
+              "rawBodyBytes": 29063,
+              "bodyRatio": 1,
+              "base64UrlChars": 38759,
+              "encode": {
+                "medianMs": 0.6899999998509884,
+                "p95Ms": 0.7399999998509884,
+                "minMs": 0.6699999995529652,
+                "maxMs": 0.75
+              },
+              "encodeDParameter": {
+                "medianMs": 1.2200000002980231,
+                "p95Ms": 1.2400000005960465,
+                "minMs": 1.1799999997019768,
+                "maxMs": 1.25
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 26439,
+              "bodyBytes": 26433,
+              "rawBodyBytes": 29063,
+              "bodyRatio": 0.9095069332140522,
+              "base64UrlChars": 35252,
+              "encode": {
+                "medianMs": 1.55,
+                "p95Ms": 1.5700000002980232,
+                "minMs": 1.5100000001490117,
+                "maxMs": 1.5899999998509884
+              },
+              "encodeDParameter": {
+                "medianMs": 2.0399999998509886,
+                "p95Ms": 2.0600000001490115,
+                "minMs": 2.0100000001490117,
+                "maxMs": 2.080000000447035
+              },
+              "decode": {
+                "medianMs": 0.8,
+                "p95Ms": 0.8299999997019768,
+                "minMs": 0.7799999997019768,
+                "maxMs": 0.8300000004470348
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 36,
+              "timing": {
+                "medianMs": 2.1600000001490116,
+                "p95Ms": 2.220000000298023,
+                "minMs": 2.139999999850988,
+                "maxMs": 2.2399999998509883
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 34,
+              "length": 32347,
+              "timing": {
+                "medianMs": 15.979999999701977,
+                "p95Ms": 16.080000000447036,
+                "minMs": 15.780000000447036,
+                "maxMs": 16.08999999985099
+              }
+            }
+          ]
+        },
+        {
+          "name": "small-skewed",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 1.0100000001490117,
+                "p95Ms": 1.0400000005960464,
+                "minMs": 1,
+                "maxMs": 1.05
+              },
+              "encodeDParameter": {
+                "medianMs": 1.0300000004470349,
+                "p95Ms": 1.05,
+                "minMs": 1.0199999995529652,
+                "maxMs": 1.05
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 40,
+              "bodyBytes": 34,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.02467343976777939,
+              "base64UrlChars": 54,
+              "encode": {
+                "medianMs": 1.0700000002980232,
+                "p95Ms": 1.1,
+                "minMs": 1.05,
+                "maxMs": 1.1200000002980233
+              },
+              "encodeDParameter": {
+                "medianMs": 1.0799999997019767,
+                "p95Ms": 1.1,
+                "minMs": 1.0600000001490115,
+                "maxMs": 1.1
+              },
+              "decode": {
+                "medianMs": 0.3899999998509884,
+                "p95Ms": 0.4,
+                "minMs": 0.36999999955296514,
+                "maxMs": 0.4
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 3672,
+              "bodyBytes": 3666,
+              "rawBodyBytes": 3666,
+              "bodyRatio": 1,
+              "base64UrlChars": 4896,
+              "encode": {
+                "medianMs": 0.75,
+                "p95Ms": 0.7600000001490116,
+                "minMs": 0.7200000002980232,
+                "maxMs": 0.7700000002980232
+              },
+              "encodeDParameter": {
+                "medianMs": 0.8200000002980232,
+                "p95Ms": 0.8399999998509884,
+                "minMs": 0.8099999994039535,
+                "maxMs": 0.8399999998509884
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 69,
+              "bodyBytes": 63,
+              "rawBodyBytes": 3666,
+              "bodyRatio": 0.01718494271685761,
+              "base64UrlChars": 92,
+              "encode": {
+                "medianMs": 0.8300000004470348,
+                "p95Ms": 0.85,
+                "minMs": 0.8100000001490116,
+                "maxMs": 0.8599999994039536
+              },
+              "encodeDParameter": {
+                "medianMs": 0.8300000004470348,
+                "p95Ms": 0.85,
+                "minMs": 0.8199999995529652,
+                "maxMs": 0.8600000001490116
+              },
+              "decode": {
+                "medianMs": 0.8200000002980232,
+                "p95Ms": 0.85,
+                "minMs": 0.8,
+                "maxMs": 0.85
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 4036,
+              "bodyBytes": 4030,
+              "rawBodyBytes": 4030,
+              "bodyRatio": 1,
+              "base64UrlChars": 5382,
+              "encode": {
+                "medianMs": 0.13999999985098838,
+                "p95Ms": 0.1600000001490116,
+                "minMs": 0.1299999997019768,
+                "maxMs": 0.16999999955296516
+              },
+              "encodeDParameter": {
+                "medianMs": 0.22999999970197677,
+                "p95Ms": 0.25,
+                "minMs": 0.21999999955296518,
+                "maxMs": 0.2600000001490116
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 70,
+              "bodyBytes": 64,
+              "rawBodyBytes": 4030,
+              "bodyRatio": 0.01588089330024814,
+              "base64UrlChars": 94,
+              "encode": {
+                "medianMs": 0.22999999970197677,
+                "p95Ms": 0.23999999985098838,
+                "minMs": 0.21999999955296518,
+                "maxMs": 0.25
+              },
+              "encodeDParameter": {
+                "medianMs": 0.22999999970197677,
+                "p95Ms": 0.25,
+                "minMs": 0.2100000001490116,
+                "maxMs": 0.25
+              },
+              "decode": {
+                "medianMs": 0.08999999985098839,
+                "p95Ms": 0.1,
+                "minMs": 0.06999999955296517,
+                "maxMs": 0.1
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 54,
+              "timing": {
+                "medianMs": 2.1199999995529653,
+                "p95Ms": 2.139999999850988,
+                "minMs": 2.080000000447035,
+                "maxMs": 2.139999999850988
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 35,
+              "length": 92,
+              "timing": {
+                "medianMs": 2.129999999701977,
+                "p95Ms": 2.139999999850988,
+                "minMs": 2.1,
+                "maxMs": 2.1400000005960464
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "firefox",
+      "version": "155.0",
+      "results": [
+        {
+          "name": "all-zero",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.1,
+                "maxMs": 0.4
+              },
+              "encodeDParameter": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.1,
+                "maxMs": 0.4
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 24,
+              "bodyBytes": 18,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.013062409288824383,
+              "base64UrlChars": 32,
+              "encode": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.2,
+                "maxMs": 0.6
+              },
+              "encodeDParameter": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 470,
+              "bodyBytes": 464,
+              "rawBodyBytes": 464,
+              "bodyRatio": 1,
+              "base64UrlChars": 627,
+              "encode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.1,
+                "minMs": 0,
+                "maxMs": 0.1
+              },
+              "encodeDParameter": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 19,
+              "bodyBytes": 13,
+              "rawBodyBytes": 464,
+              "bodyRatio": 0.028017241379310345,
+              "base64UrlChars": 26,
+              "encode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.3
+              },
+              "encodeDParameter": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.2
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 3671,
+              "bodyBytes": 3665,
+              "rawBodyBytes": 3665,
+              "bodyRatio": 1,
+              "base64UrlChars": 4895,
+              "encode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.2
+              },
+              "encodeDParameter": {
+                "medianMs": 0.2,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 31,
+              "bodyBytes": 25,
+              "rawBodyBytes": 3665,
+              "bodyRatio": 0.0068212824010914054,
+              "base64UrlChars": 42,
+              "encode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.1,
+                "maxMs": 0.3
+              },
+              "encodeDParameter": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.1,
+                "maxMs": 0.4
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.1,
+                "minMs": 0,
+                "maxMs": 0.2
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 32,
+              "timing": {
+                "medianMs": 0.5,
+                "p95Ms": 0.6,
+                "minMs": 0.4,
+                "maxMs": 0.6
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 35,
+              "length": 26,
+              "timing": {
+                "medianMs": 0.6,
+                "p95Ms": 0.7,
+                "minMs": 0.5,
+                "maxMs": 0.7
+              }
+            }
+          ]
+        },
+        {
+          "name": "daily-cycle-0-1199",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              },
+              "encodeDParameter": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 42,
+              "bodyBytes": 36,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.026124818577648767,
+              "base64UrlChars": 56,
+              "encode": {
+                "medianMs": 0.4,
+                "p95Ms": 0.4,
+                "minMs": 0.3,
+                "maxMs": 0.5
+              },
+              "encodeDParameter": {
+                "medianMs": 0.4,
+                "p95Ms": 0.4,
+                "minMs": 0.3,
+                "maxMs": 0.5
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 5045,
+              "bodyBytes": 5039,
+              "rawBodyBytes": 5039,
+              "bodyRatio": 1,
+              "base64UrlChars": 6727,
+              "encode": {
+                "medianMs": 0.3,
+                "p95Ms": 0.3,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              },
+              "encodeDParameter": {
+                "medianMs": 0.4,
+                "p95Ms": 0.4,
+                "minMs": 0.3,
+                "maxMs": 0.4
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 1688,
+              "bodyBytes": 1682,
+              "rawBodyBytes": 5039,
+              "bodyRatio": 0.3337963881722564,
+              "base64UrlChars": 2251,
+              "encode": {
+                "medianMs": 0.5,
+                "p95Ms": 0.6,
+                "minMs": 0.4,
+                "maxMs": 0.6
+              },
+              "encodeDParameter": {
+                "medianMs": 0.5,
+                "p95Ms": 0.6,
+                "minMs": 0.4,
+                "maxMs": 0.6
+              },
+              "decode": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 6887,
+              "bodyBytes": 6881,
+              "rawBodyBytes": 6881,
+              "bodyRatio": 1,
+              "base64UrlChars": 9183,
+              "encode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.1,
+                "maxMs": 0.3
+              },
+              "encodeDParameter": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 1937,
+              "bodyBytes": 1931,
+              "rawBodyBytes": 6881,
+              "bodyRatio": 0.28062781572445866,
+              "base64UrlChars": 2583,
+              "encode": {
+                "medianMs": 0.4,
+                "p95Ms": 0.5,
+                "minMs": 0.3,
+                "maxMs": 0.5
+              },
+              "encodeDParameter": {
+                "medianMs": 0.5,
+                "p95Ms": 0.5,
+                "minMs": 0.3,
+                "maxMs": 0.5
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.2
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 56,
+              "timing": {
+                "medianMs": 0.7,
+                "p95Ms": 0.8,
+                "minMs": 0.6,
+                "maxMs": 0.8
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 35,
+              "length": 2251,
+              "timing": {
+                "medianMs": 1.7,
+                "p95Ms": 1.8,
+                "minMs": 1.6,
+                "maxMs": 1.8
+              }
+            }
+          ]
+        },
+        {
+          "name": "sparse-max-safe",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.1,
+                "maxMs": 0.3
+              },
+              "encodeDParameter": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.2,
+                "maxMs": 0.3
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 58,
+              "bodyBytes": 52,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.03773584905660377,
+              "base64UrlChars": 78,
+              "encode": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              },
+              "encodeDParameter": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.3,
+                "maxMs": 0.4
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 24260,
+              "bodyBytes": 24254,
+              "rawBodyBytes": 24254,
+              "bodyRatio": 1,
+              "base64UrlChars": 32347,
+              "encode": {
+                "medianMs": 0.6,
+                "p95Ms": 0.7,
+                "minMs": 0.5,
+                "maxMs": 0.7
+              },
+              "encodeDParameter": {
+                "medianMs": 1,
+                "p95Ms": 1,
+                "minMs": 0.9,
+                "maxMs": 1.1
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 158,
+              "bodyBytes": 152,
+              "rawBodyBytes": 24254,
+              "bodyRatio": 0.006267007503916879,
+              "base64UrlChars": 211,
+              "encode": {
+                "medianMs": 1,
+                "p95Ms": 1.1,
+                "minMs": 0.9,
+                "maxMs": 1.2
+              },
+              "encodeDParameter": {
+                "medianMs": 1,
+                "p95Ms": 1.1,
+                "minMs": 0.9,
+                "maxMs": 1.1
+              },
+              "decode": {
+                "medianMs": 0.9,
+                "p95Ms": 1,
+                "minMs": 0.8,
+                "maxMs": 1
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 3811,
+              "bodyBytes": 3805,
+              "rawBodyBytes": 3805,
+              "bodyRatio": 1,
+              "base64UrlChars": 5082,
+              "encode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.3,
+                "minMs": 0.1,
+                "maxMs": 0.3
+              },
+              "encodeDParameter": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.1,
+                "maxMs": 0.3
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 55,
+              "bodyBytes": 49,
+              "rawBodyBytes": 3805,
+              "bodyRatio": 0.012877792378449408,
+              "base64UrlChars": 74,
+              "encode": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.1,
+                "maxMs": 0.4
+              },
+              "encodeDParameter": {
+                "medianMs": 0.3,
+                "p95Ms": 0.3,
+                "minMs": 0.1,
+                "maxMs": 0.3
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.1,
+                "minMs": 0,
+                "maxMs": 0.2
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 78,
+              "timing": {
+                "medianMs": 0.6,
+                "p95Ms": 0.7,
+                "minMs": 0.5,
+                "maxMs": 0.7
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 37,
+              "length": 74,
+              "timing": {
+                "medianMs": 2.5,
+                "p95Ms": 2.6,
+                "minMs": 2.3,
+                "maxMs": 2.6
+              }
+            }
+          ]
+        },
+        {
+          "name": "random-53-bit",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              },
+              "encodeDParameter": {
+                "medianMs": 0.4,
+                "p95Ms": 0.4,
+                "minMs": 0.3,
+                "maxMs": 0.4
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 27,
+              "bodyBytes": 21,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.015239477503628448,
+              "base64UrlChars": 36,
+              "encode": {
+                "medianMs": 0.4,
+                "p95Ms": 0.5,
+                "minMs": 0.3,
+                "maxMs": 0.5
+              },
+              "encodeDParameter": {
+                "medianMs": 0.4,
+                "p95Ms": 0.5,
+                "minMs": 0.3,
+                "maxMs": 0.5
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 24260,
+              "bodyBytes": 24254,
+              "rawBodyBytes": 24254,
+              "bodyRatio": 1,
+              "base64UrlChars": 32347,
+              "encode": {
+                "medianMs": 1.3,
+                "p95Ms": 1.9,
+                "minMs": 1.2,
+                "maxMs": 3.5
+              },
+              "encodeDParameter": {
+                "medianMs": 1.7,
+                "p95Ms": 1.8,
+                "minMs": 1.6,
+                "maxMs": 1.8
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 24270,
+              "bodyBytes": 24264,
+              "rawBodyBytes": 24254,
+              "bodyRatio": 1.0004123031252576,
+              "base64UrlChars": 32360,
+              "encode": {
+                "medianMs": 2.4,
+                "p95Ms": 2.5,
+                "minMs": 2.3,
+                "maxMs": 2.5
+              },
+              "encodeDParameter": {
+                "medianMs": 2.8,
+                "p95Ms": 2.8,
+                "minMs": 2.7,
+                "maxMs": 2.9
+              },
+              "decode": {
+                "medianMs": 1.2,
+                "p95Ms": 3.2,
+                "minMs": 1.1,
+                "maxMs": 10.5
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 29069,
+              "bodyBytes": 29063,
+              "rawBodyBytes": 29063,
+              "bodyRatio": 1,
+              "base64UrlChars": 38759,
+              "encode": {
+                "medianMs": 0.6,
+                "p95Ms": 0.7,
+                "minMs": 0.5,
+                "maxMs": 0.8
+              },
+              "encodeDParameter": {
+                "medianMs": 1.1,
+                "p95Ms": 1.2,
+                "minMs": 1,
+                "maxMs": 1.2
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 26439,
+              "bodyBytes": 26433,
+              "rawBodyBytes": 29063,
+              "bodyRatio": 0.9095069332140522,
+              "base64UrlChars": 35252,
+              "encode": {
+                "medianMs": 2.5,
+                "p95Ms": 2.8,
+                "minMs": 2.4,
+                "maxMs": 2.9
+              },
+              "encodeDParameter": {
+                "medianMs": 2.9,
+                "p95Ms": 3,
+                "minMs": 2.8,
+                "maxMs": 3
+              },
+              "decode": {
+                "medianMs": 0.5,
+                "p95Ms": 0.6,
+                "minMs": 0.4,
+                "maxMs": 0.6
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 36,
+              "timing": {
+                "medianMs": 0.8,
+                "p95Ms": 0.8,
+                "minMs": 0.7,
+                "maxMs": 0.9
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 34,
+              "length": 32347,
+              "timing": {
+                "medianMs": 8.7,
+                "p95Ms": 9,
+                "minMs": 8.5,
+                "maxMs": 9.1
+              }
+            }
+          ]
+        },
+        {
+          "name": "small-skewed",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 0.4,
+                "p95Ms": 0.5,
+                "minMs": 0.2,
+                "maxMs": 0.5
+              },
+              "encodeDParameter": {
+                "medianMs": 0.4,
+                "p95Ms": 0.5,
+                "minMs": 0.3,
+                "maxMs": 0.5
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 40,
+              "bodyBytes": 34,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.02467343976777939,
+              "base64UrlChars": 54,
+              "encode": {
+                "medianMs": 0.4,
+                "p95Ms": 0.5,
+                "minMs": 0.3,
+                "maxMs": 0.5
+              },
+              "encodeDParameter": {
+                "medianMs": 0.4,
+                "p95Ms": 0.5,
+                "minMs": 0.3,
+                "maxMs": 0.6
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 3672,
+              "bodyBytes": 3666,
+              "rawBodyBytes": 3666,
+              "bodyRatio": 1,
+              "base64UrlChars": 4896,
+              "encode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.1,
+                "maxMs": 0.3
+              },
+              "encodeDParameter": {
+                "medianMs": 0.3,
+                "p95Ms": 0.3,
+                "minMs": 0.1,
+                "maxMs": 0.4
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 69,
+              "bodyBytes": 63,
+              "rawBodyBytes": 3666,
+              "bodyRatio": 0.01718494271685761,
+              "base64UrlChars": 92,
+              "encode": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              },
+              "encodeDParameter": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              },
+              "decode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.1,
+                "maxMs": 0.4
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 4036,
+              "bodyBytes": 4030,
+              "rawBodyBytes": 4030,
+              "bodyRatio": 1,
+              "base64UrlChars": 5382,
+              "encode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.3
+              },
+              "encodeDParameter": {
+                "medianMs": 0.3,
+                "p95Ms": 0.3,
+                "minMs": 0.2,
+                "maxMs": 0.3
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 70,
+              "bodyBytes": 64,
+              "rawBodyBytes": 4030,
+              "bodyRatio": 0.01588089330024814,
+              "base64UrlChars": 94,
+              "encode": {
+                "medianMs": 0.3,
+                "p95Ms": 0.3,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              },
+              "encodeDParameter": {
+                "medianMs": 0.3,
+                "p95Ms": 0.3,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.2
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 54,
+              "timing": {
+                "medianMs": 0.8,
+                "p95Ms": 0.9,
+                "minMs": 0.7,
+                "maxMs": 0.9
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 35,
+              "length": 92,
+              "timing": {
+                "medianMs": 1.1,
+                "p95Ms": 1.2,
+                "minMs": 1,
+                "maxMs": 1.2
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "webkit",
+      "version": "26.6",
+      "results": [
+        {
+          "name": "all-zero",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 0.5,
+                "p95Ms": 0.6,
+                "minMs": 0.4,
+                "maxMs": 0.6
+              },
+              "encodeDParameter": {
+                "medianMs": 0.5,
+                "p95Ms": 0.6,
+                "minMs": 0.5,
+                "maxMs": 0.6
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 24,
+              "bodyBytes": 18,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.013062409288824383,
+              "base64UrlChars": 32,
+              "encode": {
+                "medianMs": 0.5,
+                "p95Ms": 0.6,
+                "minMs": 0.5,
+                "maxMs": 0.6
+              },
+              "encodeDParameter": {
+                "medianMs": 0.5,
+                "p95Ms": 0.6,
+                "minMs": 0.5,
+                "maxMs": 0.6
+              },
+              "decode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 470,
+              "bodyBytes": 464,
+              "rawBodyBytes": 464,
+              "bodyRatio": 1,
+              "base64UrlChars": 627,
+              "encode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.1,
+                "minMs": 0,
+                "maxMs": 0.1
+              },
+              "encodeDParameter": {
+                "medianMs": 0.1,
+                "p95Ms": 0.1,
+                "minMs": 0,
+                "maxMs": 0.1
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 19,
+              "bodyBytes": 13,
+              "rawBodyBytes": 464,
+              "bodyRatio": 0.028017241379310345,
+              "base64UrlChars": 26,
+              "encode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.2
+              },
+              "encodeDParameter": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.1,
+                "minMs": 0,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 3671,
+              "bodyBytes": 3665,
+              "rawBodyBytes": 3665,
+              "bodyRatio": 1,
+              "base64UrlChars": 4895,
+              "encode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0,
+                "maxMs": 0.2
+              },
+              "encodeDParameter": {
+                "medianMs": 0.2,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 31,
+              "bodyBytes": 25,
+              "rawBodyBytes": 3665,
+              "bodyRatio": 0.0068212824010914054,
+              "base64UrlChars": 42,
+              "encode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              },
+              "encodeDParameter": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 32,
+              "timing": {
+                "medianMs": 1.1,
+                "p95Ms": 1.2,
+                "minMs": 1,
+                "maxMs": 1.2
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 35,
+              "length": 26,
+              "timing": {
+                "medianMs": 0.5,
+                "p95Ms": 0.6,
+                "minMs": 0.5,
+                "maxMs": 0.6
+              }
+            }
+          ]
+        },
+        {
+          "name": "daily-cycle-0-1199",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 1,
+                "p95Ms": 1,
+                "minMs": 0.9,
+                "maxMs": 1.1
+              },
+              "encodeDParameter": {
+                "medianMs": 1,
+                "p95Ms": 1,
+                "minMs": 0.9,
+                "maxMs": 1
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 42,
+              "bodyBytes": 36,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.026124818577648767,
+              "base64UrlChars": 56,
+              "encode": {
+                "medianMs": 1,
+                "p95Ms": 1.1,
+                "minMs": 0.9,
+                "maxMs": 1.1
+              },
+              "encodeDParameter": {
+                "medianMs": 1,
+                "p95Ms": 1.1,
+                "minMs": 0.9,
+                "maxMs": 1.1
+              },
+              "decode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.2,
+                "maxMs": 0.3
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 5045,
+              "bodyBytes": 5039,
+              "rawBodyBytes": 5039,
+              "bodyRatio": 1,
+              "base64UrlChars": 6727,
+              "encode": {
+                "medianMs": 1.4,
+                "p95Ms": 1.4,
+                "minMs": 1.3,
+                "maxMs": 1.5
+              },
+              "encodeDParameter": {
+                "medianMs": 1.4,
+                "p95Ms": 1.5,
+                "minMs": 1.4,
+                "maxMs": 1.5
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 1688,
+              "bodyBytes": 1682,
+              "rawBodyBytes": 5039,
+              "bodyRatio": 0.3337963881722564,
+              "base64UrlChars": 2251,
+              "encode": {
+                "medianMs": 1.5,
+                "p95Ms": 1.6,
+                "minMs": 1.4,
+                "maxMs": 1.6
+              },
+              "encodeDParameter": {
+                "medianMs": 1.5,
+                "p95Ms": 1.6,
+                "minMs": 1.4,
+                "maxMs": 1.6
+              },
+              "decode": {
+                "medianMs": 1,
+                "p95Ms": 1.1,
+                "minMs": 1,
+                "maxMs": 1.1
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 6887,
+              "bodyBytes": 6881,
+              "rawBodyBytes": 6881,
+              "bodyRatio": 1,
+              "base64UrlChars": 9183,
+              "encode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.2,
+                "maxMs": 0.3
+              },
+              "encodeDParameter": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.3,
+                "maxMs": 0.4
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 1937,
+              "bodyBytes": 1931,
+              "rawBodyBytes": 6881,
+              "bodyRatio": 0.28062781572445866,
+              "base64UrlChars": 2583,
+              "encode": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              },
+              "encodeDParameter": {
+                "medianMs": 0.3,
+                "p95Ms": 0.4,
+                "minMs": 0.3,
+                "maxMs": 0.5
+              },
+              "decode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.2,
+                "maxMs": 0.3
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 56,
+              "timing": {
+                "medianMs": 2.1,
+                "p95Ms": 2.2,
+                "minMs": 2,
+                "maxMs": 2.3
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 35,
+              "length": 2251,
+              "timing": {
+                "medianMs": 3.6,
+                "p95Ms": 3.7,
+                "minMs": 3.5,
+                "maxMs": 3.7
+              }
+            }
+          ]
+        },
+        {
+          "name": "sparse-max-safe",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 0.6,
+                "p95Ms": 0.6,
+                "minMs": 0.5,
+                "maxMs": 0.6
+              },
+              "encodeDParameter": {
+                "medianMs": 0.6,
+                "p95Ms": 0.6,
+                "minMs": 0.5,
+                "maxMs": 0.7
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 58,
+              "bodyBytes": 52,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.03773584905660377,
+              "base64UrlChars": 78,
+              "encode": {
+                "medianMs": 0.6,
+                "p95Ms": 0.7,
+                "minMs": 0.5,
+                "maxMs": 0.7
+              },
+              "encodeDParameter": {
+                "medianMs": 0.6,
+                "p95Ms": 0.7,
+                "minMs": 0.5,
+                "maxMs": 0.7
+              },
+              "decode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 24260,
+              "bodyBytes": 24254,
+              "rawBodyBytes": 24254,
+              "bodyRatio": 1,
+              "base64UrlChars": 32347,
+              "encode": {
+                "medianMs": 2.8,
+                "p95Ms": 2.8,
+                "minMs": 2.7,
+                "maxMs": 2.9
+              },
+              "encodeDParameter": {
+                "medianMs": 3.3,
+                "p95Ms": 3.4,
+                "minMs": 3.2,
+                "maxMs": 3.5
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 158,
+              "bodyBytes": 152,
+              "rawBodyBytes": 24254,
+              "bodyRatio": 0.006267007503916879,
+              "base64UrlChars": 211,
+              "encode": {
+                "medianMs": 2.9,
+                "p95Ms": 3,
+                "minMs": 2.8,
+                "maxMs": 3
+              },
+              "encodeDParameter": {
+                "medianMs": 2.9,
+                "p95Ms": 3,
+                "minMs": 2.8,
+                "maxMs": 3
+              },
+              "decode": {
+                "medianMs": 2.7,
+                "p95Ms": 2.8,
+                "minMs": 2.6,
+                "maxMs": 2.8
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 3811,
+              "bodyBytes": 3805,
+              "rawBodyBytes": 3805,
+              "bodyRatio": 1,
+              "base64UrlChars": 5082,
+              "encode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.1,
+                "minMs": 0,
+                "maxMs": 0.1
+              },
+              "encodeDParameter": {
+                "medianMs": 0.2,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 55,
+              "bodyBytes": 49,
+              "rawBodyBytes": 3805,
+              "bodyRatio": 0.012877792378449408,
+              "base64UrlChars": 74,
+              "encode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              },
+              "encodeDParameter": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              },
+              "decode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 78,
+              "timing": {
+                "medianMs": 1.2,
+                "p95Ms": 1.3,
+                "minMs": 1.1,
+                "maxMs": 1.3
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 37,
+              "length": 74,
+              "timing": {
+                "medianMs": 6.5,
+                "p95Ms": 6.6,
+                "minMs": 6.4,
+                "maxMs": 6.6
+              }
+            }
+          ]
+        },
+        {
+          "name": "random-53-bit",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 1,
+                "p95Ms": 1.1,
+                "minMs": 1,
+                "maxMs": 1.1
+              },
+              "encodeDParameter": {
+                "medianMs": 1,
+                "p95Ms": 1.1,
+                "minMs": 1,
+                "maxMs": 1.1
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 27,
+              "bodyBytes": 21,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.015239477503628448,
+              "base64UrlChars": 36,
+              "encode": {
+                "medianMs": 1,
+                "p95Ms": 1.1,
+                "minMs": 1,
+                "maxMs": 1.1
+              },
+              "encodeDParameter": {
+                "medianMs": 1,
+                "p95Ms": 1.1,
+                "minMs": 1,
+                "maxMs": 1.1
+              },
+              "decode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.2,
+                "maxMs": 0.4
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 24260,
+              "bodyBytes": 24254,
+              "rawBodyBytes": 24254,
+              "bodyRatio": 1,
+              "base64UrlChars": 32347,
+              "encode": {
+                "medianMs": 7.1,
+                "p95Ms": 7.2,
+                "minMs": 7,
+                "maxMs": 7.4
+              },
+              "encodeDParameter": {
+                "medianMs": 7.4,
+                "p95Ms": 7.7,
+                "minMs": 7.3,
+                "maxMs": 7.8
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 24270,
+              "bodyBytes": 24264,
+              "rawBodyBytes": 24254,
+              "bodyRatio": 1.0004123031252576,
+              "base64UrlChars": 32360,
+              "encode": {
+                "medianMs": 7.8,
+                "p95Ms": 7.9,
+                "minMs": 7.6,
+                "maxMs": 8.4
+              },
+              "encodeDParameter": {
+                "medianMs": 7.9,
+                "p95Ms": 8.1,
+                "minMs": 7.8,
+                "maxMs": 8.2
+              },
+              "decode": {
+                "medianMs": 5.8,
+                "p95Ms": 5.9,
+                "minMs": 5.7,
+                "maxMs": 6
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 29069,
+              "bodyBytes": 29063,
+              "rawBodyBytes": 29063,
+              "bodyRatio": 1,
+              "base64UrlChars": 38759,
+              "encode": {
+                "medianMs": 1,
+                "p95Ms": 1,
+                "minMs": 0.9,
+                "maxMs": 1.1
+              },
+              "encodeDParameter": {
+                "medianMs": 1.4,
+                "p95Ms": 1.5,
+                "minMs": 1.3,
+                "maxMs": 1.5
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 26439,
+              "bodyBytes": 26433,
+              "rawBodyBytes": 29063,
+              "bodyRatio": 0.9095069332140522,
+              "base64UrlChars": 35252,
+              "encode": {
+                "medianMs": 1.7,
+                "p95Ms": 1.8,
+                "minMs": 1.6,
+                "maxMs": 1.8
+              },
+              "encodeDParameter": {
+                "medianMs": 2.1,
+                "p95Ms": 2.1,
+                "minMs": 2,
+                "maxMs": 2.2
+              },
+              "decode": {
+                "medianMs": 1.2,
+                "p95Ms": 2.1,
+                "minMs": 1.1,
+                "maxMs": 2.3
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 36,
+              "timing": {
+                "medianMs": 2.1,
+                "p95Ms": 2.2,
+                "minMs": 2,
+                "maxMs": 2.2
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 34,
+              "length": 32347,
+              "timing": {
+                "medianMs": 19.1,
+                "p95Ms": 21.5,
+                "minMs": 18.9,
+                "maxMs": 21.8
+              }
+            }
+          ]
+        },
+        {
+          "name": "small-skewed",
+          "dayCount": 3660,
+          "formats": [
+            {
+              "format": 32,
+              "binaryBytes": 1384,
+              "bodyBytes": 1378,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 1,
+              "base64UrlChars": 1846,
+              "encode": {
+                "medianMs": 1,
+                "p95Ms": 1,
+                "minMs": 0.9,
+                "maxMs": 1.1
+              },
+              "encodeDParameter": {
+                "medianMs": 1,
+                "p95Ms": 1,
+                "minMs": 0.9,
+                "maxMs": 1.1
+              }
+            },
+            {
+              "format": 33,
+              "binaryBytes": 40,
+              "bodyBytes": 34,
+              "rawBodyBytes": 1378,
+              "bodyRatio": 0.02467343976777939,
+              "base64UrlChars": 54,
+              "encode": {
+                "medianMs": 1,
+                "p95Ms": 1,
+                "minMs": 0.9,
+                "maxMs": 1
+              },
+              "encodeDParameter": {
+                "medianMs": 1,
+                "p95Ms": 1.1,
+                "minMs": 0.9,
+                "maxMs": 1.2
+              },
+              "decode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.3,
+                "minMs": 0.2,
+                "maxMs": 0.3
+              }
+            },
+            {
+              "format": 34,
+              "binaryBytes": 3672,
+              "bodyBytes": 3666,
+              "rawBodyBytes": 3666,
+              "bodyRatio": 1,
+              "base64UrlChars": 4896,
+              "encode": {
+                "medianMs": 0.7,
+                "p95Ms": 0.8,
+                "minMs": 0.7,
+                "maxMs": 0.8
+              },
+              "encodeDParameter": {
+                "medianMs": 0.8,
+                "p95Ms": 0.9,
+                "minMs": 0.8,
+                "maxMs": 0.9
+              }
+            },
+            {
+              "format": 35,
+              "binaryBytes": 69,
+              "bodyBytes": 63,
+              "rawBodyBytes": 3666,
+              "bodyRatio": 0.01718494271685761,
+              "base64UrlChars": 92,
+              "encode": {
+                "medianMs": 0.8,
+                "p95Ms": 0.9,
+                "minMs": 0.7,
+                "maxMs": 0.9
+              },
+              "encodeDParameter": {
+                "medianMs": 0.8,
+                "p95Ms": 0.9,
+                "minMs": 0.7,
+                "maxMs": 0.9
+              },
+              "decode": {
+                "medianMs": 0.6,
+                "p95Ms": 0.6,
+                "minMs": 0.5,
+                "maxMs": 0.7
+              }
+            },
+            {
+              "format": 36,
+              "binaryBytes": 4036,
+              "bodyBytes": 4030,
+              "rawBodyBytes": 4030,
+              "bodyRatio": 1,
+              "base64UrlChars": 5382,
+              "encode": {
+                "medianMs": 0.1,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              },
+              "encodeDParameter": {
+                "medianMs": 0.2,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.3
+              }
+            },
+            {
+              "format": 37,
+              "binaryBytes": 70,
+              "bodyBytes": 64,
+              "rawBodyBytes": 4030,
+              "bodyRatio": 0.01588089330024814,
+              "base64UrlChars": 94,
+              "encode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              },
+              "encodeDParameter": {
+                "medianMs": 0.2,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              },
+              "decode": {
+                "medianMs": 0.2,
+                "p95Ms": 0.2,
+                "minMs": 0.1,
+                "maxMs": 0.2
+              }
+            }
+          ],
+          "selection": [
+            {
+              "mode": "compact",
+              "format": 33,
+              "length": 54,
+              "timing": {
+                "medianMs": 2,
+                "p95Ms": 2,
+                "minMs": 1.9,
+                "maxMs": 2.1
+              }
+            },
+            {
+              "mode": "exact",
+              "format": 35,
+              "length": 92,
+              "timing": {
+                "medianMs": 2,
+                "p95Ms": 2,
+                "minMs": 1.9,
+                "maxMs": 2
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

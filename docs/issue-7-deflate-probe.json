@@ -1,0 +1,209 @@
+{
+  "environment": {
+    "node": "v24.21.0",
+    "zlib": "1.3.2.1-motley-8002e91",
+    "platform": "darwin",
+    "release": "25.5.0",
+    "arch": "arm64",
+    "cpu": "Apple M1"
+  },
+  "libraries": {
+    "fflate": "0.8.3",
+    "pako": "3.0.2"
+  },
+  "files": [
+    {
+      "file": "fflate@0.8.3/lib/browser.cjs",
+      "bytes": 91611,
+      "gzipBytes": 22505,
+      "sha256": "cbe7f75f83e0ca95ec7f3854fcdc8f854f488485d0ecf03c3a0a7ff29765c690"
+    },
+    {
+      "file": "fflate@0.8.3/umd/index.js",
+      "bytes": 33044,
+      "gzipBytes": 12691,
+      "sha256": "462ef8041fc970e3615a20a9dd2b2e3047a073b2da729ef4f02b634bba8b7b83"
+    },
+    {
+      "file": "pako@3.0.2/dist/pako.mjs",
+      "bytes": 95926,
+      "gzipBytes": 20688,
+      "sha256": "1e22e9ce4302e5376e507e82425d5385c0d7d7e00485cc9c2e1870782ea4033b"
+    },
+    {
+      "file": "pako@3.0.2/dist/browser/pako.esm.min.mjs",
+      "bytes": 45176,
+      "gzipBytes": 13911,
+      "sha256": "6e4f36b9dbe5d08523006906d927eb91d18c97262d39b34baf60b18092fa4b86"
+    }
+  ],
+  "cases": [
+    {
+      "name": "raw batch interoperability with independent node:zlib",
+      "verified": true,
+      "compressedBytes": 883,
+      "outputBytes": 3660
+    },
+    {
+      "name": "raw API rejects gzip and zlib wrapped samples",
+      "verified": true
+    },
+    {
+      "name": "fflate silently accepts trailing bytes (1, first=0)",
+      "unsafeBehaviorReproduced": true,
+      "extraBytes": 1
+    },
+    {
+      "name": "fflate silently accepts trailing bytes (1, first=255)",
+      "unsafeBehaviorReproduced": true,
+      "extraBytes": 1
+    },
+    {
+      "name": "fflate silently accepts trailing bytes (2, first=0)",
+      "unsafeBehaviorReproduced": true,
+      "extraBytes": 2
+    },
+    {
+      "name": "fflate silently accepts trailing bytes (883, first=101)",
+      "unsafeBehaviorReproduced": true,
+      "extraBytes": 883
+    },
+    {
+      "name": "every nonempty truncated prefix of sample is rejected",
+      "verified": true,
+      "prefixes": 882
+    },
+    {
+      "name": "fflate accepts empty input without a final DEFLATE block",
+      "unsafeBehaviorReproduced": true
+    },
+    {
+      "name": "stream callback final flag follows caller, not parsed BFINAL/EOB",
+      "verified": true,
+      "flags": [false]
+    },
+    {
+      "name": "reserved BTYPE=3 rejects even with valid stream following",
+      "verified": true
+    },
+    {
+      "name": "invalid stored block LEN/NLEN is accepted by fflate",
+      "unsafeBehaviorReproduced": true,
+      "hex": "010100000041"
+    },
+    {
+      "name": "unused bits in last byte are distinct from trailing bytes",
+      "verified": true,
+      "significantBits": 10,
+      "consumedBytes": 2
+    },
+    {
+      "name": "fflate out=40960 for 40960 output bytes",
+      "unsafeBehaviorReproduced": false,
+      "compressedBytes": 57,
+      "actualOutputBytes": 40960,
+      "returnedBytes": 40960,
+      "error": false
+    },
+    {
+      "name": "fflate out=40960 for 40961 output bytes",
+      "unsafeBehaviorReproduced": true,
+      "compressedBytes": 56,
+      "actualOutputBytes": 40961,
+      "returnedBytes": 40960,
+      "error": false
+    },
+    {
+      "name": "fflate out=40960 for 8388608 output bytes",
+      "unsafeBehaviorReproduced": true,
+      "compressedBytes": 8157,
+      "actualOutputBytes": 8388608,
+      "returnedBytes": 40960,
+      "error": false
+    },
+    {
+      "name": "fixed output buffer does not stop expansion work at 40KiB",
+      "unsafeBehaviorReproduced": true,
+      "writes": 1048576,
+      "beyondLimitWrites": 1007616
+    },
+    {
+      "name": "stream callback runs after oversized allocation and expansion",
+      "unsafeBehaviorReproduced": true,
+      "compressedBytes": 8157,
+      "firstCallbackBytes": 8388608,
+      "largestAllocationBytes": 16777216
+    },
+    {
+      "name": "pako low-level does not allocate expanding output before stopping",
+      "feasibilityVerified": true,
+      "callerOutputBytes": 40960,
+      "largestInternalUint8ArrayBytes": 32768,
+      "consumed": 54,
+      "compressedBytes": 8157
+    },
+    {
+      "name": "pako 3.0.2 low-level raw interoperability",
+      "feasibilityVerified": true
+    },
+    {
+      "name": "pako low-level distinguishes EOB, unused bits and extra bytes",
+      "feasibilityVerified": true
+    },
+    {
+      "name": "pako low-level rejects truncated and malformed streams",
+      "feasibilityVerified": true
+    },
+    {
+      "name": "pako low-level exact output capacity for 40960 bytes",
+      "feasibilityVerified": true,
+      "compressedBytes": 57,
+      "consumed": 57,
+      "produced": 40960,
+      "status": 1,
+      "entireStreamProcessed": true
+    },
+    {
+      "name": "pako low-level exact output capacity for 40961 bytes",
+      "feasibilityVerified": true,
+      "compressedBytes": 56,
+      "consumed": 56,
+      "produced": 40960,
+      "status": -5,
+      "entireStreamProcessed": false
+    },
+    {
+      "name": "pako low-level exact output capacity for 8388608 bytes",
+      "feasibilityVerified": true,
+      "compressedBytes": 8157,
+      "consumed": 54,
+      "produced": 40960,
+      "status": -5,
+      "entireStreamProcessed": false
+    }
+  ],
+  "browserResults": [
+    {
+      "browser": "chromium",
+      "version": "153.0.8010.12",
+      "rawRoundtripAndDeterminism": true,
+      "fflateSafetyFailuresReproduced": true,
+      "pakoFixedCapacityStopVerified": true
+    },
+    {
+      "browser": "firefox",
+      "version": "155.0",
+      "rawRoundtripAndDeterminism": true,
+      "fflateSafetyFailuresReproduced": true,
+      "pakoFixedCapacityStopVerified": true
+    },
+    {
+      "browser": "webkit",
+      "version": "26.6",
+      "rawRoundtripAndDeterminism": true,
+      "fflateSafetyFailuresReproduced": true,
+      "pakoFixedCapacityStopVerified": true
+    }
+  ],
+  "result": "fflate public APIs fail the required safety gate; no production adoption"
+}
