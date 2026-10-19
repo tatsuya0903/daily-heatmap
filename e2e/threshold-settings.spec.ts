@@ -139,3 +139,24 @@ for (const count of [0, 8]) {
     }
   })
 }
+
+test('巨大件数と最大安全整数付近でもLogの確定境界を正確に表示する', async ({ page }) => {
+  for (const { counts, expected } of [
+    {
+      counts: [100_000_000_000_000, 200_000_000_000_000],
+      expected:
+        '110,408,951,367,382 / 121,901,365,420,448 / 134,590,019,263,236 / 148,599,428,913,695 / 164,067,071,201,528 / 181,144,732,852,782 件',
+    },
+    {
+      counts: [Number.MAX_SAFE_INTEGER - 10, Number.MAX_SAFE_INTEGER],
+      expected:
+        '9,007,199,254,740,983 / 9,007,199,254,740,984 / 9,007,199,254,740,986 / 9,007,199,254,740,987 / 9,007,199,254,740,989 / 9,007,199,254,740,990 件',
+    },
+  ]) {
+    await importCounts(page, `Date\tCount\n2026-04-01\t${counts[0]}\n2026-04-02\t${counts[1]}`)
+    await page.getByRole('combobox', { name: '閾値方式', exact: true }).selectOption('log')
+    await expect(page.getByLabel('確定した境界値', { exact: true })).toContainText(expected)
+    await expect(cell(page, '01')).toHaveAttribute('data-level', '1')
+    await expect(cell(page, '02')).toHaveAttribute('data-level', '7')
+  }
+})

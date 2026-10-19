@@ -103,14 +103,39 @@ function validateCount(value: number): void {
     throw new Error('件数は0以上の安全整数にしてください。')
 }
 
-// log1p/expm1の往復で整数の直上に出る誤差を補正する。
-// 最近整数との差が8 * EPSILON * max(1, |x|)以内ならその整数、それ以外はceil。
-// この許容幅も含めて確定した境界を保存し、復元時には再計算しない。
+// Number単独から「整数の直上の誤差」と「正当な小数」は区別できない。
+// 補正許容幅は0：表現されている値をそのまま切り上げる。
+// 呼出前のNumber変換で失われた小数部分は復元できない。
 export function ceilLogBoundary(value: number): number {
-  const nearest = Math.round(value)
-  return Math.abs(value - nearest) <= 8 * Number.EPSILON * Math.max(1, Math.abs(value))
-    ? nearest
-    : Math.ceil(value)
+  return Math.ceil(value)
+}
+
+function generateLogBoundary(min: number, max: number, k: number): number {
+  const logValue = Math.log1p(min) + ((Math.log1p(max) - Math.log1p(min)) * k) / 7
+  const approximate = ceilLogBoundary(Math.expm1(logValue))
+
+  // SPECの実数境界xについて
+  // (x+1)^7 = (min+1)^(7-k) * (max+1)^k。
+  // 最小の整数bで (b+1)^7 >= target となるものが数学的なceil(x)。
+  // 元件数が安全整数なので、比較には浮動小数点誤差もepsilon補正もない。
+  const target = (BigInt(min) + 1n) ** BigInt(7 - k) * (BigInt(max) + 1n) ** BigInt(k)
+  let lower = BigInt(min) + 1n
+  let upper = BigInt(max)
+  const candidate = BigInt(Math.max(min + 1, Math.min(max, approximate)))
+  if ((candidate + 1n) ** 7n >= target) {
+    if (candidate ** 7n < target) return Number(candidate)
+    upper = candidate - 1n
+  } else {
+    lower = candidate + 1n
+  }
+  // log1p/expm1の候補を上下の比較で検証し、ずれていた場合だけ二分探索する。
+  // 巨大値でlog1p(min)とlog1p(max)が同値になっても、最大53回で確定する。
+  while (lower < upper) {
+    const middle = (lower + upper) / 2n
+    if ((middle + 1n) ** 7n >= target) upper = middle
+    else lower = middle + 1n
+  }
+  return Number(lower)
 }
 
 export function generateBoundaries(method: AutomaticMethod, counts: readonly number[]): number[] {
@@ -130,8 +155,7 @@ export function generateBoundaries(method: AutomaticMethod, counts: readonly num
       const candidate = sorted[Math.ceil((sorted.length * k) / 7)]
       if (candidate !== undefined) candidates.push(candidate)
     } else {
-      const logValue = Math.log1p(min) + ((Math.log1p(max) - Math.log1p(min)) * k) / 7
-      candidates.push(ceilLogBoundary(Math.expm1(logValue)))
+      candidates.push(generateLogBoundary(min, max, k))
     }
   }
   return [

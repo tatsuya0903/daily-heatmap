@@ -151,19 +151,70 @@ describe('生成アルゴリズムの固定例', () => {
     expect(generateBoundaries('quantile', [1, 1, 1, 1, 1, 1, 1, max])).toEqual([max])
   })
 
-  it('Logはlog1p/expm1を使い、整数の両側の誤差を補正してから切り上げる', () => {
+  it('Logはlog1p/expm1の候補を元件数の整数比較で補正し、既存の固定例を維持する', () => {
     expect(generateBoundaries('log', [1, 255])).toEqual([3, 7, 15, 31, 63, 127])
     expect(generateBoundaries('log', [1, 4373])).toEqual([5, 17, 53, 161, 485, 1457])
     expect(generateBoundaries('log', [1, 256])).toEqual([4, 8, 16, 32, 64, 128])
-    expect(ceilLogBoundary(7 + 8 * Number.EPSILON)).toBe(7)
-    expect(ceilLogBoundary(7 - 8 * Number.EPSILON)).toBe(7)
-    expect(ceilLogBoundary(7 + 64 * Number.EPSILON)).toBe(8)
-    expect(ceilLogBoundary(7.01)).toBe(8)
-    expect(ceilLogBoundary(6.99)).toBe(7)
     expect(generateBoundaries('log', [1, 2])).toEqual([2])
     expect(generateBoundaries('log', [1, max])).toEqual([
       344, 59357, 10225827, 1761656762, 303489814597, 52283775990873,
     ])
+  })
+})
+
+describe('Logの切り上げ精度', () => {
+  it.each([0.25, 0.75])('巨大整数の正当な小数部分 %s を補正で消さない', (fraction) => {
+    const integer = 1_000_000_000_000_000
+    expect(ceilLogBoundary(integer + fraction)).toBe(integer + 1)
+  })
+
+  it('単独のNumberの許容幅は0。整数の直上・直下も表現値どおりに切り上げる', () => {
+    expect(ceilLogBoundary(7)).toBe(7)
+    // 直上の値を誤差だと決めつけない。生成時の補正には元のmin/maxを使う。
+    expect(ceilLogBoundary(7 + 8 * Number.EPSILON)).toBe(8)
+    expect(ceilLogBoundary(7 - 8 * Number.EPSILON)).toBe(7)
+    expect(ceilLogBoundary(7 + 64 * Number.EPSILON)).toBe(8)
+    expect(ceilLogBoundary(7.01)).toBe(8)
+    expect(ceilLogBoundary(6.99)).toBe(7)
+  })
+
+  it('100兆〜200兆の全6境界を数学的に切り上げる', () => {
+    // Python Decimalのln/exp、80桁と120桁の両方で同じ切り上げ値。
+    // 2番目の実数境界は121901365420447.588960015561237894...。
+    expect(generateBoundaries('log', [100_000_000_000_000, 200_000_000_000_000])).toEqual([
+      110_408_951_367_382, 121_901_365_420_448, 134_590_019_263_236, 148_599_428_913_695,
+      164_067_071_201_528, 181_144_732_852_782,
+    ])
+  })
+
+  it('巨大な整数に一致する理論境界を余計に1増やさない', () => {
+    // min+1=10^12、max+1=128*10^12。理論値は10^12*2^k-1で厳密な整数。
+    // 有限桁の高精度ln/expも整数の直上/直下へずれるため、この例は代数式で確定する。
+    expect(generateBoundaries('log', [999_999_999_999, 127_999_999_999_999])).toEqual([
+      1_999_999_999_999, 3_999_999_999_999, 7_999_999_999_999, 15_999_999_999_999,
+      31_999_999_999_999, 63_999_999_999_999,
+    ])
+  })
+
+  it('MAX_SAFE_INTEGER直下で対数の差がNumberでは消えても正しく6境界を生成する', () => {
+    // Decimal 80桁・120桁で一致。旧Number計算では候補6個がすべてmax-6になっていた。
+    expect(generateBoundaries('log', [max - 10, max])).toEqual([
+      max - 8,
+      max - 7,
+      max - 5,
+      max - 4,
+      max - 2,
+      max - 1,
+    ])
+    expect(generateBoundaries('log', [max - 1, max])).toEqual([max])
+    expect(ceilLogBoundary(max)).toBe(max)
+  })
+
+  it('Number変換時点で失われた小数は単独の切り上げ関数では復元できない', () => {
+    // この領域の隣接Numberの間隔は1。.25は呼出前に消える。
+    const represented = max - 1 + 0.25
+    expect(represented).toBe(max - 1)
+    expect(ceilLogBoundary(represented)).toBe(max - 1)
   })
 })
 
