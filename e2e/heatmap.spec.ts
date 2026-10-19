@@ -16,6 +16,7 @@ async function inspectDate(locator: Locator, mobile: boolean) {
 }
 
 async function tabIntoCalendar(page: Page, mobile: boolean) {
+  await page.keyboard.press('Tab') // 閾値方式の選択
   if (!mobile) await page.keyboard.press('Tab') // PCのスクロール領域
   await page.keyboard.press('Tab')
 }
@@ -53,9 +54,9 @@ test('年跨ぎの日曜始まり・日本語見出し・0件と余白・詳細�
   const detail = page.getByRole('region', { name: '選択した日付の詳細' })
   await expect(detail).toContainText('2024/01/03（水）')
   await expect(detail).toContainText('1,000件')
-  await expect(detail).toContainText('レベル7 ・ 1,000件以上')
+  await expect(detail).toContainText('レベル2 ・ 1,000件以上')
   await expect(dateCell(page, '2024-01-03')).toHaveAccessibleName(
-    '2024/01/03（水）：1,000件、1,000件以上、レベル7',
+    '2024/01/03（水）：1,000件、1,000件以上、レベル2',
   )
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
@@ -88,7 +89,7 @@ test('Tab・矢印・Home/End・Enter/Spaceで日付にアクセスでき、フ�
   await page.keyboard.press('Enter')
   await page.keyboard.press('Space')
   await expect(detail).toContainText('1,153件')
-  await expect(detail).toContainText('レベル7')
+  await expect(detail).toContainText('レベル1')
   await page.keyboard.press('Home')
   await expect(dateCell(page, '2024-02-28')).toBeFocused()
   await page.keyboard.press('ArrowLeft')

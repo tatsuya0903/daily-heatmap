@@ -13,7 +13,7 @@ const selected = shallowRef<HeatmapCell>()
 watch(
   () => props.cells,
   (cells) => {
-    selected.value = cells[0]
+    selected.value = cells.find((cell) => cell.date === selected.value?.date) ?? cells[0]
   },
   { immediate: true },
 )

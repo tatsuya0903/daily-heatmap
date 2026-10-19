@@ -1,18 +1,18 @@
 import { describe, expect, it } from 'vitest'
 import { createHeatmapCells, groupHeatmapMonths, weekdayOf } from './heatmap'
-import {
-  classifyWithProvisionalPreset,
-  LEVEL_COLORS,
-  PROVISIONAL_LEGEND,
-} from './provisionalPreset'
+import { classifyDocument, createLegend, LEVEL_COLORS, resolveThresholds } from './thresholds'
+import type { ExactSeries } from './series'
 import { aggregateTsv, parseTsv } from './tsv'
 import { dateToEpochDay } from './dates'
 
+const preset = resolveThresholds({ method: 'preset', presetId: 1 }, [])
+const presetLegend = createLegend(preset.boundaries)
+function classifyWithPreset(source: ExactSeries) {
+  return classifyDocument({ source, thresholds: preset })
+}
+
 function cells(startDate: string, counts: number[]) {
-  return createHeatmapCells(
-    startDate,
-    classifyWithProvisionalPreset({ kind: 'exact', startDate, counts }),
-  )
+  return createHeatmapCells(startDate, classifyWithPreset({ kind: 'exact', startDate, counts }))
 }
 
 describe('共通日付セルVMとカレンダー配置', () => {
@@ -47,7 +47,7 @@ describe('共通日付セルVMとカレンダー配置', () => {
   it('TSVにない日と明示的な0件を同じグレーにし、期間外のセルを生成しない', () => {
     const table = parseTsv('Date\tCount\n2026-04-01\t6\n2026-04-03\t0')
     const source = aggregateTsv(table, [1])
-    const result = createHeatmapCells(source.startDate, classifyWithProvisionalPreset(source))
+    const result = createHeatmapCells(source.startDate, classifyWithPreset(source))
     expect(result.map((c) => [c.date, c.exactCount, c.level, c.color])).toEqual([
       ['2026-04-01', 6, 1, '#e6f5e8'],
       ['2026-04-02', 0, 0, '#ebedf0'],
@@ -106,7 +106,7 @@ describe('共通日付セルVMとカレンダー配置', () => {
   })
 })
 
-describe('SPECの暫定固定プリセットID 1', () => {
+describe('SPECの固定プリセットID 1', () => {
   it('0とすべての境界・最大安全整数を正確に表示する', () => {
     const values = [
       0,
@@ -131,7 +131,7 @@ describe('SPECの暫定固定プリセットID 1', () => {
     expect(result.map((c) => c.exactCount)).toEqual(values)
     expect(result.at(-1)?.description).toContain('9,007,199,254,740,991件、1,000件以上、レベル7')
     expect(result.map((c) => c.color)).toEqual(result.map((c) => LEVEL_COLORS[c.level]))
-    expect(PROVISIONAL_LEGEND.map((e) => e.rangeLabel)).toEqual([
+    expect(presetLegend.map((e) => e.rangeLabel)).toEqual([
       '0件',
       '1〜49件',
       '50〜99件',
