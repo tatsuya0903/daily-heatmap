@@ -2,14 +2,21 @@ import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import { createAppVuetify } from '@/plugins/vuetify'
 import { createHeatmapCells } from '@/domain/heatmap'
-import { classifyWithProvisionalPreset, PROVISIONAL_LEGEND } from '@/domain/provisionalPreset'
+import { classifyDocument, createLegend, resolveThresholds } from '@/domain/thresholds'
+import type { ExactSeries } from '@/domain/series'
 import DesktopHeatmap from './DesktopHeatmap.vue'
 import MobileHeatmap from './MobileHeatmap.vue'
 import HeatmapCalendar from './HeatmapCalendar.vue'
 
+const preset = resolveThresholds({ method: 'preset', presetId: 1 }, [])
+const presetLegend = createLegend(preset.boundaries)
+function classifyWithPreset(source: ExactSeries) {
+  return classifyDocument({ source, thresholds: preset })
+}
+
 const cells = createHeatmapCells(
   '2023-12-31',
-  classifyWithProvisionalPreset({ kind: 'exact', startDate: '2023-12-31', counts: [0, 50, 1000] }),
+  classifyWithPreset({ kind: 'exact', startDate: '2023-12-31', counts: [0, 50, 1000] }),
 )
 const global = { plugins: [createAppVuetify()] }
 
@@ -51,7 +58,7 @@ describe('ヒートマップ表示と操作', () => {
   })
 
   it('選択後も正確な件数・範囲・レベルの詳細と8色の凡例を表示する', async () => {
-    const wrapper = mount(HeatmapCalendar, { props: { cells, legend: PROVISIONAL_LEGEND }, global })
+    const wrapper = mount(HeatmapCalendar, { props: { cells, legend: presetLegend }, global })
     const detail = wrapper.get('[aria-live="polite"]')
     expect(detail.text()).toContain('0件')
     await wrapper.get('[data-date="2024-01-02"]').trigger('click')
@@ -61,5 +68,20 @@ describe('ヒートマップ表示と操作', () => {
     expect(wrapper.findAll('li')).toHaveLength(8)
     await wrapper.setProps({ cells: cells.slice(0, 1) })
     expect(detail.text()).toContain('2023/12/31')
+  })
+  it('再分類時には選択日付を維持し、詳細のレベルと範囲だけ更新する', async () => {
+    const wrapper = mount(HeatmapCalendar, { props: { cells, legend: presetLegend }, global })
+    await wrapper.get('[data-date="2024-01-02"]').trigger('click')
+    const source = { kind: 'exact' as const, startDate: '2023-12-31', counts: [0, 50, 1000] }
+    const profile = resolveThresholds({ method: 'quantile' }, source.counts)
+    await wrapper.setProps({
+      cells: createHeatmapCells(
+        source.startDate,
+        classifyDocument({ source, thresholds: profile }),
+      ),
+      legend: createLegend(profile.boundaries),
+    })
+    expect(wrapper.get('[aria-live="polite"]').text()).toContain('2024/01/02')
+    expect(wrapper.get('[aria-live="polite"]').text()).toContain('レベル2 ・ 1,000件以上')
   })
 })

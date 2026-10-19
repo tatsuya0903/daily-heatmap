@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { mdiCalendarBlankOutline } from '@mdi/js'
 import { seriesEndDate } from '@/domain/dates'
 import { createHeatmapCells } from '@/domain/heatmap'
-import { classifyWithProvisionalPreset, PROVISIONAL_LEGEND } from '@/domain/provisionalPreset'
+import ThresholdSettings from '@/components/ThresholdSettings.vue'
 import HeatmapCalendar from '@/components/heatmap/HeatmapCalendar.vue'
 import { useImportedSeriesStore } from '@/stores/importedSeries'
 
@@ -12,9 +12,7 @@ const endDate = computed(() =>
   store.source ? seriesEndDate(store.source.startDate, store.source.counts.length) : '',
 )
 const cells = computed(() =>
-  store.source
-    ? createHeatmapCells(store.source.startDate, classifyWithProvisionalPreset(store.source))
-    : [],
+  store.source ? createHeatmapCells(store.source.startDate, store.classifiedDays) : [],
 )
 </script>
 
@@ -32,10 +30,8 @@ const cells = computed(() =>
       <p class="text-body-1 text-medium-emphasis my-4">
         日付順に整理し、未記録日は0件で補完しました。
       </p>
-      <p class="text-body-2 text-medium-emphasis my-4">
-        暫定表示：固定プリセット「中規模カウント」を使用しています。初期設定の分位点方式と閾値設定は今後対応します。
-      </p>
-      <HeatmapCalendar :cells="cells" :legend="PROVISIONAL_LEGEND" />
+      <ThresholdSettings :profile="store.thresholds" @change="store.setThresholds" />
+      <HeatmapCalendar :cells="cells" :legend="store.legend" />
       <v-btn :to="{ name: 'home' }" color="primary" class="mt-6">別のTSVを読み込む</v-btn>
     </v-card>
     <v-card v-else class="pa-6 pa-sm-10 mt-6" border>
