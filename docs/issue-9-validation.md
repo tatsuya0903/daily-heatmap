@@ -240,3 +240,9 @@ Issue #8の共有ダイアログのscroll strategyには変更していない。
 新規テスト開発時の失敗を区別して記録する。ネイティブpopupのキー注入は再現不能として手動項目に分離し、テスト名/コメントに`selectOption`を使う範囲を明示した。最初の全E2Eは299成功・1失敗で、viewport変更直後の旧desktopセルと新mobileセルの切り替え中にboundingBoxがnullになるテスト側の競合だった。sleep/再試行/skipではなく、対象mobile calendarの表示を待つよう修正し、20件のアクセシビリティ検査と全300件serialを再実行して成功した。Lintのconditional expect警告も検査値をfilterして全件assertする形へ直し、抑制コメントを追加していない。
 
 ログは`/private/tmp/daily-heatmap-issue-9/`の`unit-final.log`、`e2e-serial-first.log`（初回の1失敗を保持）、`e2e-serial-final.log`、`e2e-parallel-final.log`、`accessibility-final.log`、`build-final.log`。性能JSONはE2E内の並列性能出力とは別に取得した専用serial統計を正とする。
+
+## ローカルコミットとGit状態
+
+実装・テスト・README・性能記録のコミットは **`e0c42b1d93334c82866ea256f4411b50ae7c4cfe`**（`test: finish Issue 9 quality audit and README`）。14ファイルを記録した。作業ブランチは`codex/9-quality-readme`。コミット直後の`git status --short`は空で、main / origin/mainはともに`7557d9c8f3fe4fabe0e8da41ad74dccf5c8344d2`のまま。
+
+この節だけを後続の記録用ローカルコミットへ追加する。最終HEADのIDは完了報告に記載し、記録コミット後にも作業ツリーがクリーンであることを確認する。コードやテストは実装コミットから変更しない。push・PR・Ready化・merge・タグ・Pages公開・Issue #10の実装は行っていない。
