@@ -3,6 +3,7 @@ import { computed, nextTick, ref, useTemplateRef } from 'vue'
 import { useRouter } from 'vue-router'
 import { selectShareEncoding, type ShareMode } from '@/codec'
 import type { HeatmapDocument } from '@/domain/series'
+import { blockShareScroll } from '@/sharing/blockShareScroll'
 import { createShareUrl, LONG_SHARE_URL_CHARS, shareErrorMessage } from '@/sharing/shareUrl'
 
 const props = defineProps<{ document: HeatmapDocument }>()
@@ -51,7 +52,13 @@ function changeMode() {
 </script>
 
 <template>
-  <v-dialog v-model="open" max-width="640" aria-labelledby="share-title" scrollable>
+  <v-dialog
+    :scroll-strategy="blockShareScroll"
+    v-model="open"
+    max-width="640"
+    aria-labelledby="share-title"
+    scrollable
+  >
     <v-card class="share-card">
       <v-card-title id="share-title">ヒートマップを共有</v-card-title>
       <v-card-text>

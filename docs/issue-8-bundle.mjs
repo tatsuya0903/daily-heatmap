@@ -6,7 +6,7 @@ import { resolve } from 'node:path'
 import { gzipSync } from 'node:zlib'
 import { build } from 'vite'
 
-const baseline = '5634907'
+const baseline = process.argv[2] ?? '5634907'
 const root = process.cwd()
 mkdirSync(resolve(root, 'node_modules/.tmp'), { recursive: true })
 const temporary = mkdtempSync(resolve(root, 'node_modules/.tmp/issue-8-bundle-'))

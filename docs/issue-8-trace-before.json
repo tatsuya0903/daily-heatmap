@@ -1,0 +1,656 @@
+{
+  "source": "/private/tmp/daily-heatmap-issue-8-investigation/before-trace-chromium-3660.trace.json",
+  "note": "Categories overlap; v8/TimerFire include synchronous style work and must not be summed with rendering.",
+  "windows": [
+    {
+      "name": "dialog-0-initial",
+      "durationMs": 836.8,
+      "twoFrameMs": 56.64,
+      "focusMs": 807.3999999985099,
+      "readyMs": 836.7999999970198,
+      "categories": {
+        "UpdateLayoutTree": {
+          "count": 13,
+          "unionMs": 732.776,
+          "maxEventMs": 312.785
+        },
+        "Layout": {
+          "count": 3,
+          "unionMs": 2.486,
+          "maxEventMs": 1.922
+        },
+        "PrePaint": {
+          "count": 10,
+          "unionMs": 6.643,
+          "maxEventMs": 3.479
+        },
+        "Paint": {
+          "count": 13,
+          "unionMs": 3.867,
+          "maxEventMs": 3.055
+        },
+        "v8.callFunction": {
+          "count": 34,
+          "unionMs": 452.154,
+          "maxEventMs": 417.713
+        },
+        "FunctionCall": {
+          "count": 31,
+          "unionMs": 14.601,
+          "maxEventMs": 7.796
+        },
+        "TimerFire": {
+          "count": 11,
+          "unionMs": 426.125,
+          "maxEventMs": 417.719
+        },
+        "FireAnimationFrame": {
+          "count": 12,
+          "unionMs": 2.84,
+          "maxEventMs": 1.342
+        }
+      },
+      "expensiveStyleEvents": [
+        {
+          "durationMs": 205.268,
+          "startAfterClickMs": 60.004,
+          "elementCount": 18440,
+          "stack": [
+            {
+              "columnNumber": 58027,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57908,
+              "functionName": "MC",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57377,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 2123,
+              "functionName": "run",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57301,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            }
+          ]
+        },
+        {
+          "durationMs": 211.956,
+          "startAfterClickMs": 265.313,
+          "elementCount": 18440,
+          "stack": [
+            {
+              "columnNumber": 58089,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57908,
+              "functionName": "MC",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57377,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 2123,
+              "functionName": "run",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57301,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            }
+          ]
+        },
+        {
+          "durationMs": 312.785,
+          "startAfterClickMs": 477.715,
+          "elementCount": 18440
+        }
+      ]
+    },
+    {
+      "name": "dialog-0-reopen",
+      "durationMs": 1064.3,
+      "twoFrameMs": 434.572,
+      "focusMs": 973.5,
+      "readyMs": 1064.2999999970198,
+      "categories": {
+        "UpdateLayoutTree": {
+          "count": 29,
+          "unionMs": 728.527,
+          "maxEventMs": 310.859
+        },
+        "Layout": {
+          "count": 3,
+          "unionMs": 0.9,
+          "maxEventMs": 0.593
+        },
+        "PrePaint": {
+          "count": 25,
+          "unionMs": 5.137,
+          "maxEventMs": 3.052
+        },
+        "Paint": {
+          "count": 11,
+          "unionMs": 3.733,
+          "maxEventMs": 3.125
+        },
+        "v8.callFunction": {
+          "count": 67,
+          "unionMs": 742.206,
+          "maxEventMs": 414.555
+        },
+        "FunctionCall": {
+          "count": 64,
+          "unionMs": 316.282,
+          "maxEventMs": 311.214
+        },
+        "TimerFire": {
+          "count": 26,
+          "unionMs": 416.886,
+          "maxEventMs": 414.568
+        },
+        "FireAnimationFrame": {
+          "count": 31,
+          "unionMs": 313.532,
+          "maxEventMs": 311.22
+        }
+      },
+      "expensiveStyleEvents": [
+        {
+          "durationMs": 208.039,
+          "startAfterClickMs": 20.111,
+          "elementCount": 18440,
+          "stack": [
+            {
+              "columnNumber": 58027,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57908,
+              "functionName": "MC",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57377,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 2123,
+              "functionName": "run",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57301,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            }
+          ]
+        },
+        {
+          "durationMs": 206.229,
+          "startAfterClickMs": 228.196,
+          "elementCount": 18440,
+          "stack": [
+            {
+              "columnNumber": 58089,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57908,
+              "functionName": "MC",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57377,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 2123,
+              "functionName": "run",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57301,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            }
+          ]
+        },
+        {
+          "durationMs": 310.859,
+          "startAfterClickMs": 434.616,
+          "elementCount": 18440,
+          "stack": [
+            {
+              "columnNumber": 70994,
+              "functionName": "r",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 71017,
+              "functionName": "Es",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 70767,
+              "functionName": "Ts",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 69741,
+              "functionName": "",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dialog-0-threshold",
+      "durationMs": 1480.8,
+      "twoFrameMs": 731.328,
+      "focusMs": 1372.6000000014901,
+      "readyMs": 1480.7999999970198,
+      "categories": {
+        "UpdateLayoutTree": {
+          "count": 30,
+          "unionMs": 1125.36,
+          "maxEventMs": 410.271
+        },
+        "Layout": {
+          "count": 4,
+          "unionMs": 1.098,
+          "maxEventMs": 0.591
+        },
+        "PrePaint": {
+          "count": 27,
+          "unionMs": 5.588,
+          "maxEventMs": 3.305
+        },
+        "Paint": {
+          "count": 13,
+          "unionMs": 4.115,
+          "maxEventMs": 3.495
+        },
+        "v8.callFunction": {
+          "count": 71,
+          "unionMs": 1134.329,
+          "maxEventMs": 711.445
+        },
+        "FunctionCall": {
+          "count": 68,
+          "unionMs": 414.528,
+          "maxEventMs": 410.622
+        },
+        "TimerFire": {
+          "count": 28,
+          "unionMs": 713.633,
+          "maxEventMs": 711.451
+        },
+        "FireAnimationFrame": {
+          "count": 34,
+          "unionMs": 412.08,
+          "maxEventMs": 410.627
+        }
+      },
+      "expensiveStyleEvents": [
+        {
+          "durationMs": 305.818,
+          "startAfterClickMs": 19.945,
+          "elementCount": 18440,
+          "stack": [
+            {
+              "columnNumber": 58027,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57908,
+              "functionName": "MC",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57377,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 2123,
+              "functionName": "run",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57301,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            }
+          ]
+        },
+        {
+          "durationMs": 404.708,
+          "startAfterClickMs": 326.415,
+          "elementCount": 18440,
+          "stack": [
+            {
+              "columnNumber": 58089,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57908,
+              "functionName": "MC",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57377,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 2123,
+              "functionName": "run",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57301,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            }
+          ]
+        },
+        {
+          "durationMs": 410.271,
+          "startAfterClickMs": 731.368,
+          "elementCount": 18440,
+          "stack": [
+            {
+              "columnNumber": 70994,
+              "functionName": "r",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 71017,
+              "functionName": "Es",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 70767,
+              "functionName": "Ts",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 69741,
+              "functionName": "",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dialog-0-url",
+      "durationMs": 5462,
+      "twoFrameMs": 2864.945,
+      "focusMs": 5361.0999999940395,
+      "readyMs": 5462,
+      "categories": {
+        "UpdateLayoutTree": {
+          "count": 30,
+          "unionMs": 5114.517,
+          "maxEventMs": 2268.235
+        },
+        "Layout": {
+          "count": 4,
+          "unionMs": 1.298,
+          "maxEventMs": 0.712
+        },
+        "PrePaint": {
+          "count": 27,
+          "unionMs": 6.354,
+          "maxEventMs": 3.625
+        },
+        "Paint": {
+          "count": 13,
+          "unionMs": 7.892,
+          "maxEventMs": 7.195
+        },
+        "v8.callFunction": {
+          "count": 67,
+          "unionMs": 5121.54,
+          "maxEventMs": 2842.148
+        },
+        "FunctionCall": {
+          "count": 64,
+          "unionMs": 2273.15,
+          "maxEventMs": 2268.625
+        },
+        "TimerFire": {
+          "count": 27,
+          "unionMs": 2844.625,
+          "maxEventMs": 2842.155
+        },
+        "FireAnimationFrame": {
+          "count": 31,
+          "unionMs": 2270.139,
+          "maxEventMs": 2268.635
+        }
+      },
+      "expensiveStyleEvents": [
+        {
+          "durationMs": 1364.992,
+          "startAfterClickMs": 22.72,
+          "elementCount": 18440,
+          "stack": [
+            {
+              "columnNumber": 58027,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57908,
+              "functionName": "MC",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57377,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 2123,
+              "functionName": "run",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57301,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            }
+          ]
+        },
+        {
+          "durationMs": 1476.789,
+          "startAfterClickMs": 1387.818,
+          "elementCount": 18440,
+          "stack": [
+            {
+              "columnNumber": 58089,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57908,
+              "functionName": "MC",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57377,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 2123,
+              "functionName": "run",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 57301,
+              "functionName": "",
+              "lineNumber": 14,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            }
+          ]
+        },
+        {
+          "durationMs": 2268.235,
+          "startAfterClickMs": 2865,
+          "elementCount": 18440,
+          "stack": [
+            {
+              "columnNumber": 70994,
+              "functionName": "r",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 71017,
+              "functionName": "Es",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 70767,
+              "functionName": "Ts",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            },
+            {
+              "columnNumber": 69741,
+              "functionName": "",
+              "lineNumber": 1,
+              "scriptId": "4",
+              "url": "http://127.0.0.1:4173/daily-heatmap/assets/index-DmMvYEEe.js"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

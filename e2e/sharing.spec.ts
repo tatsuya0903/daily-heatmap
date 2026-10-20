@@ -325,3 +325,60 @@ test('320pxの長いURL警告は共有を妨げず、フォーカス・ラジオ
   await expect(page.getByRole('dialog')).toHaveCount(0)
   await expect(trigger).toBeFocused()
 })
+
+test('共有の背景固定・スクロール復元・全セルとフォーカスをURL差し替え後も維持する', async ({
+  page,
+}) => {
+  const source = {
+    kind: 'exact' as const,
+    startDate: '2016-01-01',
+    counts: Array.from({ length: 3660 }, (_, i) => i % 1200),
+  }
+  await page.goto(route(selectShareEncoding({ ...sampleDocument, source }, 'exact').d))
+  await expect(page.locator('[data-date]')).toHaveCount(3660)
+  const replacement = selectShareEncoding(
+    { source, thresholds: { method: 'linear', boundaries: [2] } },
+    'exact',
+  ).d
+  await page.evaluate((d) => {
+    location.hash = `/heatmap?d=${d}`
+  }, replacement)
+  await expect(boundaries(page)).toContainText('2 件')
+  await page.evaluate(() => window.scrollTo(0, 180))
+  const before = await page.evaluate(() => ({
+    y: window.scrollY,
+    style: document.documentElement.style.cssText,
+    labels: [...document.querySelectorAll('[data-date]')].map((cell) =>
+      cell.getAttribute('aria-label'),
+    ),
+    // 継承CSS変数の変更によるSVG全体の再計算を、時間上限に依存せず検出する。
+    inherited: ['--v-body-scroll-x', '--v-body-scroll-y'].map((name) =>
+      getComputedStyle(document.querySelector('[data-date]')!).getPropertyValue(name),
+    ),
+  }))
+  for (let iteration = 0; iteration < 2; iteration++) {
+    await openShare(page)
+    await expect
+      .poll(() => page.getByRole('dialog').evaluate((el) => el.contains(document.activeElement)))
+      .toBe(true)
+    await expect(page.locator('html')).toHaveCSS('position', 'fixed')
+    const current = await page.evaluate(() => ({
+      labels: [...document.querySelectorAll('[data-date]')].map((cell) =>
+        cell.getAttribute('aria-label'),
+      ),
+      inherited: ['--v-body-scroll-x', '--v-body-scroll-y'].map((name) =>
+        getComputedStyle(document.querySelector('[data-date]')!).getPropertyValue(name),
+      ),
+    }))
+    expect(current.labels).toEqual(before.labels)
+    expect(current.inherited).toEqual(before.inherited)
+    await page.keyboard.press('PageDown')
+    await expect(page.locator('html')).toHaveCSS('top', `-${before.y}px`)
+    await page.keyboard.press('Escape')
+    await expect(page.getByRole('dialog')).toHaveCount(0)
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(before.y)
+    expect(await page.evaluate(() => document.documentElement.style.cssText)).toBe(before.style)
+    await expect(page.getByRole('button', { name: '共有する', exact: true })).toBeFocused()
+    await expect(page.locator('[data-date]')).toHaveCount(3660)
+  }
+})
