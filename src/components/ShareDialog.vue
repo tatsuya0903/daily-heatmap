@@ -60,7 +60,7 @@ function changeMode() {
     scrollable
   >
     <v-card class="share-card">
-      <v-card-title id="share-title">ヒートマップを共有</v-card-title>
+      <v-card-title id="share-title" tag="h2">ヒートマップを共有</v-card-title>
       <v-card-text>
         <v-radio-group
           v-model="mode"

@@ -105,7 +105,11 @@ body {
 }
 
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
   outline: 3px solid #256b43;
   outline-offset: 4px;
 }
@@ -159,4 +163,35 @@ button:focus-visible {
   padding: 16px;
   overflow-x: auto;
   background: #f4f7f5;
+}
+
+/* Vuetifyのinput自体は透明なので、見える操作領域に枠を表示する。 */
+.v-selection-control__input:has(input:focus-visible) {
+  outline: 3px solid #256b43;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Vuetifyのfill/ダイアログ遷移もOSの動きの軽減設定に従う。 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .v-selection-control__input:has(input:focus-visible),
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  summary:focus-visible {
+    outline-color: Highlight;
+  }
 }

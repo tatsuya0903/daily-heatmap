@@ -128,8 +128,12 @@ function cellProps(item: { raw: { cell: HeatmapCell } }) {
   stroke: #1c2e23;
   stroke-width: 3px;
 }
+:deep(.v-heatmap__cell[data-level='6']:focus .v-heatmap__cell-rect),
+:deep(.v-heatmap__cell[data-level='7']:focus .v-heatmap__cell-rect) {
+  stroke: #fff;
+}
 @media (forced-colors: active) {
-  :deep(.v-heatmap__cell:focus .v-heatmap__cell-rect) {
+  :deep(.v-heatmap__cell[data-level]:focus .v-heatmap__cell-rect) {
     stroke: Highlight;
   }
 }

@@ -14,9 +14,12 @@ export function createAppVuetify() {
       themes: {
         dailyLight: {
           dark: false,
+          variables: { 'medium-emphasis-opacity': 0.75 },
           colors: {
             primary: '#256b43',
             secondary: '#52645a',
+            info: '#005a9c',
+            warning: '#754400',
             background: '#f7f9f6',
             surface: '#ffffff',
             'on-background': '#1c2e23',

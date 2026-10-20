@@ -19,13 +19,15 @@ const method = (page: Page) => page.getByRole('combobox', { name: '閾値方式'
 const boundaries = (page: Page) => page.getByLabel('確定した境界値', { exact: true })
 const detail = (page: Page) => page.getByRole('region', { name: '選択した日付の詳細' })
 
-async function importTsv(page: Page) {
+async function importTsv(page: Page, twoColumns = false) {
   await page.goto('./')
   await page.getByLabel('TSVファイル', { exact: true }).setInputFiles({
     name: '架空氏名のファイル.tsv',
     mimeType: 'text/tab-separated-values',
     buffer: Buffer.from(
-      'Date\t架空列名A\t架空列名B\n2026-04-01\t3\t3\n2026-04-02\t2\t2\n2026-04-04\t21\t24',
+      twoColumns
+        ? 'Date\tCount\n2026-04-01\t6\n2026-04-02\t4\n2026-04-04\t45'
+        : 'Date\t架空列名A\t架空列名B\n2026-04-01\t3\t3\n2026-04-02\t2\t2\n2026-04-04\t21\t24',
     ),
   })
   await page.getByRole('button', { name: '選択した列を読み込む' }).click()
@@ -72,7 +74,7 @@ async function snapshot(page: Page) {
   }
 }
 
-test('TSV→閾値変更→コピー成功→新規タブのコンパクト復元と再共有（外部通信なし）', async ({
+test('2列TSV→初期分位点→閾値変更→コピー成功→新規タブのコンパクト復元と再共有（外部通信なし）', async ({
   page,
   context,
 }, testInfo) => {
@@ -86,7 +88,13 @@ test('TSV→閾値変更→コピー成功→新規タブのコンパクト復�
       },
     })
   })
-  await importTsv(page)
+  await importTsv(page, true)
+  await expect(method(page)).toHaveValue('quantile')
+  await expect(detail(page).locator('.detail-count')).toHaveText('6件')
+  await expect(page.locator('[data-date="2026-04-03"]')).toHaveAttribute('data-level', '0')
+  await expect(
+    page.getByRole('list', { name: 'レベルと件数範囲の凡例' }).getByRole('listitem'),
+  ).toHaveCount(8)
   await method(page).selectOption('linear')
   const before = await snapshot(page)
   const requests: string[] = []
@@ -118,6 +126,9 @@ test('TSV→閾値変更→コピー成功→新規タブのコンパクト復�
   expect(await snapshot(shared)).toEqual(before)
   await shared.locator('[data-date="2026-04-01"]').click()
   await expect(detail(shared).locator('.detail-count')).toHaveText('1〜9件')
+  await expect(shared.locator('[data-date="2026-04-01"]')).toHaveAccessibleName(
+    '2026/04/01（水）：1〜9件、レベル1',
+  )
   await expect(detail(shared)).not.toContainText('6件（')
   await expect(method(shared)).toBeDisabled()
   await shared.reload()
@@ -381,4 +392,73 @@ test('共有の背景固定・スクロール復元・全セルとフォーカ�
     await expect(page.getByRole('button', { name: '共有する', exact: true })).toBeFocused()
     await expect(page.locator('[data-date]')).toHaveCount(3660)
   }
+})
+
+test('複数列の部分合算→5方式→完全URL→新規タブ→両形式への再共有', async ({ page, context }) => {
+  await page.goto('./')
+  const sample = await page.request.get('./sample.tsv')
+  expect(sample.ok()).toBe(true)
+  await page.getByLabel('TSVファイル', { exact: true }).setInputFiles({
+    name: 'synthetic-private-name.tsv',
+    mimeType: 'text/tab-separated-values',
+    buffer: Buffer.from(await sample.text()),
+  })
+  for (const name of ['A件数', 'B件数', 'C件数'])
+    await expect(page.getByRole('checkbox', { name, exact: true })).toBeChecked()
+  await page.getByRole('checkbox', { name: 'C件数', exact: true }).uncheck()
+  await page.getByRole('button', { name: '選択した列を読み込む' }).click()
+  await expect(page.getByRole('status')).toContainText('2026-04-01 〜 2026-04-05（5日分）')
+  const counts = [6, 4, 0, 45, 0]
+  for (let i = 0; i < counts.length; i++) {
+    await page.locator(`[data-date="2026-04-0${i + 1}"]`).click()
+    await expect(detail(page).locator('.detail-count')).toHaveText(`${counts[i]}件`)
+  }
+  for (const value of ['preset', 'linear', 'quantile', 'log', 'custom']) {
+    await method(page).selectOption(value)
+    await expect(method(page)).toHaveValue(value)
+    await expect(detail(page).locator('.detail-count')).toHaveText('0件')
+  }
+  await page.getByLabel('境界値6', { exact: true }).fill('60')
+  await expect(boundaries(page)).toContainText('2 / 3 / 5 / 10 / 20 / 60 件')
+  const before = await snapshot(page)
+  const url = await openShare(page, true)
+  const document = decodeUrl(url)
+  expect(document).toEqual({
+    source: { kind: 'exact', startDate: '2026-04-01', counts },
+    thresholds: { method: 'custom', boundaries: [2, 3, 5, 10, 20, 60] },
+  })
+  expect(JSON.stringify(document)).not.toMatch(/A件数|B件数|C件数|synthetic|tsv/)
+  const restored = await context.newPage()
+  await restored.goto(url)
+  await expect(restored.locator('[data-date]')).toHaveCount(5)
+  expect(await snapshot(restored)).toEqual(before)
+  for (let i = 0; i < counts.length; i++) {
+    await restored.locator(`[data-date="2026-04-0${i + 1}"]`).click()
+    await expect(detail(restored).locator('.detail-count')).toHaveText(`${counts[i]}件`)
+  }
+  await method(restored).selectOption('linear')
+  const compact = decodeUrl(await openShare(restored))
+  await restored.getByRole('radio', { name: '完全データ（正確な件数）', exact: true }).check()
+  const exact = decodeUrl(await urlField(restored).inputValue())
+  expect(compact.source.kind).toBe('levels')
+  expect(exact.source).toEqual(document.source)
+  expect(compact.thresholds).toEqual(exact.thresholds)
+  expect(exact.thresholds.method).toBe('linear')
+  await restored.close()
+})
+
+test('TSV由来のPiniaがあってもHTML風の不正URLは部分表示もHTML解釈もしない', async ({ page }) => {
+  await importTsv(page)
+  await expect(page.locator('[data-date]')).toHaveCount(4)
+  await page.evaluate(() => {
+    location.hash =
+      '/heatmap?d=' +
+      encodeURIComponent('<img id="url-injection" src=x onerror="document.title=123">')
+  })
+  await expect(page.getByRole('alert')).toBeVisible()
+  await expect(page.locator('[data-date]')).toHaveCount(0)
+  await expect(page.getByRole('list', { name: 'レベルと件数範囲の凡例' })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '共有する', exact: true })).toHaveCount(0)
+  await expect(page.locator('#url-injection')).toHaveCount(0)
+  await expect(page).not.toHaveTitle('123')
 })

@@ -8,6 +8,7 @@ import { aggregateTsv, type ParsedTsv } from '@/domain/tsv'
 import { readTsvFile } from '@/domain/tsvFile'
 import { useImportedSeriesStore } from '@/stores/importedSeries'
 
+const sampleUrl = `${import.meta.env.BASE_URL}sample.tsv`
 const router = useRouter()
 const store = useImportedSeriesStore()
 const fileInput = useTemplateRef<HTMLInputElement>('fileInput')
@@ -146,6 +147,10 @@ async function importSelected() {
       </form>
       <details class="mt-6">
         <summary>TSVの形式と架空のサンプル</summary>
+        <p class="my-3">
+          <a :href="sampleUrl" download="sample.tsv">合成サンプルTSVを保存</a>
+          （A・B・C件数の3列、未記録日と0件を含む架空データ）
+        </p>
         <p class="my-3">列はタブで区切ります。日付はYYYY-MM-DD、件数は0以上の安全な整数です。</p>
         <pre class="sample-tsv">
 Date&#9;Count
