@@ -1,0 +1,348 @@
+{
+  "source": "/private/tmp/daily-heatmap-issue-9/final-current-trace-chromium-3660.trace.json",
+  "note": "Categories overlap; inclusive JavaScript may contain synchronous Style/Layout. Do not sum categories. two-frame precedes getAnimations; end includes that diagnostic query and finite transition wait.",
+  "windows": [
+    {
+      "name": "render-initial-two-frame",
+      "durationMs": 384.725,
+      "categories": {
+        "v8.callFunction": {
+          "count": 11,
+          "unionMs": 346.322
+        },
+        "FunctionCall": {
+          "count": 11,
+          "unionMs": 5.733
+        },
+        "RunMicrotasks": {
+          "count": 0,
+          "unionMs": 0
+        },
+        "UpdateLayoutTree": {
+          "count": 4,
+          "unionMs": 195.209
+        },
+        "Layout": {
+          "count": 1,
+          "unionMs": 6.723
+        },
+        "PrePaint": {
+          "count": 4,
+          "unionMs": 4.082
+        },
+        "Paint": {
+          "count": 2,
+          "unionMs": 4.858
+        },
+        "FireAnimationFrame": {
+          "count": 4,
+          "unionMs": 0.173
+        }
+      },
+      "expensiveStyle": [
+        {
+          "ms": 194.922,
+          "elements": 18536,
+          "stack": [
+            {
+              "source": "../../node_modules/vue-router/dist/devtools-CN5uWJaH.js",
+              "line": 368,
+              "column": 64,
+              "name": null
+            },
+            {
+              "source": "../../node_modules/vue-router/dist/vue-router.js",
+              "line": 1490,
+              "column": 133,
+              "name": "scrollToPosition"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "render-initial-end",
+      "durationMs": 413.44,
+      "categories": {
+        "v8.callFunction": {
+          "count": 16,
+          "unionMs": 346.605
+        },
+        "FunctionCall": {
+          "count": 16,
+          "unionMs": 5.991
+        },
+        "RunMicrotasks": {
+          "count": 0,
+          "unionMs": 0
+        },
+        "UpdateLayoutTree": {
+          "count": 4,
+          "unionMs": 195.209
+        },
+        "Layout": {
+          "count": 1,
+          "unionMs": 6.723
+        },
+        "PrePaint": {
+          "count": 6,
+          "unionMs": 4.091
+        },
+        "Paint": {
+          "count": 2,
+          "unionMs": 4.858
+        },
+        "FireAnimationFrame": {
+          "count": 7,
+          "unionMs": 0.431
+        }
+      },
+      "expensiveStyle": [
+        {
+          "ms": 194.922,
+          "elements": 18536,
+          "stack": [
+            {
+              "source": "../../node_modules/vue-router/dist/devtools-CN5uWJaH.js",
+              "line": 368,
+              "column": 64,
+              "name": null
+            },
+            {
+              "source": "../../node_modules/vue-router/dist/vue-router.js",
+              "line": 1490,
+              "column": 133,
+              "name": "scrollToPosition"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "render-threshold-two-frame",
+      "durationMs": 934.436,
+      "categories": {
+        "v8.callFunction": {
+          "count": 7,
+          "unionMs": 1.718
+        },
+        "FunctionCall": {
+          "count": 7,
+          "unionMs": 1.065
+        },
+        "RunMicrotasks": {
+          "count": 0,
+          "unionMs": 0
+        },
+        "UpdateLayoutTree": {
+          "count": 2,
+          "unionMs": 815.232
+        },
+        "Layout": {
+          "count": 1,
+          "unionMs": 0.825
+        },
+        "PrePaint": {
+          "count": 2,
+          "unionMs": 0.264
+        },
+        "Paint": {
+          "count": 2,
+          "unionMs": 3.785
+        },
+        "FireAnimationFrame": {
+          "count": 2,
+          "unionMs": 0.053
+        }
+      },
+      "expensiveStyle": [
+        {
+          "ms": 815.038,
+          "elements": 15674
+        }
+      ]
+    },
+    {
+      "name": "render-threshold-end",
+      "durationMs": 965.322,
+      "categories": {
+        "v8.callFunction": {
+          "count": 12,
+          "unionMs": 8.474
+        },
+        "FunctionCall": {
+          "count": 12,
+          "unionMs": 7.763
+        },
+        "RunMicrotasks": {
+          "count": 0,
+          "unionMs": 0
+        },
+        "UpdateLayoutTree": {
+          "count": 3,
+          "unionMs": 820.671
+        },
+        "Layout": {
+          "count": 1,
+          "unionMs": 0.825
+        },
+        "PrePaint": {
+          "count": 4,
+          "unionMs": 1.198
+        },
+        "Paint": {
+          "count": 4,
+          "unionMs": 6.743
+        },
+        "FireAnimationFrame": {
+          "count": 6,
+          "unionMs": 6.737
+        }
+      },
+      "expensiveStyle": [
+        {
+          "ms": 815.038,
+          "elements": 15674
+        }
+      ]
+    },
+    {
+      "name": "render-url-two-frame",
+      "durationMs": 1505.948,
+      "categories": {
+        "v8.callFunction": {
+          "count": 5,
+          "unionMs": 1.711
+        },
+        "FunctionCall": {
+          "count": 4,
+          "unionMs": 0.622
+        },
+        "RunMicrotasks": {
+          "count": 0,
+          "unionMs": 0
+        },
+        "UpdateLayoutTree": {
+          "count": 3,
+          "unionMs": 1322.03
+        },
+        "Layout": {
+          "count": 1,
+          "unionMs": 0.765
+        },
+        "PrePaint": {
+          "count": 3,
+          "unionMs": 0.351
+        },
+        "Paint": {
+          "count": 1,
+          "unionMs": 3.714
+        },
+        "FireAnimationFrame": {
+          "count": 2,
+          "unionMs": 0.092
+        }
+      },
+      "expensiveStyle": [
+        {
+          "ms": 1320.92,
+          "elements": 18347,
+          "stack": [
+            {
+              "source": "../../node_modules/vue-router/dist/devtools-CN5uWJaH.js",
+              "line": 368,
+              "column": 64,
+              "name": null
+            },
+            {
+              "source": "../../node_modules/vue-router/dist/vue-router.js",
+              "line": 1490,
+              "column": 133,
+              "name": "scrollToPosition"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "render-url-end",
+      "durationMs": 1812.21,
+      "categories": {
+        "v8.callFunction": {
+          "count": 11,
+          "unionMs": 280.872
+        },
+        "FunctionCall": {
+          "count": 10,
+          "unionMs": 279.256
+        },
+        "RunMicrotasks": {
+          "count": 0,
+          "unionMs": 0
+        },
+        "UpdateLayoutTree": {
+          "count": 5,
+          "unionMs": 1337.502
+        },
+        "Layout": {
+          "count": 1,
+          "unionMs": 0.765
+        },
+        "PrePaint": {
+          "count": 5,
+          "unionMs": 2.524
+        },
+        "Paint": {
+          "count": 5,
+          "unionMs": 9.731
+        },
+        "FireAnimationFrame": {
+          "count": 7,
+          "unionMs": 278.749
+        }
+      },
+      "expensiveStyle": [
+        {
+          "ms": 1320.92,
+          "elements": 18347,
+          "stack": [
+            {
+              "source": "../../node_modules/vue-router/dist/devtools-CN5uWJaH.js",
+              "line": 368,
+              "column": 64,
+              "name": null
+            },
+            {
+              "source": "../../node_modules/vue-router/dist/vue-router.js",
+              "line": 1490,
+              "column": 133,
+              "name": "scrollToPosition"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sampledLeaves": {
+    "scrollTo": 9922,
+    "(program)": 6168,
+    "getAnimations": 1823,
+    "../../node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js": 724,
+    "../../src/domain/heatmap.ts": 599,
+    "(idle)": 252,
+    "../../node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js": 243,
+    "../../node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js": 146,
+    "setAttribute": 106,
+    "../../node_modules/vuetify/lib/labs/VHeatmap/VHeatmapCell.js": 93,
+    "(garbage collector)": 91,
+    "../../node_modules/vuetify/lib/composables/defaults.js": 88,
+    "../../node_modules/@vue/runtime-core/node_modules/@vue/shared/dist/shared.esm-bundler.js": 84,
+    "../../node_modules/vuetify/lib/labs/VHeatmap/heatmap.js": 74,
+    "": 50,
+    "setProperty": 47,
+    "insertBefore": 45,
+    "../../src/domain/dates.ts": 34,
+    "../../src/domain/thresholds.ts": 34,
+    "createElementNS": 33
+  }
+}
