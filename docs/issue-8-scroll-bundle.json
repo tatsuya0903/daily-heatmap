@@ -1,0 +1,55 @@
+{
+  "baseline": "dcce231824329e3acbfb2fcf1878e107194adf1a",
+  "node": "v24.21.0",
+  "gzip": "node:zlib gzipSync defaults; each asset compressed separately",
+  "before": {
+    "assets": [
+      {
+        "file": "assets/index-DmMvYEEe.js",
+        "bytes": 382288,
+        "gzipBytes": 135522
+      },
+      {
+        "file": "assets/index-CTrtt0JA.css",
+        "bytes": 263794,
+        "gzipBytes": 38793
+      },
+      {
+        "file": "index.html",
+        "bytes": 703,
+        "gzipBytes": 445
+      }
+    ],
+    "total": {
+      "bytes": 646785,
+      "gzipBytes": 174760
+    }
+  },
+  "after": {
+    "assets": [
+      {
+        "file": "assets/index-BqsaEq_o.js",
+        "bytes": 383173,
+        "gzipBytes": 135856
+      },
+      {
+        "file": "assets/index-BxbtMJ2z.css",
+        "bytes": 263794,
+        "gzipBytes": 38794
+      },
+      {
+        "file": "index.html",
+        "bytes": 703,
+        "gzipBytes": 445
+      }
+    ],
+    "total": {
+      "bytes": 647670,
+      "gzipBytes": 175095
+    }
+  },
+  "increase": {
+    "bytes": 885,
+    "gzipBytes": 335
+  }
+}

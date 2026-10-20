@@ -1,0 +1,1182 @@
+[
+  {
+    "project": "chromium",
+    "browserVersion": "153.0.8010.12",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "devicePixelRatio": 1,
+    "cpuThrottling": false,
+    "ui": [
+      {
+        "dialogMs": 45.399999998509884,
+        "exactModeMs": 20.5,
+        "thresholdMs": 275.20000000298023,
+        "restoreMs": 1343.6000000014901
+      },
+      {
+        "dialogMs": 2319.39999999851,
+        "exactModeMs": 21.700000002980232,
+        "thresholdMs": 355.80000000447035,
+        "restoreMs": 1347.7999999970198
+      },
+      {
+        "dialogMs": 2361.5,
+        "exactModeMs": 19.600000001490116,
+        "thresholdMs": 356.20000000298023,
+        "restoreMs": 1529.1000000014901
+      }
+    ],
+    "candidates": [
+      {
+        "distribution": "all-zero",
+        "timings": [
+          {
+            "compactMs": 1.1000000014901161,
+            "exactMs": 1.2999999970197678,
+            "compactDecodeMs": 3.7000000029802322,
+            "exactDecodeMs": 0.29999999701976776,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 0.8999999985098839,
+            "compactDecodeMs": 0.3999999985098839,
+            "exactDecodeMs": 0.20000000298023224,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0.7999999970197678,
+            "exactMs": 0.8999999985098839,
+            "compactDecodeMs": 0.30000000447034836,
+            "exactDecodeMs": 0.10000000149011612,
+            "thresholdsMs": 0.09999999403953552,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0.7000000029802322,
+            "exactMs": 0.8999999985098839,
+            "compactDecodeMs": 0.30000000447034836,
+            "exactDecodeMs": 0.19999999552965164,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0.7000000029802322,
+            "exactMs": 0.7999999970197678,
+            "compactDecodeMs": 0.29999999701976776,
+            "exactDecodeMs": 0.30000000447034836,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0.6999999955296516,
+            "exactMs": 0.8000000044703484,
+            "compactDecodeMs": 0.19999999552965164,
+            "exactDecodeMs": 0.20000000298023224,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0.5999999940395355,
+            "exactMs": 0.7000000029802322,
+            "compactDecodeMs": 0.3999999985098839,
+            "exactDecodeMs": 0.10000000149011612,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 27,
+            "exactChars": 22
+          }
+        ]
+      },
+      {
+        "distribution": "daily-cycle",
+        "timings": [
+          {
+            "compactMs": 3.600000001490116,
+            "exactMs": 4.0999999940395355,
+            "compactDecodeMs": 0.4000000059604645,
+            "exactDecodeMs": 1.6999999955296516,
+            "thresholdsMs": 0.20000000298023224,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 3.600000001490116,
+            "compactDecodeMs": 0.3999999985098839,
+            "exactDecodeMs": 1.6000000014901161,
+            "thresholdsMs": 0.19999999552965164,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3.399999998509884,
+            "exactMs": 3.5,
+            "compactDecodeMs": 0.5,
+            "exactDecodeMs": 1.6000000014901161,
+            "thresholdsMs": 0.20000000298023224,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3.600000001490116,
+            "exactMs": 3.7999999970197678,
+            "compactDecodeMs": 0.3999999985098839,
+            "exactDecodeMs": 1.7000000029802322,
+            "thresholdsMs": 0.19999999552965164,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3.7000000029802322,
+            "exactMs": 3.7000000029802322,
+            "compactDecodeMs": 0.3999999985098839,
+            "exactDecodeMs": 1.7999999970197678,
+            "thresholdsMs": 0.20000000298023224,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3.2999999970197678,
+            "exactMs": 3.5,
+            "compactDecodeMs": 0.3999999985098839,
+            "exactDecodeMs": 1.7000000029802322,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3.5,
+            "exactMs": 3.5,
+            "compactDecodeMs": 0.3999999985098839,
+            "exactDecodeMs": 1.6000000014901161,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 86,
+            "exactChars": 2264
+          }
+        ]
+      },
+      {
+        "distribution": "random53",
+        "timings": [
+          {
+            "compactMs": 4.700000002980232,
+            "exactMs": 17,
+            "compactDecodeMs": 0.7999999970197678,
+            "exactDecodeMs": 12.899999998509884,
+            "thresholdsMs": 0.9000000059604645,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4.299999997019768,
+            "exactMs": 16.600000001490116,
+            "compactDecodeMs": 0.7999999970197678,
+            "exactDecodeMs": 9.600000001490116,
+            "thresholdsMs": 0.7000000029802322,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4.399999998509884,
+            "exactMs": 16.399999998509884,
+            "compactDecodeMs": 0.7000000029802322,
+            "exactDecodeMs": 9.399999998509884,
+            "thresholdsMs": 0.6999999955296516,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4.300000004470348,
+            "exactMs": 16.5,
+            "compactDecodeMs": 0.6999999955296516,
+            "exactDecodeMs": 9.200000002980232,
+            "thresholdsMs": 0.8999999985098839,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4.200000002980232,
+            "exactMs": 16.299999997019768,
+            "compactDecodeMs": 0.6000000014901161,
+            "exactDecodeMs": 9.299999997019768,
+            "thresholdsMs": 0.8000000044703484,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4.199999995529652,
+            "exactMs": 16.30000000447035,
+            "compactDecodeMs": 0.6999999955296516,
+            "exactDecodeMs": 9.200000002980232,
+            "thresholdsMs": 0.7000000029802322,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4.399999998509884,
+            "exactMs": 16.299999997019768,
+            "compactDecodeMs": 0.6000000014901161,
+            "exactDecodeMs": 9.399999998509884,
+            "thresholdsMs": 0.8999999985098839,
+            "compactChars": 1906,
+            "exactChars": 32407
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "project": "firefox",
+    "browserVersion": "155.0",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "devicePixelRatio": 1,
+    "cpuThrottling": false,
+    "ui": [
+      {
+        "dialogMs": 73,
+        "exactModeMs": 19,
+        "thresholdMs": 120,
+        "restoreMs": 241
+      },
+      {
+        "dialogMs": 106,
+        "exactModeMs": 21,
+        "thresholdMs": 238,
+        "restoreMs": 234
+      },
+      {
+        "dialogMs": 12,
+        "exactModeMs": 24,
+        "thresholdMs": 228,
+        "restoreMs": 439
+      }
+    ],
+    "candidates": [
+      {
+        "distribution": "all-zero",
+        "timings": [
+          {
+            "compactMs": 0,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 1,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 0,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 1,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          }
+        ]
+      },
+      {
+        "distribution": "daily-cycle",
+        "timings": [
+          {
+            "compactMs": 1,
+            "exactMs": 2,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 1,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 2,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 1,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 2,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 2,
+            "exactMs": 2,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 2,
+            "exactMs": 3,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 1,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 2,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 2,
+            "exactMs": 2,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 1,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          }
+        ]
+      },
+      {
+        "distribution": "random53",
+        "timings": [
+          {
+            "compactMs": 1,
+            "exactMs": 9,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 3,
+            "thresholdsMs": 0,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 2,
+            "exactMs": 10,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 3,
+            "thresholdsMs": 0,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 2,
+            "exactMs": 10,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 6,
+            "thresholdsMs": 0,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 2,
+            "exactMs": 9,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 2,
+            "thresholdsMs": 2,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 8,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 4,
+            "thresholdsMs": 0,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 2,
+            "exactMs": 9,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 2,
+            "thresholdsMs": 2,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 2,
+            "exactMs": 7,
+            "compactDecodeMs": 2,
+            "exactDecodeMs": 8,
+            "thresholdsMs": 0,
+            "compactChars": 1906,
+            "exactChars": 32407
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "project": "webkit",
+    "browserVersion": "26.6",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "devicePixelRatio": 2,
+    "cpuThrottling": false,
+    "ui": [
+      {
+        "dialogMs": 358,
+        "exactModeMs": 23,
+        "thresholdMs": 225,
+        "restoreMs": 501
+      },
+      {
+        "dialogMs": 365,
+        "exactModeMs": 19,
+        "thresholdMs": 505,
+        "restoreMs": 501
+      },
+      {
+        "dialogMs": 373,
+        "exactModeMs": 19,
+        "thresholdMs": 467,
+        "restoreMs": 507
+      }
+    ],
+    "candidates": [
+      {
+        "distribution": "all-zero",
+        "timings": [
+          {
+            "compactMs": 1,
+            "exactMs": 2,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 2,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 2,
+            "exactMs": 0,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 1,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 1,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          }
+        ]
+      },
+      {
+        "distribution": "daily-cycle",
+        "timings": [
+          {
+            "compactMs": 5,
+            "exactMs": 6,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 2,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 5,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 1,
+            "thresholdsMs": 1,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3,
+            "exactMs": 5,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 2,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3,
+            "exactMs": 5,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 2,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3,
+            "exactMs": 4,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 2,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3,
+            "exactMs": 4,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 1,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3,
+            "exactMs": 4,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 1,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          }
+        ]
+      },
+      {
+        "distribution": "random53",
+        "timings": [
+          {
+            "compactMs": 4,
+            "exactMs": 20,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 10,
+            "thresholdsMs": 1,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 7,
+            "exactMs": 21,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 8,
+            "thresholdsMs": 0,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 20,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 7,
+            "thresholdsMs": 1,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 21,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 8,
+            "thresholdsMs": 0,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 23,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 8,
+            "thresholdsMs": 1,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 22,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 7,
+            "thresholdsMs": 1,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 19,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 7,
+            "thresholdsMs": 1,
+            "compactChars": 1906,
+            "exactChars": 32407
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "project": "mobile-chrome",
+    "browserVersion": "153.0.8010.12",
+    "viewport": {
+      "width": 412,
+      "height": 839
+    },
+    "devicePixelRatio": 2.625,
+    "cpuThrottling": false,
+    "ui": [
+      {
+        "dialogMs": 45.69999999552965,
+        "exactModeMs": 15.600000001490116,
+        "thresholdMs": 53.600000001490116,
+        "restoreMs": 62.69999999552965
+      },
+      {
+        "dialogMs": 48.600000001490116,
+        "exactModeMs": 20.399999998509884,
+        "thresholdMs": 58.600000001490116,
+        "restoreMs": 62.100000001490116
+      },
+      {
+        "dialogMs": 44.899999998509884,
+        "exactModeMs": 21.100000001490116,
+        "thresholdMs": 60,
+        "restoreMs": 60
+      }
+    ],
+    "candidates": [
+      {
+        "distribution": "all-zero",
+        "timings": [
+          {
+            "compactMs": 1.2000000029802322,
+            "exactMs": 1.2999999970197678,
+            "compactDecodeMs": 0.4000000059604645,
+            "exactDecodeMs": 0.09999999403953552,
+            "thresholdsMs": 0.20000000298023224,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0.8999999985098839,
+            "exactMs": 1.1000000014901161,
+            "compactDecodeMs": 0.29999999701976776,
+            "exactDecodeMs": 0.30000000447034836,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1.1999999955296516,
+            "exactMs": 0.9000000059604645,
+            "compactDecodeMs": 0.3999999985098839,
+            "exactDecodeMs": 0.19999999552965164,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0.7000000029802322,
+            "exactMs": 0.7999999970197678,
+            "compactDecodeMs": 0.5,
+            "exactDecodeMs": 0.10000000149011612,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0.8999999985098839,
+            "exactMs": 0.8999999985098839,
+            "compactDecodeMs": 0.4000000059604645,
+            "exactDecodeMs": 0.09999999403953552,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0.8000000044703484,
+            "exactMs": 0.7999999970197678,
+            "compactDecodeMs": 0.5,
+            "exactDecodeMs": 0.10000000149011612,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 0.6999999955296516,
+            "exactMs": 0.7000000029802322,
+            "compactDecodeMs": 0.29999999701976776,
+            "exactDecodeMs": 0.20000000298023224,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          }
+        ]
+      },
+      {
+        "distribution": "daily-cycle",
+        "timings": [
+          {
+            "compactMs": 3.5,
+            "exactMs": 3.7999999970197678,
+            "compactDecodeMs": 0.3999999985098839,
+            "exactDecodeMs": 1.6000000014901161,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3.600000001490116,
+            "exactMs": 3.7999999970197678,
+            "compactDecodeMs": 0.5,
+            "exactDecodeMs": 1.5,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3.399999998509884,
+            "exactMs": 3.600000001490116,
+            "compactDecodeMs": 0.3999999985098839,
+            "exactDecodeMs": 1.6000000014901161,
+            "thresholdsMs": 0.19999999552965164,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3.7000000029802322,
+            "exactMs": 3.399999998509884,
+            "compactDecodeMs": 0.3999999985098839,
+            "exactDecodeMs": 1.6000000014901161,
+            "thresholdsMs": 0.20000000298023224,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3.399999998509884,
+            "exactMs": 3.399999998509884,
+            "compactDecodeMs": 0.29999999701976776,
+            "exactDecodeMs": 1.6000000014901161,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3.600000001490116,
+            "exactMs": 3.399999998509884,
+            "compactDecodeMs": 0.3999999985098839,
+            "exactDecodeMs": 1.6000000014901161,
+            "thresholdsMs": 0.20000000298023224,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3.399999998509884,
+            "exactMs": 3.5,
+            "compactDecodeMs": 0.29999999701976776,
+            "exactDecodeMs": 1.6000000014901161,
+            "thresholdsMs": 0.10000000149011612,
+            "compactChars": 86,
+            "exactChars": 2264
+          }
+        ]
+      },
+      {
+        "distribution": "random53",
+        "timings": [
+          {
+            "compactMs": 4.399999998509884,
+            "exactMs": 17.899999998509884,
+            "compactDecodeMs": 0.8999999985098839,
+            "exactDecodeMs": 13.300000004470348,
+            "thresholdsMs": 0.7999999970197678,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 5.799999997019768,
+            "exactMs": 17.80000000447035,
+            "compactDecodeMs": 0.7999999970197678,
+            "exactDecodeMs": 9.700000002980232,
+            "thresholdsMs": 0.7999999970197678,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4.399999998509884,
+            "exactMs": 16.30000000447035,
+            "compactDecodeMs": 0.6000000014901161,
+            "exactDecodeMs": 9.399999998509884,
+            "thresholdsMs": 0.7999999970197678,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4.399999998509884,
+            "exactMs": 16.30000000447035,
+            "compactDecodeMs": 0.6000000014901161,
+            "exactDecodeMs": 9.5,
+            "thresholdsMs": 0.6999999955296516,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4.600000001490116,
+            "exactMs": 16.899999998509884,
+            "compactDecodeMs": 0.6000000014901161,
+            "exactDecodeMs": 9.399999998509884,
+            "thresholdsMs": 0.8999999985098839,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4.300000004470348,
+            "exactMs": 16.399999998509884,
+            "compactDecodeMs": 0.7000000029802322,
+            "exactDecodeMs": 9.299999997019768,
+            "thresholdsMs": 0.7999999970197678,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4.5,
+            "exactMs": 16.400000005960464,
+            "compactDecodeMs": 0.5999999940395355,
+            "exactDecodeMs": 9.400000005960464,
+            "thresholdsMs": 0.6999999955296516,
+            "compactChars": 1906,
+            "exactChars": 32407
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "project": "mobile-safari",
+    "browserVersion": "26.6",
+    "viewport": {
+      "width": 390,
+      "height": 664
+    },
+    "devicePixelRatio": 3,
+    "cpuThrottling": false,
+    "ui": [
+      {
+        "dialogMs": 166,
+        "exactModeMs": 19,
+        "thresholdMs": 87,
+        "restoreMs": 125
+      },
+      {
+        "dialogMs": 130,
+        "exactModeMs": 27,
+        "thresholdMs": 99,
+        "restoreMs": 111
+      },
+      {
+        "dialogMs": 130,
+        "exactModeMs": 26,
+        "thresholdMs": 126,
+        "restoreMs": 115
+      }
+    ],
+    "candidates": [
+      {
+        "distribution": "all-zero",
+        "timings": [
+          {
+            "compactMs": 2,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 2,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 2,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 1,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          },
+          {
+            "compactMs": 1,
+            "exactMs": 0,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 0,
+            "thresholdsMs": 0,
+            "compactChars": 27,
+            "exactChars": 22
+          }
+        ]
+      },
+      {
+        "distribution": "daily-cycle",
+        "timings": [
+          {
+            "compactMs": 5,
+            "exactMs": 6,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 1,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 5,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 1,
+            "thresholdsMs": 1,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3,
+            "exactMs": 5,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 2,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3,
+            "exactMs": 5,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 1,
+            "thresholdsMs": 1,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3,
+            "exactMs": 4,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 2,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3,
+            "exactMs": 4,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 2,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          },
+          {
+            "compactMs": 3,
+            "exactMs": 4,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 1,
+            "thresholdsMs": 0,
+            "compactChars": 86,
+            "exactChars": 2264
+          }
+        ]
+      },
+      {
+        "distribution": "random53",
+        "timings": [
+          {
+            "compactMs": 4,
+            "exactMs": 19,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 9,
+            "thresholdsMs": 0,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 21,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 8,
+            "thresholdsMs": 0,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 20,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 7,
+            "thresholdsMs": 1,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 20,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 8,
+            "thresholdsMs": 0,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 21,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 7,
+            "thresholdsMs": 1,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 23,
+            "compactDecodeMs": 0,
+            "exactDecodeMs": 7,
+            "thresholdsMs": 1,
+            "compactChars": 1906,
+            "exactChars": 32407
+          },
+          {
+            "compactMs": 4,
+            "exactMs": 19,
+            "compactDecodeMs": 1,
+            "exactDecodeMs": 7,
+            "thresholdsMs": 0,
+            "compactChars": 1906,
+            "exactChars": 32407
+          }
+        ]
+      }
+    ]
+  }
+]

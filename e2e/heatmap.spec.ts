@@ -15,10 +15,17 @@ async function inspectDate(locator: Locator, mobile: boolean) {
   else await locator.hover()
 }
 
-async function tabIntoCalendar(page: Page, mobile: boolean) {
-  await page.keyboard.press('Tab') // 閾値方式の選択
-  if (!mobile) await page.keyboard.press('Tab') // PCのスクロール領域
-  await page.keyboard.press('Tab')
+async function tabIntoCalendar(page: Page) {
+  // 共有・閾値・PCスクロール領域を通る。OSによるTab対象の差にも対応する。
+  for (let step = 0; step < 6; step++) {
+    await page.keyboard.press('Tab')
+    if (
+      await page
+        .locator('[data-cell-index="0"]')
+        .evaluate((cell) => cell === document.activeElement)
+    )
+      return
+  }
 }
 
 function dateCell(page: Page, date: string) {
@@ -72,7 +79,7 @@ test('Tab・矢印・Home/End・Enter/Spaceで日付にアクセスでき、フ�
   // 本文のスキップリンクを起点に、キーボードだけでセルへ移動する。
   await page.getByRole('link', { name: '本文へ移動' }).focus()
   await page.keyboard.press('Enter')
-  await tabIntoCalendar(page, isMobile)
+  await tabIntoCalendar(page)
   await expect(dateCell(page, '2024-02-28')).toBeFocused()
   await page.keyboard.press(isMobile ? 'ArrowRight' : 'ArrowDown')
   await expect(dateCell(page, '2024-02-29')).toBeFocused()
