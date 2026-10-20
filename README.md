@@ -2,7 +2,7 @@
 
 日別の件数をカレンダーで可視化し、自己完結したURLで共有するWebアプリです。TSVの読み込み、複数列の合算、未記録日の0補完、5方式の閾値設定、8段階の色分け、2種類のURL共有を実装しています。元ファイルはブラウザー内で処理し、サーバーへ送信しません。仕様の管理元は[SPEC.md](SPEC.md)です。
 
-GitHub Pagesの公開フローは未整備です。このREADMEは稼働中の公開URLを案内していません。
+CIと手動のGitHub Pages公開workflowを用意しています。GitHub上の実行・設定・公開は未実施です。このREADMEは稼働中の公開URLを案内していません。
 
 ## 使い方と合成サンプル
 
@@ -93,9 +93,12 @@ npm run type-check
 npm run lint
 npm run format:check
 npm run test:unit
+npm run test:workflows
 npx playwright install
 npm run build
+npm run check:pages
 npm run test:e2e -- --workers=1
+npm run test:e2e
 git diff --check
 ```
 
@@ -116,11 +119,57 @@ git diff --check
 
 Viteの`base`は`/daily-heatmap/`です。Hash Routerのルートは`#/heatmap?d=...`。`d`を通常のURLクエリではなくHash内に置くため、静的ホストは`/daily-heatmap/`の入口を配信するだけで、共有ページを直接開けます。Hash内のデータはHTTPのページ要求には含まれません。
 
-**現在、CI / Pagesデプロイ用の`.github/workflows/`はありません**。ローカル検査とIssue #10で予定する自動化を区別してください。Issue #10では品質検査とE2EのCI、承認済みリリースタグからのPages公開を整備する予定です。mainの更新だけで自動公開する設計ではありません。
+## GitHub ActionsのCI
 
-公開担当者の手順：まずIssue #10で実在するworkflowとPages設定を整備・レビューし、全品質検査とビルドを確認します。その後、push・PR・マージ・タグ・公開についてそれぞれ明示承認を得ます。承認された公開フローが成功して初めて、実際に表示されたURLを確認・案内し、以下の実機受け入れを実施してください。現時点で実行できる公開コマンドや稼働中URLは記載しません。
+[ci.yml](.github/workflows/ci.yml)はmain向けPR（Draftを含む）の作成・更新とmainへのpushで実行します。タグpushでは実行しません。main pushで公開処理は動きません。
 
-開発は最新mainからIssue専用の`codex/<Issue番号>-<内容>`ブランチで行い、mainへ直接変更・コミットしません。原則1 Issue / 1 PR、Squash and mergeです。push・PR作成・マージ・タグ・公開デプロイは各々ユーザーの明示承認後に行います。
+- **Quality checks**：checkout → Node.js 24.21.0（lockfileをキーにnpmキャッシュ）→ `npm ci` → 型 → Lint → 整形確認 → workflowテスト → 単体 → 本番ビルド → Pages配布物検査。
+- **Playwright E2E (5 projects)**：品質検査とは独立したrunnerで`npm ci` → Chromium / Firefox / WebKitとOS依存のインストール → 本番ビルド → 5構成すべてを1 workerで検査します。mobile-chrome / mobile-safariも含みます。
+
+E2EのpreviewはPlaywrightの`webServer`が起動します。別のpreviewを同時起動しないでください。CIは既存サーバーを再利用せず、`forbidOnly`を有効にします。既存の最大2回のリトライで診断traceを採取し、`--fail-on-flaky-tests`によりリトライでのみ成功する場合もジョブを失敗させます。ブラウザーmatrixは初期構成では使いません。単一ジョブで5構成を網羅するとrunner起動・npm導入・ビルドの重複を抑えられ、実行時間・使用量・保守を見通しやすいためです。
+
+ローカルの同等検査は前節に加え、`npx playwright install --with-deps chromium firefox webkit`（LinuxのOS依存も導入する場合）と`CI=true npm run test:e2e -- --workers=1 --fail-on-flaky-tests`です。CI相当の実行前に既存previewを停止してください。
+
+失敗時はActions → CI → 対象run → 失敗ジョブのstepログを確認します。E2E失敗時はrunのArtifactsから`playwright-failure-<run_id>-<attempt>`を取得し、展開後`npx playwright show-report <playwright-reportのパス>`、`npx playwright show-trace <trace.zipのパス>`で調査します。保存期間は7日、合成fixtureだけを使用します。npm導入やブラウザー導入段階の失敗ではレポートが存在しないことがあります。Qualityの出力はstepログで確認します。
+
+workflowの構文・式を再検査する場合は[actionlint](https://github.com/rhysd/actionlint) **1.7.12**を別途用意し、リポジトリルートで`actionlint`を実行します。YAML構文・トリガー・permissions・依存関係・Action SHA・タグ検証の回帰検査は`npm run test:workflows`で再実行できます。追加の開発依存`yaml`は構造を解析して検査するためだけに使います。
+
+CIの権限は`contents: read`だけです。公式Actionは確認したリリースの完全なコミットSHAに固定しています。更新時は上流のリリース・SHA・`action.yml`・変更履歴を確認し、workflowとSHA検査テストを同じPRで更新します。移動可能なメジャータグより変更をレビューしやすくするための選択です。確認した版と公式資料は[Issue #10検証記録](docs/issue-10-validation.md)にあります。
+
+## リリースと手動Pages公開
+
+[deploy.yml](.github/workflows/deploy.yml)は**workflow_dispatchのみ**です。main push、PR、タグpushでは起動しません。workflowの実行元はこのリポジトリの**main**に限定し、既存タグを`release_tag`で指定します。タグが指す不変のコミットSHAからビルドします。package versionは現在`0.1.0`で、Issue #10では変更しません。
+
+ジョブは`validate-release` → `build-pages` → `deploy-pages`です。入力タグは先頭ゼロなしの安定版`vX.Y.Z`のみ許可し、明示的な`refs/tags/<入力>`をoriginから取得します。軽量・annotated両方に対応し、タグオブジェクトとpeeled commitの両SHAを確定します。タグ内の`package.json`がタグ名と一致し、そのコミットがorigin/mainの履歴にあり、**同じSHAのmain push CI（ci.yml）の最新runが成功**していることを要求します。PRのmerge refの成功だけでは公開できません。
+
+ビルドジョブではdispatch時のmainにある検証コードを使ってタグと両SHA・main履歴・version・checkout HEADを再確認し、成功してからnpmを実行します。タグを後から変更してもビルド対象SHAは変わりません。検証・ビルドには公開権限がなく、公開ジョブだけに`pages: write` / `id-token: write`を与えます。公開ジョブはアプリのcheckoutやnpmを実行しません。同時公開は`github-pages` concurrencyで直列化し、進行中の公開を中断しません（GitHubのpending runは新しい要求で置換されることがあるため、複数の公開要求を続けて送らずrunの状態を確認します）。
+
+公開担当者は次の順序で進めます。**タグ作成・pushの承認と、Pages公開の承認は別操作です。**
+
+1. 個別承認後にIssue #10をpush・PR作成し、GitHub上で両CIジョブの成功を確認します。レビューと別途のマージ承認後にSquash and mergeし、main push CIも確認します。
+2. バージョンを決めます。変更が必要なら最新mainから専用ブランチを作り、`npm version --no-git-tag-version X.Y.Z`でpackage.jsonとlockfileを更新します。品質検査・レビュー・承認・PR・マージを経て、そのmainコミットのCI成功を確認します。mainで直接編集せず、自動タグも作りません。
+3. 対象SHA・差分・version・CI・未解決課題をレビューし、**タグ作成前の承認**を得ます。その承認が実際のタグ作成とpushまで許可しているか個別に確認し、許可範囲だけを実行します。annotated tagを推奨します。作成承認後は`git tag -a vX.Y.Z <対象の完全SHA> -m 'Release vX.Y.Z'`、push承認後は`git push origin refs/tags/vX.Y.Z`を使います（プレースホルダーはレビュー済みの値へ置換）。既存タグを移動・上書きしません。
+4. タグpush後も公開は起動しません。タグ名・タグオブジェクトSHA・対象コミット・CI成功を確認して、**Pages公開操作について別の明示承認**を得ます。
+5. 承認後、Actions → **Deploy Pages (manual release)** → **Run workflow**でBranchを**main**、`release_tag`を既存の承認済みタグに設定し、別途のPages承認取得を示す`publish_approved`をチェックして実行します。チェックの初期値はfalseで、未チェックではジョブは動きません。これは承認記録の代替ではありません。
+6. environmentに承認者を設定した場合は、待機した`deploy-pages`の対象run・タグ・SHA・ビルド結果をレビューして承認します。environment未設定でもタグpush起動にはなりませんが、承認を技術的に強制するには保護ルールが必要です。
+7. 3ジョブとPages deploymentの成功、`deploy-pages`が出力したURLを確認します。公開URLでトップ・sample.tsv・JS/CSS・`#/heatmap`・コンパクト/完全URLの直接表示・新規タブ・再読み込みを検証し、404がないことを記録します。続いて次節のLINE・実機受け入れを実施します。**ローカルpreview成功はPages公開成功を意味しません。**
+
+ロールバックは以前のタグの再dispatchで行えます。過去タグもmain履歴・当該SHAの成功CI・version一致・不変参照を再検証し、改めてPages公開承認を得ます。古いCI runが削除されていれば失敗で停止します。その場合は既存のmain push CI runを再実行できるか確認し、無理ならレビューした復旧コミットと新規バージョンを通常のPR/main CI経由で用意します。検証を無効化したりタグを付け直したりしません。古いタグに脆弱な依存や仕様上の問題がないことも確認してください。
+
+## GitHubの手動設定（未適用・要確認）
+
+リポジトリはpublic、既定ブランチはmainです。実装時のAPI応答は`has_pages: false`でした。mainのAPI応答は`protected: false`、Rulesets一覧は空でした。以下の設定はこの作業では変更していません。environment・Actions policyの現在値は未確認です。
+
+- **Settings → Pages → Build and deployment → Source**を**GitHub Actions**に設定します。workflowから自動enablementはしません。
+- **Settings → Environments → github-pages**を作成/確認し、Deployment branches and tagsは**Selected branches and tags**で**Branch: mainのみ**を許可します。dispatch実行元の`GITHUB_REF`が判定対象なので、ここで公開タグのパターンを許可する必要はありません。
+- 同environmentに**Required reviewers**を設定し、体制に応じて**Prevent self-review**、管理者の保護ルール迂回を禁止する設定を使います。publicリポジトリでは現行プランで承認者等を利用できますが、実際のプラン・画面・権限を確認してください。単独運用で自己承認禁止を有効にする場合は別の承認者が必要です。設定不可の場合も、承認なしでdispatchしない運用を維持します。
+- **Settings → Actions → General**でGitHub公式Actionとこのworkflowの実行を許可します。Workflow permissionsの既定は読み取りとし、PR作成の許可・PAT・追加secretsは不要です。公開ジョブの権限昇格を組織policyが許可するか確認します。fork PRの初回実行に承認を要する場合はActionsの通常の承認手順で対応します。
+- **Settings → Rules → Rulesets**またはBranchesでmainへのPR・レビュー・必須チェック **Quality checks** / **Playwright E2E (5 projects)**を設定します。チェック名は初回CIの実表示で確認し、成功を必須にして直接push・force push・削除を制限します。未信頼コードを高権限実行する`pull_request_target`は使いません。
+- タグRulesetの対象を`v*`として、作成者をリリース担当者に限定し、更新・削除を制限します（必要な担当者だけbypassを許可し記録）。規則のglobは厳密なSemVerではないため、形式検証はworkflowでも行います。workflowや検証コードを変更できる人は公開制御も変更できるため、これらのレビューを必須にします。
+
+公式の設定方法は[Pages custom workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)、[environments](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)、[環境保護ルール](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments)を参照してください。
+
+開発は最新mainからIssue専用の`codex/<Issue番号>-<内容>`ブランチで行い、mainへ直接変更・コミットしません。原則1 Issue / 1 PR、Squash and mergeです。push・PR作成・マージ・タグ作成・タグpush・公開デプロイは各々ユーザーの明示承認後に行います。
 
 ## 公開後のLINE・実機手動受け入れ
 
@@ -141,4 +190,5 @@ Viteの`base`は`/daily-heatmap/`です。Hash Routerのルートは`#/heatmap?d
 - 公開後のLINE共有、iPhone / Android実機、スクリーンリーダー実機、ブラウザー自体の200% / 400%拡大、ネイティブselectのpopupの実機キー操作、低速端末は未検証です。640px / 320pxの自動リフロー検査とは区別します。
 - WCAG 2.2 AAを参考に監査していますが、完全準拠を宣言するものではありません。色の違いだけに依存せず詳細・凡例・ARIA説明で補います。
 - 最大3,660日は全セルを描画します。ブラウザーによる再描画性能の差と残る負荷は検証記録を参照してください。
+- Issue #10時点の追加auditで、既存Vite 8.2.2（開発ツール）にhigh 1件の指摘があります。公開前に影響と依存更新を判断してください。Viteの更新は今回行っていません。詳細は[Issue #10検証記録](docs/issue-10-validation.md)を参照してください。
 - Vuetify VHeatmapはLabsです。依存更新時は描画・フォーカス・色・性能とCodecの互換性を確認してください。
