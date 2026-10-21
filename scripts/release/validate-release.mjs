@@ -89,7 +89,9 @@ export async function verifySuccessfulCI(commit, token, request = fetch) {
     run?.head_sha !== commit ||
     run?.head_branch !== 'main' ||
     run?.event !== 'push' ||
-    run?.path !== '.github/workflows/ci.yml' ||
+    // REST responses may include the workflow ref; accept only these exact main forms.
+    !['.github/workflows/ci.yml', '.github/workflows/ci.yml@main'].includes(run?.path) ||
+    run?.repository?.full_name !== repository ||
     run?.head_repository?.full_name !== repository ||
     run?.status !== 'completed' ||
     run?.conclusion !== 'success' ||

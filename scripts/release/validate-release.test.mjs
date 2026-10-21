@@ -161,6 +161,7 @@ const successfulRun = {
   head_branch: 'main',
   event: 'push',
   path: '.github/workflows/ci.yml',
+  repository: { full_name: repository },
   head_repository: { full_name: repository },
   status: 'completed',
   conclusion: 'success',
@@ -169,6 +170,7 @@ const response = (runs) => async () => ({ ok: true, json: async () => ({ workflo
 test('successful exact main push CI run is required; request is scoped to exact SHA', async () => {
   const id = await verifySuccessfulCI(commit, 'fixture-token', async (url, options) => {
     const parsed = new URL(url)
+    assert.equal(parsed.pathname, `/repos/${repository}/actions/workflows/ci.yml/runs`)
     assert.equal(parsed.searchParams.get('head_sha'), commit)
     assert.equal(parsed.searchParams.get('branch'), 'main')
     assert.equal(parsed.searchParams.get('event'), 'push')
@@ -178,21 +180,52 @@ test('successful exact main push CI run is required; request is scoped to exact 
   })
   assert.equal(id, 123)
 })
-for (const patch of [
-  { conclusion: 'failure' },
-  { conclusion: 'cancelled' },
-  { conclusion: 'skipped' },
-  { status: 'in_progress' },
-  { head_sha: 'b'.repeat(40) },
-  { head_branch: 'other' },
-  { event: 'pull_request' },
-  { path: '.github/workflows/other.yml' },
-  { head_repository: { full_name: 'other/repo' } },
-  { id: 'unsafe\nvalue' },
+for (const path of ['.github/workflows/ci.yml', '.github/workflows/ci.yml@main']) {
+  test(`CI accepts exact workflow path ${path}`, async () => {
+    assert.equal(
+      await verifySuccessfulCI(commit, 'fixture-token', response([{ ...successfulRun, path }])),
+      123,
+    )
+  })
+  for (const patch of [
+    { conclusion: 'failure' },
+    { conclusion: 'cancelled' },
+    { conclusion: 'skipped' },
+    { status: 'in_progress' },
+    { head_sha: 'b'.repeat(40) },
+    { head_branch: 'other' },
+    { event: 'pull_request' },
+    { repository: { full_name: 'other/repo' } },
+    { head_repository: { full_name: 'other/repo' } },
+    { id: 'unsafe\nvalue' },
+  ]) {
+    test(`CI result ${path} rejects ${JSON.stringify(patch)}`, async () => {
+      await assert.rejects(
+        verifySuccessfulCI(
+          commit,
+          'fixture-token',
+          response([{ ...successfulRun, path, ...patch }]),
+        ),
+      )
+    })
+  }
+}
+for (const path of [
+  '.github/workflows/other.yml',
+  '.github/workflows/other.yml@main',
+  '.github/workflows/ci.yml@other',
+  '.github/workflows/ci.yml@refs/heads/main',
+  '.github/workflows/ci.yml@refs/tags/main',
+  '.github/workflows/ci.yml@main@main',
+  '.github/workflows/ci.yml@%6dain',
+  '.github/workflows/ci.yml@main\n',
+  '.github/workflows/ci.yml ',
+  null,
+  { toString: () => '.github/workflows/ci.yml' },
 ]) {
-  test(`CI result rejects ${JSON.stringify(patch)}`, async () => {
+  test(`CI rejects unexpected workflow path ${JSON.stringify(path)}`, async () => {
     await assert.rejects(
-      verifySuccessfulCI(commit, 'fixture-token', response([{ ...successfulRun, ...patch }])),
+      verifySuccessfulCI(commit, 'fixture-token', response([{ ...successfulRun, path }])),
     )
   })
 }
