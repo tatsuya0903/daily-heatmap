@@ -1,11 +1,21 @@
 import { expect, test, type Page } from '@playwright/test'
 
-test('Pagesのベースパスでトップを開ける', async ({ page }) => {
-  await page.goto('./')
+test('Pagesのベースパスでトップを開ける', async ({ page, request }) => {
+  const failedResources: string[] = []
+  page.on('requestfailed', (request) => failedResources.push(request.url()))
+  page.on('response', (response) => {
+    if (response.status() >= 400) failedResources.push(response.url())
+  })
+  const response = await page.goto('./')
+  expect(response?.status()).toBe(200)
   await expect(page).toHaveTitle('Daily Heatmap')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('日々の積み重ねを、')
   await expect(page.getByRole('button', { name: 'ファイルを選択' })).toBeEnabled()
   await expect(page.getByRole('main')).toBeVisible()
+  const sample = await request.get('./sample.tsv')
+  expect(sample.status()).toBe(200)
+  expect(await sample.text()).toContain('Date\tA件数\tB件数\tC件数')
+  expect(failedResources).toEqual([])
 })
 
 test('Hash URLへ直接アクセスしてリロード後もトップに戻れる', async ({ page }) => {

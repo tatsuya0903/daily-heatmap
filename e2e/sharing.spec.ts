@@ -123,6 +123,7 @@ test('2列TSV→初期分位点→閾値変更→コピー成功→新規タブ�
   const shared = await context.newPage()
   await shared.goto(url)
   await expect(shared.locator('[data-date]')).toHaveCount(4)
+  await expect(shared).toHaveURL(url)
   expect(await snapshot(shared)).toEqual(before)
   await shared.locator('[data-date="2026-04-01"]').click()
   await expect(detail(shared).locator('.detail-count')).toHaveText('1〜9件')
@@ -133,6 +134,7 @@ test('2列TSV→初期分位点→閾値変更→コピー成功→新規タブ�
   await expect(method(shared)).toBeDisabled()
   await shared.reload()
   await expect(method(shared)).toBeDisabled()
+  await expect(shared).toHaveURL(url)
   const reshared = await openShare(shared)
   await expect(
     shared.getByRole('radio', { name: '完全データ（正確な件数）', exact: true }),
@@ -170,6 +172,10 @@ test('完全URLの保存境界・件数を復元し、5方式の変更後に両�
   const restored = await context.newPage()
   await restored.goto(exactUrl)
   await expect(detail(restored).locator('.detail-count')).toHaveText('6件')
+  await expect(restored).toHaveURL(exactUrl)
+  await restored.reload()
+  await expect(detail(restored).locator('.detail-count')).toHaveText('6件')
+  await expect(restored).toHaveURL(exactUrl)
   await expect(method(restored)).toHaveValue('preset')
   await expect(
     restored.getByRole('combobox', { name: '固定プリセットID', exact: true }),

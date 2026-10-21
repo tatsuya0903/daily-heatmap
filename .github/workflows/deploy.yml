@@ -1,0 +1,111 @@
+name: Deploy Pages (manual release)
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Existing approved release tag (vX.Y.Z)'
+        required: true
+        type: string
+      publish_approved:
+        description: 'Separate Pages publication approval obtained (tag approval is separate)'
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  validate-release:
+    if: >-
+      github.repository == 'tatsuya0903/daily-heatmap' &&
+      github.ref == 'refs/heads/main' && inputs.publish_approved
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      commit: ${{ steps.release.outputs.commit }}
+      tag-object: ${{ steps.release.outputs.tag-object }}
+    steps:
+      # Validation code always comes from the immutable dispatch main commit.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24.21.0'
+          package-manager-cache: false
+      - name: Validate remote tag, package, main ancestry and successful CI
+        id: release
+        run: node scripts/release/validate-release.mjs validate
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+          GITHUB_TOKEN: ${{ github.token }}
+
+  build-pages:
+    needs: validate-release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout trusted release tooling
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          path: release-tooling
+          persist-credentials: false
+      - name: Checkout validated release commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.validate-release.outputs.commit }}
+          path: release-source
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24.21.0'
+          package-manager-cache: false
+      - name: Reject moved tag or mismatched checkout before running npm
+        run: node release-tooling/scripts/release/validate-release.mjs recheck
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+          RELEASE_DIRECTORY: release-source
+          EXPECTED_COMMIT: ${{ needs.validate-release.outputs.commit }}
+          EXPECTED_TAG_OBJECT: ${{ needs.validate-release.outputs.tag-object }}
+      - run: npm ci
+        working-directory: release-source
+      - run: npm run build
+        working-directory: release-source
+      - name: Verify distribution using trusted tooling
+        run: node release-tooling/scripts/release/check-pages.mjs release-source/dist release-source/public
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: release-source/dist
+          retention-days: 1
+
+  deploy-pages:
+    needs: [validate-release, build-pages]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # Pages must already be enabled manually; this action does not enable it.
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+        with:
+          enablement: false
+      - name: Deploy approved artifact
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
