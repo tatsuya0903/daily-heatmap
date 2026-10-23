@@ -73,19 +73,20 @@ describe('ヒートマップ表示と操作', () => {
     expect(wrapper.findAll('[data-cell-index][tabindex="0"]')).toHaveLength(1)
   })
 
-  it('選択後も正確な件数・範囲・レベルの詳細と8色の凡例を表示する', async () => {
+  it('選択日付と正確な件数を表示し、重複するレベル・範囲の行を表示しない', async () => {
     const wrapper = mount(HeatmapCalendar, { props: { cells, legend: presetLegend }, global })
     const detail = wrapper.get('[aria-live="polite"]')
     expect(detail.text()).toContain('0件')
     await wrapper.get('[data-date="2024-01-02"]').trigger('click')
     expect(detail.text()).toContain('2024/01/02（火）')
     expect(detail.text()).toContain('1,000件')
-    expect(detail.text()).toContain('レベル7 ・ 1,000件以上')
+    expect(detail.text()).not.toContain('レベル')
+    expect(detail.findAll('p')).toHaveLength(2)
     expect(wrapper.findAll('li')).toHaveLength(8)
     await wrapper.setProps({ cells: cells.slice(0, 1) })
     expect(detail.text()).toContain('2023/12/31')
   })
-  it('再分類時には選択日付を維持し、詳細のレベルと範囲だけ更新する', async () => {
+  it('再分類時には選択日付と件数を維持し、セルの説明を更新する', async () => {
     const wrapper = mount(HeatmapCalendar, { props: { cells, legend: presetLegend }, global })
     await wrapper.get('[data-date="2024-01-02"]').trigger('click')
     const source = { kind: 'exact' as const, startDate: '2023-12-31', counts: [0, 50, 1000] }
@@ -98,7 +99,23 @@ describe('ヒートマップ表示と操作', () => {
       legend: createLegend(profile.boundaries),
     })
     expect(wrapper.get('[aria-live="polite"]').text()).toContain('2024/01/02')
-    expect(wrapper.get('[aria-live="polite"]').text()).toContain('レベル2 ・ 1,000件以上')
+    expect(wrapper.get('.detail-count').text()).toBe('1,000件')
+    expect(wrapper.get('[data-date="2024-01-02"]').attributes('aria-label')).toBe(
+      '2024/01/02（火）：1,000件、1,000件以上、レベル2',
+    )
+  })
+
+  it('正確な件数のないコンパクトデータでは件数欄に範囲を表示する', () => {
+    const wrapper = mount(HeatmapCalendar, {
+      props: {
+        cells: cells.map((cell) => ({ ...cell, exactCount: undefined })),
+        legend: presetLegend,
+      },
+      global,
+    })
+    expect(wrapper.get('.detail-date').text()).toBe('2023/12/31（日）')
+    expect(wrapper.get('.detail-count').text()).toBe(cells[0]!.rangeLabel)
+    expect(wrapper.get('[aria-live="polite"]').text()).not.toContain('レベル')
   })
 
   it('凡例の色は常に表示し、説明は初期非表示から情報ボタンで開閉できる', async () => {
