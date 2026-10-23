@@ -39,7 +39,8 @@ jobs:
   e2e:
     name: Playwright E2E (5 projects)
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    # Browser dependencies took ~27 minutes on a slow mirror; leave time for all 5 projects.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
