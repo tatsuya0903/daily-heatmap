@@ -2,7 +2,7 @@
 import { computed, nextTick, ref, useId, useTemplateRef, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ShareDialog from '@/components/ShareDialog.vue'
-import { restoreShareQuery, shareErrorMessage } from '@/sharing/shareUrl'
+import { restoreShareQuery, restoreShareTitle, shareErrorMessage } from '@/sharing/shareUrl'
 import { mdiCalendarBlankOutline } from '@mdi/js'
 import { seriesEndDate } from '@/domain/dates'
 import { createHeatmapCells } from '@/domain/heatmap'
@@ -14,6 +14,8 @@ const store = useImportedSeriesStore()
 const route = useRoute()
 const error = ref('')
 const sharing = ref(false)
+const shareTitle = ref('')
+const heading = computed(() => shareTitle.value.trim() || 'ヒートマップ')
 const detailsOpen = ref(false)
 const detailsId = useId()
 const information = useTemplateRef<InstanceType<typeof HeatmapInformation>>('information')
@@ -28,17 +30,27 @@ watch(
   () => {
     sharing.value = false
     detailsOpen.value = false
+    shareTitle.value = ''
     error.value = ''
     try {
       const document = restoreShareQuery(route.query)
-      if (document) store.replaceDocument(document)
-      else if (store.restored) store.clear()
+      if (document) {
+        store.replaceDocument(document)
+        shareTitle.value = restoreShareTitle(route.query)
+      } else if (store.restored) store.clear()
     } catch (cause) {
       store.clear()
       error.value = shareErrorMessage(cause)
     }
   },
   { immediate: true },
+)
+// tだけの変更ではデータの復元・再分類や選択日付のリセットを行わない。
+watch(
+  () => route.query.t,
+  () => {
+    if (store.restored) shareTitle.value = restoreShareTitle(route.query)
+  },
 )
 const endDate = computed(() =>
   store.source ? seriesEndDate(store.source.startDate, store.dayCount) : '',
@@ -51,7 +63,7 @@ const cells = computed(() =>
 <template>
   <section aria-labelledby="heatmap-title">
     <p class="eyebrow">あなたの記録</p>
-    <h1 id="heatmap-title" class="page-title">ヒートマップ</h1>
+    <h1 id="heatmap-title" class="page-title">{{ heading }}</h1>
     <v-card v-if="store.source" class="heatmap-card pa-4 pa-sm-6 mt-6" border>
       <h2 v-if="!store.restored" class="text-h6 mb-3">TSVの読み込みが完了しました</h2>
       <p role="status">
@@ -60,7 +72,12 @@ const cells = computed(() =>
         }}日分）
       </p>
       <HeatmapInformation v-if="!store.restored" ref="information" @share="sharing = true" />
-      <ShareDialog v-if="sharing && store.document" v-model="sharing" :document="store.document" />
+      <ShareDialog
+        v-if="sharing && store.document"
+        v-model="sharing"
+        v-model:title="shareTitle"
+        :document="store.document"
+      />
       <HeatmapCalendar :cells="cells" :legend="store.legend" :show-help="!store.restored" />
       <template v-if="store.restored">
         <div class="shared-details-toggle">
@@ -103,6 +120,9 @@ const cells = computed(() =>
 </template>
 
 <style scoped>
+#heatmap-title {
+  overflow-wrap: anywhere;
+}
 /* VCardの既定のoverflow:hiddenは、文書スクロールに対するstickyを妨げる。 */
 .heatmap-card {
   overflow: visible;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, useTemplateRef } from 'vue'
+import { computed, nextTick, ref, useTemplateRef, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { selectShareEncoding, type ShareMode } from '@/codec'
 import type { HeatmapDocument } from '@/domain/series'
@@ -8,16 +8,21 @@ import { createShareUrl, LONG_SHARE_URL_CHARS, shareErrorMessage } from '@/shari
 
 const props = defineProps<{ document: HeatmapDocument }>()
 const open = defineModel<boolean>({ required: true })
+const title = defineModel<string>('title', { default: '' })
 const router = useRouter()
 const mode = ref<ShareMode>('compact')
 const copying = ref(false)
 const copied = ref(false)
 const copyFailed = ref(false)
 const urlText = useTemplateRef<HTMLTextAreaElement>('urlText')
+// タイトルの編集では、最大3,660日分のCodec処理を繰り返さない。
+const encodedData = computed(() => selectShareEncoding(props.document, mode.value).d)
 const result = computed(() => {
   try {
-    const encoding = selectShareEncoding(props.document, mode.value)
-    return { url: createShareUrl(router, encoding.d, window.location.href), error: '' }
+    return {
+      url: createShareUrl(router, encodedData.value, window.location.href, title.value),
+      error: '',
+    }
   } catch (cause) {
     return { url: '', error: shareErrorMessage(cause) }
   }
@@ -45,10 +50,13 @@ async function copyUrl() {
   }
 }
 
-function changeMode() {
-  copied.value = false
-  copyFailed.value = false
-}
+watch(
+  () => result.value.url,
+  () => {
+    copied.value = false
+    copyFailed.value = false
+  },
+)
 </script>
 
 <template>
@@ -62,12 +70,16 @@ function changeMode() {
     <v-card class="share-card">
       <v-card-title id="share-title" tag="h2">ヒートマップを共有</v-card-title>
       <v-card-text>
-        <v-radio-group
-          v-model="mode"
-          label="共有方式"
-          hide-details
-          @update:model-value="changeMode"
-        >
+        <v-text-field
+          v-model="title"
+          label="タイトル（任意）"
+          placeholder="例：読書の記録"
+          hint="共有先のヒートマップの見出しに表示されます"
+          persistent-hint
+          variant="outlined"
+          class="mb-4"
+        />
+        <v-radio-group v-model="mode" label="共有方式" hide-details>
           <v-radio label="8段階（短いURL・初期選択）" value="compact" />
           <v-radio
             label="完全データ（正確な件数）"

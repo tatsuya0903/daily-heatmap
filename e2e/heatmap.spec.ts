@@ -74,7 +74,7 @@ test('年跨ぎの日曜始まり・日本語見出し・0件と余白・詳細�
   const detail = page.getByRole('region', { name: '選択した日付の詳細' })
   await expect(detail).toContainText('2024/01/03（水）')
   await expect(detail).toContainText('1,000件')
-  await expect(detail).toContainText('レベル2 ・ 1,000件以上')
+  await expect(detail).not.toContainText('レベル')
   await expect(dateCell(page, '2024-01-03')).toHaveAccessibleName(
     '2024/01/03（水）：1,000件、1,000件以上、レベル2',
   )
@@ -89,6 +89,8 @@ test('Tab・矢印・Home/End・Enter/Spaceで日付にアクセスでき、フ�
 }) => {
   await importData(page, 'Date\tCount\n2024-02-28\t0\n2024-03-08\t1153')
   const detail = page.getByRole('region', { name: '選択した日付の詳細' })
+  // 画面のスクロールでポインターがセルに重なり、ホバー選択が混ざるのを防ぐ。
+  await page.mouse.move(0, 0)
   // 本文のスキップリンクを起点に、キーボードだけでセルへ移動する。
   await page.getByRole('link', { name: '本文へ移動' }).focus()
   await page.keyboard.press('Enter')
@@ -109,7 +111,7 @@ test('Tab・矢印・Home/End・Enter/Spaceで日付にアクセスでき、フ�
   await page.keyboard.press('Enter')
   await page.keyboard.press('Space')
   await expect(detail).toContainText('1,153件')
-  await expect(detail).toContainText('レベル1')
+  await expect(dateCell(page, '2024-03-08')).toHaveAttribute('data-level', '1')
   await page.keyboard.press('Home')
   await expect(dateCell(page, '2024-02-28')).toBeFocused()
   await page.keyboard.press('ArrowLeft')
