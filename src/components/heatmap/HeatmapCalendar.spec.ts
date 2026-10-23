@@ -40,21 +40,29 @@ describe('ヒートマップ表示と操作', () => {
     expect(wrapper.emitted('select')?.at(-1)).toEqual([cells[2]])
   })
 
-  it('月別の7列カレンダーに日付を配置し、タップとフォーカスで同じVMを通知する', async () => {
-    const wrapper = mount(MobileHeatmap, { props: { cells } })
-    const buttons = wrapper.findAll('button')
+  it('連続した7列の実SVGで、タップとフォーカスから同じVMを通知する', async () => {
+    const wrapper = mount(MobileHeatmap, { props: { cells }, global })
+    const buttons = wrapper.findAll('[role="button"]')
     expect(buttons).toHaveLength(3)
-    expect(wrapper.findAll('h2').map((el) => el.text())).toEqual(['2023年12月', '2024年1月'])
-    expect(buttons[0]?.attributes('style')).toContain('grid-column: 1')
-    expect(buttons[0]?.attributes('style')).toContain('grid-row: 7')
-    expect(buttons[1]?.attributes('style')).toContain('grid-column: 2')
-    expect(buttons[1]?.attributes('style')).toContain('grid-row: 2')
+    expect(buttons[0]?.element.tagName.toLowerCase()).toBe('g')
+    expect(wrapper.findAll('.month-labels > span').map((el) => el.text())).toEqual([
+      '2023年12月',
+      '2024年1月',
+    ])
+    expect(buttons[0]?.attributes('transform')).toBe('translate(0,0)')
+    expect(buttons[1]?.attributes('transform')).toBe('translate(47,0)')
     await buttons[1]!.trigger('click')
     expect(wrapper.emitted('select')?.at(-1)).toEqual([cells[1]])
     await buttons[0]!.trigger('mouseover')
     expect(wrapper.emitted('select')?.at(-1)).toEqual([cells[1]])
     await buttons[2]!.trigger('focusin')
     expect(wrapper.emitted('select')?.at(-1)).toEqual([cells[2]])
+    for (const key of ['Enter', ' ']) {
+      await buttons[2]!.trigger('keydown', { key })
+      expect(wrapper.emitted('select')?.at(-1)).toEqual([cells[2]])
+    }
+    expect(buttons[2]?.attributes('tabindex')).toBe('0')
+    expect(wrapper.findAll('[data-cell-index][tabindex="0"]')).toHaveLength(1)
   })
 
   it('選択後も正確な件数・範囲・レベルの詳細と8色の凡例を表示する', async () => {

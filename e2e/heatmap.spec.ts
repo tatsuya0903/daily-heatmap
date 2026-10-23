@@ -15,6 +15,11 @@ async function inspectDate(locator: Locator, mobile: boolean) {
   else await locator.hover()
 }
 
+async function activateDate(locator: Locator, touch: boolean) {
+  if (touch) await locator.tap()
+  else await locator.click()
+}
+
 async function tabIntoCalendar(page: Page) {
   // 共有・閾値・PCスクロール領域を通る。OSによるTab対象の差にも対応する。
   for (let step = 0; step < 6; step++) {
@@ -89,7 +94,7 @@ test('Tab・矢印・Home/End・Enter/Spaceで日付にアクセスでき、フ�
     const style = getComputedStyle(focused)
     return { outline: style.outlineWidth, stroke: style.strokeWidth }
   })
-  expect(isMobile ? focusStyle.outline : focusStyle.stroke).toBe('3px')
+  expect(focusStyle.stroke).toBe('3px')
   await page.keyboard.press(isMobile ? 'ArrowDown' : 'ArrowRight')
   await expect(dateCell(page, '2024-03-07')).toBeFocused()
   await page.keyboard.press('End')
@@ -207,4 +212,97 @@ async function expectCalendarDates(page: Page, layout: string, dates: string[]) 
       elements.map((el) => el.getAttribute('data-date')).sort(),
     ),
   ).toEqual(dates)
+}
+
+for (const width of [320, 375, 390, 768]) {
+  test(`幅${width}pxで正方形・7列・連続週・月境界と領域内スクロールを維持する`, async ({
+    page,
+    isMobile,
+  }, testInfo) => {
+    await page.setViewportSize({ width, height: 800 })
+    await importData(page, 'Date\tCount\n2026-04-01\t0\n2026-06-07\t1000')
+    const calendar = page.getByTestId('mobile-heatmap')
+    await expect(calendar).toBeVisible()
+    const headers = calendar.locator('.v-heatmap__column-header')
+    await expect(headers).toHaveText(['日', '月', '火', '水', '木', '金', '土'])
+    await expect(calendar.locator('.v-heatmap__row-header')).toHaveCount(11)
+    await expect(calendar.locator('[data-cell-index]')).toHaveCount(68)
+    const geometry = await calendar.locator('[data-cell-index]').evaluateAll((elements) =>
+      elements.map((el) => {
+        const shape = el.querySelector<SVGRectElement>('.v-heatmap__cell-rect')!
+        const rect = shape.getBoundingClientRect()
+        const scale = shape.getScreenCTM()!
+        return {
+          width: rect.width,
+          height: rect.height,
+          cellWidth: shape.width.baseVal.value * scale.a,
+          cellHeight: shape.height.baseVal.value * scale.d,
+          x: rect.x,
+          y: rect.y,
+          date: el.getAttribute('data-date')!,
+          weekday: Number(el.getAttribute('data-weekday')),
+          week: Number(el.getAttribute('data-week')),
+        }
+      }),
+    )
+    const origin = geometry.find((cell) => cell.weekday === 0)!
+    for (const cell of geometry) {
+      // FirefoxのgetBoundingClientRectはstrokeも含むため、幾何サイズと描画枠を別々に検証する。
+      expect(cell.cellWidth).toBe(44)
+      expect(cell.cellHeight).toBe(44)
+      expect(cell.width).toBe(cell.height)
+      expect(cell.width).toBeGreaterThanOrEqual(44)
+      expect(cell.x - origin.x).toBeCloseTo(cell.weekday * 47)
+      expect(cell.y - origin.y).toBeCloseTo((cell.week - origin.week) * 47)
+    }
+    const april30 = geometry.find((cell) => cell.date === '2026-04-30')!
+    const may1 = geometry.find((cell) => cell.date === '2026-05-01')!
+    expect(april30.y).toBe(may1.y)
+    expect(may1.x - april30.x).toBe(47)
+    const last = dateCell(page, '2026-06-07')
+    await activateDate(last, isMobile)
+    await expect(page.getByRole('region', { name: '選択した日付の詳細' })).toContainText(
+      '2026/06/07',
+    )
+    // SVGにも1つのTab停止点があり、横スクロール先までキー操作で追従する。
+    await last.focus()
+    await page.keyboard.press('Home')
+    await expect(dateCell(page, '2026-04-01')).toBeFocused()
+    await page.keyboard.press('ArrowDown')
+    await expect(dateCell(page, '2026-04-08')).toBeFocused()
+    await page.keyboard.press('ArrowUp')
+    await expect(dateCell(page, '2026-04-01')).toBeFocused()
+    await page.keyboard.press('ArrowRight')
+    await page.keyboard.press('ArrowLeft')
+    await expect(dateCell(page, '2026-04-01')).toBeFocused()
+    await page.keyboard.press('End')
+    await expect(last).toBeFocused()
+    await expect(calendar.locator('[data-cell-index][tabindex="0"]')).toHaveCount(1)
+    const scroll = calendar.getByRole('region', { name: '週と曜日のヒートマップ' })
+    const dimensions = await scroll.evaluate((el) => ({
+      client: el.clientWidth,
+      content: el.scrollWidth,
+    }))
+    expect(dimensions.content > dimensions.client).toBe(width < 768)
+    await scroll.evaluate((el) => {
+      el.scrollLeft = el.scrollWidth
+    })
+    expect(await scroll.evaluate((el) => el.scrollLeft > 0)).toBe(width < 768)
+    const saturdayHeader = await headers.last().boundingBox()
+    const scrollBox = await scroll.boundingBox()
+    expect(saturdayHeader!.x).toBeGreaterThanOrEqual(scrollBox!.x)
+    expect(saturdayHeader!.x + saturdayHeader!.width).toBeLessThanOrEqual(
+      scrollBox!.x + scrollBox!.width,
+    )
+    await dateCell(page, '2026-06-06').focus()
+    await expect(dateCell(page, '2026-06-06')).toBeInViewport()
+    await activateDate(dateCell(page, '2026-06-06'), isMobile)
+    await expect(page.getByRole('region', { name: '選択した日付の詳細' })).toContainText(
+      '2026/06/06',
+    )
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+    ).toBe(true)
+    await page.screenshot({ path: testInfo.outputPath(`continuous-${width}.png`), fullPage: true })
+  })
 }

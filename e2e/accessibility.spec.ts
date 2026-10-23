@@ -169,8 +169,10 @@ test('実際の8色セルで日付テキストとフォーカス枠のコント�
         const rect = el.querySelector('.v-heatmap__cell-rect')
         const fill = rect ? getComputedStyle(rect).fill : style.backgroundColor
         return {
-          text: mobile ? contrast(style.color, fill) : null,
-          // Mobile outline sits outside the cell on the white card; SVG stroke sits inside.
+          text: mobile
+            ? contrast(getComputedStyle(el.querySelector('.day-number')!).color, fill)
+            : null,
+          // 両レイアウトともSVGのCell内側のstrokeをフォーカス枠に使う。
           focus: contrast(
             rect ? getComputedStyle(rect).stroke : style.outlineColor,
             rect ? fill : 'rgb(255, 255, 255)',
