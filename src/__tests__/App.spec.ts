@@ -152,6 +152,76 @@ describe('TSV読み込みとアプリ状態', () => {
 
 describe('共有URL優先のルーティング', () => {
   it.each(['exact', 'compact'] as const)(
+    '%sのタイトルを表示し、tだけの変更では分類・選択・設定を維持する',
+    async (mode) => {
+      const { selectShareEncoding } = await import('@/codec')
+      const document = {
+        source: { kind: 'exact' as const, startDate: '2026-04-01', counts: [0, 6, 67] },
+        thresholds: { method: 'linear' as const, boundaries: [10, 20, 30, 40] },
+      }
+      const d = selectShareEncoding(document, mode).d
+      const { wrapper, router, store } = await renderRoute(
+        `/heatmap?d=${d}&t=${encodeURIComponent('読書の記録 📚')}`,
+      )
+      expect(wrapper.get('h1').text()).toBe('読書の記録 📚')
+      const original = store.document
+      const revision = store.revision
+      await wrapper.get('[data-date="2026-04-03"]').trigger('click')
+      const toggle = wrapper.findAll('button').find((button) => button.text() === '詳細情報を見る')!
+      await toggle.trigger('click')
+      await router.push({ name: 'heatmap', query: { d, t: '別のタイトル' } })
+      await flushPromises()
+      expect(wrapper.get('h1').text()).toBe('別のタイトル')
+      expect(store.document).toBe(original)
+      expect(store.revision).toBe(revision)
+      expect(wrapper.get('[aria-live="polite"]').text()).toContain('2026/04/03')
+      expect(toggle.attributes('aria-expanded')).toBe('true')
+      await router.push({ name: 'heatmap', query: { d, t: ['最初', '次'] } })
+      await flushPromises()
+      expect(wrapper.get('h1').text()).toBe('ヒートマップ')
+      expect(store.document).toBe(original)
+      await router.push({ name: 'heatmap', query: { d } })
+      await flushPromises()
+      expect(wrapper.get('h1').text()).toBe('ヒートマップ')
+      await router.push({
+        name: 'heatmap',
+        query: {
+          d: selectShareEncoding(
+            { ...document, source: { ...document.source, counts: [0, 6, 0] } },
+            mode,
+          ).d,
+        },
+      })
+      await flushPromises()
+      expect(wrapper.get('h1').text()).toBe('ヒートマップ')
+      expect(store.revision).toBe(revision + 1)
+    },
+  )
+
+  it('HTML風のタイトルをテキストとして表示し、tだけや不正dにはタイトルを適用しない', async () => {
+    const { selectShareEncoding } = await import('@/codec')
+    const d = selectShareEncoding(
+      {
+        source: { kind: 'exact', startDate: '2026-04-01', counts: [0] },
+        thresholds: { method: 'linear', boundaries: [] },
+      },
+      'exact',
+    ).d
+    const title = '<img src=x onerror="alert(1)">'
+    const { wrapper, router } = await renderRoute(`/heatmap?d=${d}&t=${encodeURIComponent(title)}`)
+    expect(wrapper.get('h1').text()).toBe(title)
+    expect(wrapper.find('#heatmap-title img').exists()).toBe(false)
+    await router.push({ name: 'heatmap', query: { t: title } })
+    await flushPromises()
+    expect(wrapper.get('h1').text()).toBe('ヒートマップ')
+    expect(wrapper.text()).toContain('表示するデータがありません')
+    await router.push({ name: 'heatmap', query: { d: 'broken', t: title } })
+    await flushPromises()
+    expect(wrapper.get('h1').text()).toBe('ヒートマップ')
+    expect(wrapper.text()).toContain('共有URLを読み込めませんでした')
+  })
+
+  it.each(['exact', 'compact'] as const)(
     '%s共有URLでは説明を閉じ、末尾で開閉しても日付とデータを維持する',
     async (mode) => {
       const { selectShareEncoding } = await import('@/codec')
