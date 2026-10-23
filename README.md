@@ -119,6 +119,8 @@ git diff --check
 
 Viteの`base`は`/daily-heatmap/`です。Hash Routerのルートは`#/heatmap?d=...`。`d`を通常のURLクエリではなくHash内に置くため、静的ホストは`/daily-heatmap/`の入口を配信するだけで、共有ページを直接開けます。Hash内のデータはHTTPのページ要求には含まれません。
 
+共有ダイアログの「タイトル（任意）」に入力すると、Hash内の`t`にタイトルを追加します（`#/heatmap?d=...&t=...`）。日本語や記号はURL生成時にエンコードされ、共有先の見出しと再共有ダイアログへ引き継がれます。空欄・空白だけなら`t`を省略し、見出しは「ヒートマップ」です。タイトルは表示用の文字列として扱い、日別データの`d`とCodec形式は変更しません。重複した`t`や値なしの`t`はタイトルなしとして扱います。
+
 ## GitHub ActionsのCI
 
 [ci.yml](.github/workflows/ci.yml)はmain向けPR（Draftを含む）の作成・更新とmainへのpushで実行します。タグpushでは実行しません。main pushで公開処理は動きません。

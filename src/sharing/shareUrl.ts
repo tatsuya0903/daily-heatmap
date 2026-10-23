@@ -1,12 +1,21 @@
 import type { LocationQuery, Router } from 'vue-router'
 import { CodecError, decodeDParameter } from '@/codec'
 
-/** Routerのhistory/baseを正とし、dをhash内のルートクエリに置く。 */
-export function createShareUrl(router: Router, d: string, currentUrl: string): string {
-  const resolved = router.resolve({ name: 'heatmap', query: { d } })
+/** Routerのhistory/baseを正とし、dと任意のタイトルtをhash内のクエリに置く。 */
+export function createShareUrl(router: Router, d: string, currentUrl: string, title = ''): string {
+  const normalizedTitle = title.trim()
+  const resolved = router.resolve({
+    name: 'heatmap',
+    query: { d, ...(normalizedTitle ? { t: normalizedTitle } : {}) },
+  })
   // Hash historyのhrefは通常#/…のみなので、baseを明示的に結合する。
   return new URL(router.options.history.base.replace(/\/$/, '') + resolved.fullPath, currentUrl)
     .href
+}
+
+/** タイトルは任意の表示情報。重複・値なしは無視し、日別データの復元を妨げない。 */
+export function restoreShareTitle(query: LocationQuery): string {
+  return typeof query.t === 'string' ? query.t.trim() : ''
 }
 
 /** 重複d・値なし・配列をCodecへ渡す前に拒否する。 */

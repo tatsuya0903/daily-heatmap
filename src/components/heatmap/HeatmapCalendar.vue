@@ -48,7 +48,6 @@ function select(cell: HeatmapCell) {
               : `${selected.exactCount.toLocaleString('ja-JP')}件`
           }}
         </p>
-        <p class="detail-range">レベル{{ selected.level }} ・ {{ selected.rangeLabel }}</p>
       </template>
     </div>
     <MobileHeatmap
@@ -132,12 +131,6 @@ function select(cell: HeatmapCell) {
   overflow-wrap: anywhere;
   font-size: 18px;
   font-weight: 700;
-}
-.detail-range {
-  flex-basis: 100%;
-  overflow-wrap: anywhere;
-  font-size: 12px;
-  color: #52645a;
 }
 .legend-summary {
   display: flex;
