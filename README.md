@@ -140,7 +140,7 @@ CIの権限は`contents: read`だけです。公式Actionは確認したリリ�
 
 ## リリースと手動Pages公開
 
-[deploy.yml](.github/workflows/deploy.yml)は**workflow_dispatchのみ**です。main push、PR、タグpushでは起動しません。workflowの実行元はこのリポジトリの**main**に限定し、既存タグを`release_tag`で指定します。タグが指す不変のコミットSHAからビルドします。package versionは現在`0.1.0`で、Issue #10では変更しません。
+[deploy.yml](.github/workflows/deploy.yml)は**workflow_dispatchのみ**です。main push、PR、タグpushでは起動しません。workflowの実行元はこのリポジトリの**main**に限定し、既存タグを`release_tag`で指定します。タグが指す不変のコミットSHAからビルドします。package versionは現在`0.2.0`です。
 
 ジョブは`validate-release` → `build-pages` → `deploy-pages`です。入力タグは先頭ゼロなしの安定版`vX.Y.Z`のみ許可し、明示的な`refs/tags/<入力>`をoriginから取得します。軽量・annotated両方に対応し、タグオブジェクトとpeeled commitの両SHAを確定します。タグ内の`package.json`がタグ名と一致し、そのコミットがorigin/mainの履歴にあり、**同じSHAのmain push CI（ci.yml）の最新runが成功**していることを要求します。PRのmerge refの成功だけでは公開できません。
 
