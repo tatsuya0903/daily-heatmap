@@ -45,10 +45,18 @@ describe('ヒートマップ表示と操作', () => {
     const buttons = wrapper.findAll('[role="button"]')
     expect(buttons).toHaveLength(3)
     expect(buttons[0]?.element.tagName.toLowerCase()).toBe('g')
-    expect(wrapper.findAll('.month-labels > span').map((el) => el.text())).toEqual([
-      '2023年12月',
-      '2024年1月',
-    ])
+    expect(
+      wrapper
+        .get('[data-month="2023-12"]')
+        .findAll('span')
+        .map((el) => el.text()),
+    ).toEqual(['2023年', '12月'])
+    expect(
+      wrapper
+        .get('[data-month="2024-01"]')
+        .findAll('span')
+        .map((el) => el.text()),
+    ).toEqual(['2024年', '1月'])
     expect(buttons[0]?.attributes('transform')).toBe('translate(0,0)')
     expect(buttons[1]?.attributes('transform')).toBe('translate(47,0)')
     await buttons[1]!.trigger('click')
@@ -91,5 +99,28 @@ describe('ヒートマップ表示と操作', () => {
     })
     expect(wrapper.get('[aria-live="polite"]').text()).toContain('2024/01/02')
     expect(wrapper.get('[aria-live="polite"]').text()).toContain('レベル2 ・ 1,000件以上')
+  })
+
+  it('凡例の色は常に表示し、説明は初期非表示から情報ボタンで開閉できる', async () => {
+    const wrapper = mount(HeatmapCalendar, {
+      props: { cells, legend: presetLegend },
+      global,
+      attachTo: document.body,
+    })
+    const button = wrapper.get('button[aria-controls]')
+    const legend = wrapper.get('.heatmap-legend')
+    expect(wrapper.findAll('.legend-scale .legend-swatch')).toHaveLength(8)
+    expect(legend.isVisible()).toBe(false)
+    expect(button.attributes('aria-expanded')).toBe('false')
+    expect(button.attributes('aria-controls')).toBe(legend.attributes('id'))
+    await button.trigger('click')
+    expect(legend.isVisible()).toBe(true)
+    expect(button.attributes('aria-expanded')).toBe('true')
+    expect(button.attributes('aria-label')).toBe('凡例の説明を閉じる')
+    expect(legend.text()).toContain('レベル0')
+    expect(legend.text()).toContain('1,000件以上')
+    await button.trigger('click')
+    expect(legend.isVisible()).toBe(false)
+    expect(wrapper.findAll('.legend-scale .legend-swatch')).toHaveLength(8)
   })
 })

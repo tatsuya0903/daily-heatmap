@@ -1,30 +1,33 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, useTemplateRef, watch } from 'vue'
+import { computed, nextTick, ref, useId, useTemplateRef, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ShareDialog from '@/components/ShareDialog.vue'
 import { restoreShareQuery, shareErrorMessage } from '@/sharing/shareUrl'
 import { mdiCalendarBlankOutline } from '@mdi/js'
 import { seriesEndDate } from '@/domain/dates'
 import { createHeatmapCells } from '@/domain/heatmap'
-import ThresholdSettings from '@/components/ThresholdSettings.vue'
 import HeatmapCalendar from '@/components/heatmap/HeatmapCalendar.vue'
+import HeatmapInformation from '@/components/heatmap/HeatmapInformation.vue'
 import { useImportedSeriesStore } from '@/stores/importedSeries'
 
 const store = useImportedSeriesStore()
 const route = useRoute()
 const error = ref('')
 const sharing = ref(false)
-const shareButton = useTemplateRef<{ $el: HTMLElement }>('shareButton')
+const detailsOpen = ref(false)
+const detailsId = useId()
+const information = useTemplateRef<InstanceType<typeof HeatmapInformation>>('information')
 watch(sharing, async (open) => {
   if (!open) {
     await nextTick()
-    shareButton.value?.$el.focus({ preventScroll: true })
+    information.value?.focusShareButton()
   }
 })
 watch(
   () => route.query.d,
   () => {
     sharing.value = false
+    detailsOpen.value = false
     error.value = ''
     try {
       const document = restoreShareQuery(route.query)
@@ -50,36 +53,40 @@ const cells = computed(() =>
     <p class="eyebrow">あなたの記録</p>
     <h1 id="heatmap-title" class="page-title">ヒートマップ</h1>
     <v-card v-if="store.source" class="heatmap-card pa-4 pa-sm-6 mt-6" border>
-      <h2 class="text-h6 mb-3">
-        {{ store.restored ? '共有URLから復元しました' : 'TSVの読み込みが完了しました' }}
-      </h2>
+      <h2 v-if="!store.restored" class="text-h6 mb-3">TSVの読み込みが完了しました</h2>
       <p role="status">
         {{ store.source.startDate }} 〜 {{ endDate }}（{{
           store.dayCount.toLocaleString('ja-JP')
         }}日分）
       </p>
-      <p class="text-body-1 text-medium-emphasis my-4">
-        {{
-          store.restored
-            ? 'URLに保存された期間・確定した閾値で表示しています。'
-            : '日付順に整理し、未記録日は0件で補完しました。'
-        }}
-      </p>
-      <v-btn ref="shareButton" color="primary" aria-haspopup="dialog" @click="sharing = true"
-        >共有する</v-btn
-      >
-      <p v-if="store.source.kind === 'levels'" id="compact-help" class="my-4">
-        コンパクトデータのため正確な件数は表示できず、閾値は変更できません。変更するには元TSVを読み込み直してください。
-      </p>
-      <ThresholdSettings
-        :key="store.revision"
-        :profile="store.thresholds"
-        :disabled="store.source.kind === 'levels'"
-        @change="store.setThresholds"
-      />
+      <HeatmapInformation v-if="!store.restored" ref="information" @share="sharing = true" />
       <ShareDialog v-if="sharing && store.document" v-model="sharing" :document="store.document" />
-      <HeatmapCalendar :cells="cells" :legend="store.legend" />
-      <v-btn :to="{ name: 'home' }" color="primary" class="mt-6">別のTSVを読み込む</v-btn>
+      <HeatmapCalendar :cells="cells" :legend="store.legend" :show-help="!store.restored" />
+      <template v-if="store.restored">
+        <div class="shared-details-toggle">
+          <v-btn
+            variant="text"
+            :height="44"
+            :aria-controls="detailsId"
+            :aria-expanded="detailsOpen"
+            @click="detailsOpen = !detailsOpen"
+          >
+            {{ detailsOpen ? '詳細情報を閉じる' : '詳細情報を見る' }}
+          </v-btn>
+        </div>
+        <section
+          :id="detailsId"
+          v-show="detailsOpen"
+          class="shared-details"
+          aria-label="ヒートマップの詳細情報"
+        >
+          <HeatmapInformation ref="information" @share="sharing = true" />
+          <v-btn :to="{ name: 'home' }" color="primary" class="mt-6">別のTSVを読み込む</v-btn>
+        </section>
+      </template>
+      <v-btn v-if="!store.restored" :to="{ name: 'home' }" color="primary" class="mt-6"
+        >別のTSVを読み込む</v-btn
+      >
     </v-card>
     <v-card v-else class="pa-6 pa-sm-10 mt-6" border>
       <v-icon :icon="mdiCalendarBlankOutline" size="40" color="secondary" class="mb-4" />
@@ -99,5 +106,15 @@ const cells = computed(() =>
 /* VCardの既定のoverflow:hiddenは、文書スクロールに対するstickyを妨げる。 */
 .heatmap-card {
   overflow: visible;
+}
+.shared-details {
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #c0cec4;
+}
+.shared-details-toggle {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
 }
 </style>

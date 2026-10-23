@@ -41,6 +41,7 @@ describe('スマホ版VHeatmapの連続配置', () => {
       ...WEEKDAYS,
     ])
     expect(wrapper.findAll('[data-cell-index]')).toHaveLength(count)
+    expect(wrapper.findAll('foreignObject, .day-number')).toHaveLength(0)
     expect(wrapper.findAll('.v-heatmap__row-header')).toHaveLength(cells.at(-1)!.week + 1)
     expect(wrapper.get('svg').attributes('width')).toBe('326')
     expect(wrapper.get('svg').attributes('height')).toBe(String((cells.at(-1)!.week + 1) * 47 - 3))
@@ -53,19 +54,21 @@ describe('スマホ版VHeatmapの連続配置', () => {
       expect(element.get('rect.v-heatmap__cell-rect').attributes('height')).toBe('44')
       expect(element.attributes('aria-label')).toBe(cell.description)
       expect(element.get('title').text()).toBe(cell.description)
-      expect(element.get('.day-number').text()).toBe(String(cell.day))
-      expect(element.get('.day-number').attributes('aria-hidden')).toBe('true')
       expect(element.attributes('data-level')).toBe(String(cell.level))
       expect(element.attributes('style')).toContain(`--v-heatmap-cell-color: ${cell.color}`)
     }
     const months = cells.filter((cell, index) => cell.monthKey !== cells[index - 1]?.monthKey)
-    expect(wrapper.findAll('.month-labels > span').map((el) => el.text())).toEqual(
-      months.map((cell) => cell.monthLabel),
-    )
-    for (const cell of months) {
-      expect(wrapper.findAll('.v-heatmap__row-header')[cell.week]!.text()).toContain(
-        cell.monthLabel,
-      )
+    expect(wrapper.findAll('.month-label')).toHaveLength(months.length)
+    for (const [index, cell] of months.entries()) {
+      const label = wrapper.get(`[data-month="${cell.monthKey}"]`)
+      const year = cell.monthKey.slice(0, 4)
+      const month = `${Number(cell.monthKey.slice(5, 7))}月`
+      const expected =
+        year === months[index - 1]?.monthKey.slice(0, 4) ? [month] : [`${year}年`, month]
+      expect(label.findAll('span').map((el) => el.text())).toEqual(expected)
+      expect(
+        wrapper.findAll('.v-heatmap__row-header')[cell.week]!.element.contains(label.element),
+      ).toBe(true)
     }
   })
 

@@ -151,6 +151,47 @@ describe('TSV読み込みとアプリ状態', () => {
 })
 
 describe('共有URL優先のルーティング', () => {
+  it.each(['exact', 'compact'] as const)(
+    '%s共有URLでは説明を閉じ、末尾で開閉しても日付とデータを維持する',
+    async (mode) => {
+      const { selectShareEncoding } = await import('@/codec')
+      const document = {
+        source: { kind: 'exact' as const, startDate: '2026-04-01', counts: [0, 6, 67] },
+        thresholds: {
+          method: 'preset' as const,
+          presetId: 0 as const,
+          boundaries: [2, 3, 5, 10, 20, 50],
+        },
+      }
+      const d = selectShareEncoding(document, mode).d
+      const { wrapper, router, store } = await renderRoute(`/heatmap?d=${d}`)
+      const panel = wrapper.get('.shared-details')
+      const toggle = wrapper.findAll('button').find((button) => button.text() === '詳細情報を見る')!
+      expect(panel.attributes('style')).toContain('display: none')
+      expect(toggle.attributes('aria-expanded')).toBe('false')
+      expect(wrapper.findAll('[data-date]')).toHaveLength(3)
+      expect(wrapper.get('.calendar-help').attributes('style')).toContain('display: none')
+      const original = store.document
+      await wrapper.get('[data-date="2026-04-03"]').trigger('click')
+      await toggle.trigger('click')
+      expect(toggle.attributes('aria-expanded')).toBe('true')
+      expect(panel.attributes('style')).not.toContain('display: none')
+      expect(panel.text()).toContain('共有URLから復元しました')
+      expect(wrapper.get('[aria-live="polite"]').text()).toContain('2026/04/03')
+      expect(store.document).toBe(original)
+      expect(wrapper.get('select').attributes('disabled') !== undefined).toBe(mode === 'compact')
+      await toggle.trigger('click')
+      expect(panel.attributes('style')).toContain('display: none')
+      await toggle.trigger('click')
+      await router.push(
+        `/heatmap?d=${selectShareEncoding({ ...document, source: { ...document.source, counts: [0, 6, 0] } }, mode).d}`,
+      )
+      await flushPromises()
+      expect(toggle.attributes('aria-expanded')).toBe('false')
+      expect(panel.attributes('style')).toContain('display: none')
+    },
+  )
+
   it('異なるURLで閾値UIを同期し、不正URLは以前のデータを部分表示しない', async () => {
     const { selectShareEncoding } = await import('@/codec')
     const document = {

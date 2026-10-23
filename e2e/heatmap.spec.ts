@@ -45,8 +45,16 @@ test('年跨ぎの日曜始まり・日本語見出し・0件と余白・詳細�
   const calendar = page.getByTestId(isMobile ? 'mobile-heatmap' : 'desktop-heatmap')
   await expect(calendar).toBeVisible()
   await expect(calendar.locator('[data-cell-index]')).toHaveCount(5)
-  await expect(calendar.getByText('2023年12月', { exact: true })).toBeVisible()
-  await expect(calendar.getByText('2024年1月', { exact: true })).toBeVisible()
+  await expect(
+    isMobile
+      ? calendar.locator('[data-month="2023-12"]')
+      : calendar.getByText('2023年12月', { exact: true }),
+  ).toHaveText(/2023年\s*12月/)
+  await expect(
+    isMobile
+      ? calendar.locator('[data-month="2024-01"]')
+      : calendar.getByText('2024年1月', { exact: true }),
+  ).toHaveText(/2024年\s*1月/)
   await expect(dateCell(page, '2023-12-29')).toHaveCount(0)
   await expect(dateCell(page, '2024-01-04')).toHaveCount(0)
   await expect(dateCell(page, '2023-12-31')).toHaveAttribute('data-weekday', '0')
@@ -212,6 +220,19 @@ async function expectCalendarDates(page: Page, layout: string, dates: string[]) 
       elements.map((el) => el.getAttribute('data-date')).sort(),
     ),
   ).toEqual(dates)
+  const cellSize = await page
+    .locator('.v-heatmap__cell-rect')
+    .first()
+    .evaluate((el) => (el as SVGRectElement).width.baseVal.value)
+  const legendSizes = await page.locator('.legend-scale .legend-swatch').evaluateAll((elements) =>
+    elements.map((el) => ({
+      width: el.getBoundingClientRect().width,
+      height: el.getBoundingClientRect().height,
+    })),
+  )
+  expect(legendSizes).toEqual(
+    Array.from({ length: 8 }, () => ({ width: cellSize, height: cellSize })),
+  )
 }
 
 for (const width of [320, 375, 390, 768]) {
@@ -227,6 +248,10 @@ for (const width of [320, 375, 390, 768]) {
     await expect(headers).toHaveText(['日', '月', '火', '水', '木', '金', '土'])
     await expect(calendar.locator('.v-heatmap__row-header')).toHaveCount(11)
     await expect(calendar.locator('[data-cell-index]')).toHaveCount(68)
+    await expect(calendar.locator('.v-heatmap__cell-overlay')).toHaveCount(0)
+    await expect(calendar.locator('[data-month="2026-04"] .month-year')).toHaveText('2026年')
+    await expect(calendar.locator('[data-month="2026-05"]')).toHaveText('5月')
+    await expect(calendar.locator('[data-month="2026-06"]')).toHaveText('6月')
     const geometry = await calendar.locator('[data-cell-index]').evaluateAll((elements) =>
       elements.map((el) => {
         const shape = el.querySelector<SVGRectElement>('.v-heatmap__cell-rect')!
@@ -306,3 +331,40 @@ for (const width of [320, 375, 390, 768]) {
     await page.screenshot({ path: testInfo.outputPath(`continuous-${width}.png`), fullPage: true })
   })
 }
+
+test('凡例の説明は初期非表示で、情報ボタンとキーボードで開閉できる', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 740 })
+  await importData(page, 'Date\tCount\n2026-04-01\t0\n2026-04-02\t6\n2026-04-03\t67')
+  const legend = page.locator('.heatmap-legend')
+  const toggle = page.getByRole('button', { name: '凡例の説明を表示' })
+  await expect(legend).toBeHidden()
+  await expect(page.locator('.legend-scale .legend-swatch')).toHaveCount(8)
+  const swatchSizes = await page.locator('.legend-scale .legend-swatch').evaluateAll((elements) =>
+    elements.map((el) => ({
+      width: el.getBoundingClientRect().width,
+      height: el.getBoundingClientRect().height,
+    })),
+  )
+  expect(swatchSizes).toEqual(Array.from({ length: 8 }, () => ({ width: 44, height: 44 })))
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+  await expect(toggle).toHaveAttribute('aria-controls', (await legend.getAttribute('id')) as string)
+  const buttonBox = await toggle.boundingBox()
+  expect(buttonBox!.width).toBeGreaterThanOrEqual(44)
+  expect(buttonBox!.height).toBeGreaterThanOrEqual(44)
+  await toggle.click()
+  await expect(legend).toBeVisible()
+  await expect(legend.getByRole('listitem')).toHaveCount(8)
+  await expect(legend).toContainText('レベル0')
+  await expect(legend).toContainText('0件')
+  const expandedToggle = page.getByRole('button', { name: '凡例の説明を閉じる' })
+  await expect(expandedToggle).toHaveAttribute('aria-expanded', 'true')
+  await expandedToggle.focus()
+  await page.keyboard.press('Space')
+  await expect(legend).toBeHidden()
+  await expect(toggle).toBeFocused()
+  await page.keyboard.press('Enter')
+  await expect(legend).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
+    true,
+  )
+})

@@ -3,7 +3,7 @@ import { computed, toRef } from 'vue'
 import { WEEKDAYS, groupHeatmapMonths, type HeatmapCell } from '@/domain/heatmap'
 import { useHeatmapInteraction } from '@/composables/useHeatmapInteraction'
 
-const props = defineProps<{ cells: HeatmapCell[] }>()
+const props = defineProps<{ cells: HeatmapCell[]; showHelp?: boolean }>()
 const emit = defineEmits<{ select: [cell: HeatmapCell] }>()
 const { root, show, keydown } = useHeatmapInteraction(
   toRef(props, 'cells'),
@@ -27,16 +27,24 @@ const items = computed(() =>
   })),
 )
 const monthLabels = computed(() => {
-  const labels = new Map<number, string[]>()
+  const labels = new Map<number, { key: string; year?: string; month: string }[]>()
+  let previousYear: string | undefined
   for (const month of groupHeatmapMonths(props.cells)) {
     const row = month.firstWeek - firstWeek.value
-    labels.set(row, [...(labels.get(row) ?? []), month.label])
+    const year = month.key.slice(0, 4)
+    const label = {
+      key: month.key,
+      year: year === previousYear ? undefined : `${year}年`,
+      month: `${Number(month.key.slice(5, 7))}月`,
+    }
+    labels.set(row, [...(labels.get(row) ?? []), label])
+    previousYear = year
   }
   return labels
 })
 
 // VHeatmap 4.2.1はitemPropsをSVG <g>へ渡す。分類済みの色を直接適用し、
-// thresholdsによる再分類を避ける。cellスロットは日付数字だけを追加する。
+// thresholdsによる再分類を避ける。日付は詳細欄とアクセシブルな説明で伝える。
 function cellProps(item: { raw: { cell: HeatmapCell } }) {
   const cell = item.raw.cell
   return {
@@ -64,7 +72,7 @@ function cellProps(item: { raw: { cell: HeatmapCell } }) {
     @click="show"
     @keydown="keydown"
   >
-    <p id="mobile-heatmap-scroll-help" class="scroll-help">
+    <p id="mobile-heatmap-scroll-help" v-show="showHelp !== false" class="scroll-help">
       幅が足りない場合は、ヒートマップ内を左右にスクロールできます。
     </p>
     <div
@@ -85,17 +93,20 @@ function cellProps(item: { raw: { cell: HeatmapCell } }) {
       >
         <template #column-header="{ column }">{{ WEEKDAYS[Number(column)] }}</template>
         <template #row-header="{ row }">
-          <span v-if="monthLabels.has(Number(row))" class="month-labels">
-            <span v-for="label in monthLabels.get(Number(row))" :key="label">{{ label }}</span>
-          </span>
-        </template>
-        <template #cell="{ item }">
           <span
-            class="day-number"
-            :style="{ color: item.raw.cell.level >= 6 ? '#fff' : '#1c2e23' }"
-            aria-hidden="true"
+            v-if="monthLabels.has(Number(row))"
+            class="month-labels"
+            :class="{ 'month-labels--shared': monthLabels.get(Number(row))!.length > 1 }"
           >
-            {{ item.raw.cell.day }}
+            <span
+              v-for="label in monthLabels.get(Number(row))"
+              :key="label.key"
+              class="month-label"
+              :data-month="label.key"
+            >
+              <span v-if="label.year" class="month-year">{{ label.year }}</span>
+              <span>{{ label.month }}</span>
+            </span>
           </span>
         </template>
       </v-heatmap>
@@ -122,14 +133,18 @@ function cellProps(item: { raw: { cell: HeatmapCell } }) {
 }
 .month-labels {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  gap: 4px;
   font-size: 12px;
   line-height: 16px;
 }
-.day-number {
-  font-size: 14px;
-  font-weight: 600;
+.month-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.month-labels--shared {
+  font-size: 11px;
+  line-height: 15px;
 }
 :deep(.v-heatmap) {
   padding: 0;
@@ -142,14 +157,12 @@ function cellProps(item: { raw: { cell: HeatmapCell } }) {
 :deep(.v-heatmap__row-headers) {
   width: 88px;
 }
+:deep(.v-heatmap__row-header) {
+  justify-content: flex-end;
+}
 :deep(.v-heatmap__cell) {
   cursor: pointer;
   scroll-margin-block: 280px 20px;
-}
-/* 数字やforeignObjectをタップしても、操作対象はSVGのCellに統一する。 */
-:deep(.v-heatmap__cell-overlay) {
-  pointer-events: none;
-  user-select: none;
 }
 :deep(.v-heatmap__cell-rect) {
   stroke: #52645a40;
