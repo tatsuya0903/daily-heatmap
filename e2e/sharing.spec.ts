@@ -7,6 +7,7 @@ import {
   selectShareEncoding,
 } from '../src/codec'
 import type { HeatmapDocument } from '../src/domain/series'
+import { showHeatmapDetails } from './helpers/heatmap'
 
 const sampleDocument: HeatmapDocument = {
   source: { kind: 'exact', startDate: '2026-04-01', counts: [6, 4, 0, 45] },
@@ -34,6 +35,7 @@ async function importTsv(page: Page, twoColumns = false) {
 }
 
 async function openShare(page: Page, exact = false) {
+  await showHeatmapDetails(page)
   await page.getByRole('button', { name: '共有する', exact: true }).click()
   await expect(page.getByRole('dialog')).toBeVisible()
   if (exact)
@@ -51,6 +53,9 @@ function decodeUrl(url: string) {
 }
 
 async function snapshot(page: Page) {
+  await showHeatmapDetails(page)
+  const legendToggle = page.getByRole('button', { name: '凡例の説明を表示' })
+  if (await legendToggle.isVisible()) await legendToggle.click()
   // 閾値変更時のfill遷移が完了した実際の色を比較する。
   await page.locator('.v-heatmap__cell-rect').evaluateAll(async (rects) => {
     await Promise.all(
@@ -92,6 +97,7 @@ test('2列TSV→初期分位点→閾値変更→コピー成功→新規タブ�
   await expect(method(page)).toHaveValue('quantile')
   await expect(detail(page).locator('.detail-count')).toHaveText('6件')
   await expect(page.locator('[data-date="2026-04-03"]')).toHaveAttribute('data-level', '0')
+  await page.getByRole('button', { name: '凡例の説明を表示' }).click()
   await expect(
     page.getByRole('list', { name: 'レベルと件数範囲の凡例' }).getByRole('listitem'),
   ).toHaveCount(8)
@@ -133,6 +139,7 @@ test('2列TSV→初期分位点→閾値変更→コピー成功→新規タブ�
   await expect(detail(shared)).not.toContainText('6件（')
   await expect(method(shared)).toBeDisabled()
   await shared.reload()
+  await showHeatmapDetails(shared)
   await expect(method(shared)).toBeDisabled()
   await expect(shared).toHaveURL(url)
   const reshared = await openShare(shared)
@@ -149,6 +156,7 @@ test('完全URLの保存境界・件数を復元し、5方式の変更後に両�
   context,
 }) => {
   await page.goto(route(selectShareEncoding(sampleDocument, 'exact').d))
+  await showHeatmapDetails(page)
   await expect(method(page)).toHaveValue('linear')
   await expect(boundaries(page)).toContainText('3 / 10 / 20 / 30 / 40 / 50 件')
   await expect(detail(page).locator('.detail-count')).toHaveText('6件')
@@ -174,6 +182,7 @@ test('完全URLの保存境界・件数を復元し、5方式の変更後に両�
   await expect(detail(restored).locator('.detail-count')).toHaveText('6件')
   await expect(restored).toHaveURL(exactUrl)
   await restored.reload()
+  await showHeatmapDetails(restored)
   await expect(detail(restored).locator('.detail-count')).toHaveText('6件')
   await expect(restored).toHaveURL(exactUrl)
   await expect(method(restored)).toHaveValue('preset')
@@ -224,12 +233,14 @@ test('同一画面内の異なるURL・不正URL・戻る進むでデータと�
     'compact',
   ).d
   await page.goto(route(exact))
+  await showHeatmapDetails(page)
   await expect(method(page)).toHaveValue('linear')
   await method(page).selectOption('custom')
   await page.getByLabel('境界値1', { exact: true }).fill('')
   await page.evaluate((d) => {
     location.hash = `/heatmap?d=${d}`
   }, compact)
+  await showHeatmapDetails(page)
   await expect(method(page)).toHaveValue('log')
   await expect(method(page)).toBeDisabled()
   await expect(page.getByRole('alert')).toHaveCount(0)
@@ -239,11 +250,14 @@ test('同一画面内の異なるURL・不正URL・戻る進むでデータと�
   await expect(page.getByRole('alert')).toBeVisible()
   await expect(page.locator('[data-date]')).toHaveCount(0)
   await page.goBack()
+  await showHeatmapDetails(page)
   await expect(method(page)).toHaveValue('log')
   await page.goBack()
+  await showHeatmapDetails(page)
   await expect(method(page)).toHaveValue('linear')
   await expect(detail(page).locator('.detail-count')).toHaveText('6件')
   await page.goForward()
+  await showHeatmapDetails(page)
   await expect(method(page)).toBeDisabled()
   await page.evaluate(() => {
     location.hash = '/heatmap'
@@ -255,6 +269,7 @@ test('同一画面内の異なるURL・不正URL・戻る進むでデータと�
 
 test('TSVのdなし再読み込みは再アップロードを案内し、新TSVは分位点で開始する', async ({ page }) => {
   await page.goto(route(selectShareEncoding(sampleDocument, 'exact').d))
+  await showHeatmapDetails(page)
   await page.getByRole('link', { name: '別のTSVを読み込む' }).click()
   await importTsv(page)
   await expect(method(page)).toHaveValue('quantile')
@@ -304,6 +319,7 @@ test('320pxの長いURL警告は共有を妨げず、フォーカス・ラジオ
     counts: Array.from({ length: 3660 }, (_, i) => (i * 7919) % 100003),
   }
   await page.goto(route(selectShareEncoding({ ...sampleDocument, source }, 'exact').d))
+  await showHeatmapDetails(page)
   const trigger = page.getByRole('button', { name: '共有する', exact: true })
   await trigger.focus()
   await page.keyboard.press('Enter')
@@ -360,8 +376,9 @@ test('共有の背景固定・スクロール復元・全セルとフォーカ�
   await page.evaluate((d) => {
     location.hash = `/heatmap?d=${d}`
   }, replacement)
+  await showHeatmapDetails(page)
   await expect(boundaries(page)).toContainText('2 件')
-  await page.evaluate(() => window.scrollTo(0, 180))
+  await page.getByRole('button', { name: '共有する', exact: true }).scrollIntoViewIfNeeded()
   const before = await page.evaluate(() => ({
     y: window.scrollY,
     style: document.documentElement.style.cssText,

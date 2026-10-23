@@ -11,6 +11,7 @@ async function importCounts(
     buffer: Buffer.from(text),
   })
   await page.getByRole('button', { name: '選択した列を読み込む' }).click()
+  await page.getByRole('button', { name: '凡例の説明を表示' }).click()
 }
 
 const cell = (page: Page, day: string) => page.locator(`[data-date="2026-04-${day}"]`)

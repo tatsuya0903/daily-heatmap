@@ -46,6 +46,8 @@ test('quality commands do not fix sources and every command fails the job on err
 })
 
 test('E2E uses production build and the Playwright webServer; all projects and flaky failure detection', () => {
+  // ブラウザー依存の導入が約27分かかる場合も、全プロジェクトを実行できる余裕を確保する。
+  assert.equal(ci.jobs.e2e['timeout-minutes'], 45)
   assert.deepEqual(runCommands(ci.jobs.e2e), [
     'npm ci',
     'npx playwright install --with-deps chromium firefox webkit',

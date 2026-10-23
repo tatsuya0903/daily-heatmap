@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 import { selectShareEncoding } from '../src/codec'
+import { showHeatmapDetails } from './helpers/heatmap'
 
 const method = (page: Page) => page.getByRole('combobox', { name: '閾値方式', exact: true })
 const tabKey = (browser: string, backwards = false) =>
@@ -15,6 +16,7 @@ async function load(page: Page) {
   ).d
   await page.goto(`./#/heatmap?d=${d}`)
   await expect(page.locator('[data-date]')).toHaveCount(8)
+  await showHeatmapDetails(page)
 }
 
 test('キーボードでファイル・列・共有を操作し、閾値へフォーカス移動とTab両方向のトラップを確認する', async ({
@@ -140,17 +142,15 @@ test('reduced-motionとforced-colorsでも日付の説明・選択・フォー�
   await page.screenshot({ path: testInfo.outputPath('forced-colors.png'), animations: 'disabled' })
 })
 
-test('実際の8色セルで日付テキストとフォーカス枠のコントラストを確認する', async ({
-  page,
-  isMobile,
-}) => {
+test('実際の8色セルでフォーカス枠のコントラストと日付の説明を確認する', async ({ page }) => {
   await load(page)
   const ratios = []
   for (let i = 0; i < 8; i++) {
     const cell = page.locator(`[data-date="2026-04-0${i + 1}"]`)
+    await expect(cell).toHaveAccessibleName(new RegExp(`2026/04/0${i + 1}`))
     await cell.focus()
     ratios.push(
-      await cell.evaluate((el, mobile) => {
+      await cell.evaluate((el) => {
         const rgb = (text: string) =>
           text
             .match(/[\d.]+/g)!
@@ -169,22 +169,16 @@ test('実際の8色セルで日付テキストとフォーカス枠のコント�
         const rect = el.querySelector('.v-heatmap__cell-rect')
         const fill = rect ? getComputedStyle(rect).fill : style.backgroundColor
         return {
-          text: mobile ? contrast(style.color, fill) : null,
-          // Mobile outline sits outside the cell on the white card; SVG stroke sits inside.
+          // 両レイアウトともSVGのCell内側のstrokeをフォーカス枠に使う。
           focus: contrast(
             rect ? getComputedStyle(rect).stroke : style.outlineColor,
             rect ? fill : 'rgb(255, 255, 255)',
           ),
         }
-      }, isMobile),
+      }),
     )
   }
   for (const ratio of ratios) {
     expect(ratio.focus).toBeGreaterThanOrEqual(3)
-  }
-  for (const textRatio of ratios
-    .map((ratio) => ratio.text)
-    .filter((value): value is number => value !== null)) {
-    expect(textRatio).toBeGreaterThanOrEqual(4.5)
   }
 })

@@ -3,6 +3,7 @@ import { build } from 'vite'
 import { expect, test, type Page } from '@playwright/test'
 import { selectShareEncoding } from '../src/codec'
 import type { HeatmapDocument } from '../src/domain/series'
+import { showHeatmapDetails } from './helpers/heatmap'
 
 declare global {
   var SharingPerformance: typeof import('./sharing-performance-entry')
@@ -120,6 +121,7 @@ test('3,660日の共有ダイアログ・候補生成・URL復元・閾値変更
   })
   const ui = []
   for (let sample = 0; sample < 3; sample++) {
+    await showHeatmapDetails(page)
     const name = `dialog-${sample}`
     const trigger = page.getByRole('button', { name: '共有する', exact: true })
     await trigger.scrollIntoViewIfNeeded()
